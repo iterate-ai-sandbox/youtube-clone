@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function ChannelVideos(prop) {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000"
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app"
   const [myVideos, setMyVideos] = useState([]);
   const [videosort, setVideoSort] = useState();
   const [loading, setLoading] = useState(true);

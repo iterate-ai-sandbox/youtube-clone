@@ -21,8 +21,8 @@ import AccountPop from "./AccountPop";
 import Signin from "./Signin";
 import Signup from "./Signup";
 function Navbar() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { data } = useParams();
   const [data2, setData] = useState(data);
   const [isbtnClicked, setisbtnClicked] = useState(false);

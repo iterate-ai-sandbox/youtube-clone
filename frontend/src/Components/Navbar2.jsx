@@ -18,8 +18,8 @@ import StudioLogo2 from "../img/studio2.png";
 import AccountPop2 from "./AccountPop2";
 
 function Navbar2() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [profilePic, setProfilePic] = useState();
   const [userVideos, setUserVideos] = useState([]);
   const [showPop, setShowPop] = useState(false);

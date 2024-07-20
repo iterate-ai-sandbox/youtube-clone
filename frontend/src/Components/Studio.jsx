@@ -32,8 +32,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Studio() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [isChannel, setisChannel] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);

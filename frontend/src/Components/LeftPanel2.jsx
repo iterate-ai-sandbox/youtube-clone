@@ -22,8 +22,8 @@ import {
 } from "react-icons/md";
 
 function LeftPanel2() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [profileIMG, setProfileIMG] = useState();
   const [channel, setChannel] = useState("");
   const [channelId, setChannelId] = useState();

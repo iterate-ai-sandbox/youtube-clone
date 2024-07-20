@@ -20,8 +20,8 @@ function generateRandomColors(count) {
 }
 
 function ChannelPlaylists(prop) {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000"
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app"
   const [PlaylistData, setPlaylistData] = useState([]);
   const [playlistColors, setPlaylistColors] = useState([]);
   const [loading, setLoading] = useState(true);

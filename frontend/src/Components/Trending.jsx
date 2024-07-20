@@ -12,8 +12,8 @@ import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 
 function Trending() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [trendingVideos, setTrendingVideos] = useState([]);
   const [menuClicked, setMenuClicked] = useState(() => {
     const menu = localStorage.getItem("menuClicked");
@@ -49,7 +49,9 @@ function Trending() {
   useEffect(() => {
     const getTrending = async () => {
       try {
-        const response = await fetch("http://localhost:3000/gettrending");
+        const response = await fetch(
+          "https://youtube-iterate-ai.vercel.app/gettrending"
+        );
         const trending = await response.json();
         if (trending !== "NO DATA") {
           const sortedTrending = trending.sort((a, b) => b.views - a.views);

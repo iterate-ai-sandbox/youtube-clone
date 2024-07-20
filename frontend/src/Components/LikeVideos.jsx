@@ -8,8 +8,8 @@ import nothing from "../img/nothing.png";
 import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 function LikeVideos() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [menuClicked, setMenuClicked] = useState(() => {
     const menu = localStorage.getItem("menuClicked");
     return menu ? JSON.parse(menu) : false;

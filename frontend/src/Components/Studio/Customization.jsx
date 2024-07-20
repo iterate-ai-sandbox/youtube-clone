@@ -7,8 +7,8 @@ import Basic from "./Basic";
 import Branding from "./Branding";
 
 function Customization() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [currentTab, setCurrentTab] = useState("branding");
   const [channelID, setChannelID] = useState();
   const [menu, setmenu] = useState(() => {

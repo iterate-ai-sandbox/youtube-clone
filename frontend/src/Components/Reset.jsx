@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Css/reset.css";
 
 function Reset() {
-  const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [email, setEmail] = useState("");
   const [BtnLoading, setBtnLoading] = useState(false);
   const [theme, setTheme] = useState(() => {

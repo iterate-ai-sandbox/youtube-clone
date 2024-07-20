@@ -11,8 +11,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Basic() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [channelName, setChannelName] = useState();
   const [channelDescription, setChannelDescription] = useState();
   const [channelID, setChannelID] = useState("");

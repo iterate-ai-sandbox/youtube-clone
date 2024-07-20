@@ -9,8 +9,8 @@ import { storage } from "../../Firebase";
 import defaultimg from "../../img/avatar.png";
 
 function Branding() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [previewProfile, setPreviewProfile] = useState(defaultimg);
   const [selectedBanner, setSelectedBanner] = useState(null);

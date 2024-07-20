@@ -10,8 +10,8 @@ import "../../Css/channel.css";
 import nothing from "../../img/nothing.png";
 
 function FeaturedChannels(prop) {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [addChannelClicked, setAddChannelClicked] = useState(false);
   const [Subscriptions, setSubscriptions] = useState([]);
   const [featuredChannelsData, setFeaturedChannelsData] = useState([]);

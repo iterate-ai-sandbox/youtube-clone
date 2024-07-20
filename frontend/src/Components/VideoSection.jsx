@@ -36,8 +36,8 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 
 function VideoSection() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
   const [videoData, setVideoData] = useState(null);
   const [channelName, setChannelName] = useState();

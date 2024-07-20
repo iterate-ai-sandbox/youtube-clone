@@ -11,8 +11,8 @@ import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 
 function Browse() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [thumbnails, setThumbnails] = useState([]);
   const [Titles, setTitles] = useState();
   const [uploader, setUploader] = useState();

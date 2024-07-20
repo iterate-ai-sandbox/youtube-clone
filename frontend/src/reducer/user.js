@@ -11,9 +11,12 @@ const initialState = {
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async () => {
-    const response = await fetch("http://localhost:3000/userdata", {
-      credentials: "include",
-    });
+    const response = await fetch(
+      "https://youtube-iterate-ai.vercel.app/userdata",
+      {
+        credentials: "include",
+      }
+    );
     const data = await response.json();
     return data;
   }

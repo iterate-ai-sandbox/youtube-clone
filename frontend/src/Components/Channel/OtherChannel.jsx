@@ -22,8 +22,8 @@ import ChannelPlaylists from "./ChannelPlaylists";
 import ChannelVideos from "./ChannelVideos";
 import FeaturedChannels from "./FeaturedChannels";
 function OtherChannel() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
   const [Email, setEmail] = useState();
   const [channelName, setChannelname] = useState();

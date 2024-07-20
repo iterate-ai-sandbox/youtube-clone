@@ -14,8 +14,8 @@ import "../Css/accountPop.css";
 import avatar from "../img/avatar.png";
 
 function AccountPop() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [profile, setProfile] = useState("");
   const [theme, setTheme] = useState(() => {
     const Dark = localStorage.getItem("Dark");

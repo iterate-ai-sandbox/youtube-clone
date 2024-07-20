@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Css/navbar.css";
 
 function Signup() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [data, setData] = useState({});
   const [theme, setTheme] = useState(() => {
     const Dark = localStorage.getItem("Dark");

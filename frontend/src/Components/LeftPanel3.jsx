@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import "../Css/leftpanel3.css";
 function LeftPanel2() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
   const [videodata, setVideoData] = useState();
   const VideoEditSection = localStorage.getItem("Video-Edit Section");

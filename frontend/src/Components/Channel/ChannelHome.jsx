@@ -11,8 +11,8 @@ import noImage from "../../img/no-video.jpg";
 import noImage2 from "../../img/novideo.png";
 
 function ChannelHome(prop) {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000"
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app"
   const [myVideos, setMyVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showHome, setShowHome] = useState(false);

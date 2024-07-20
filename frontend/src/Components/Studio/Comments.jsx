@@ -16,8 +16,8 @@ import LeftPanel2 from "../LeftPanel2";
 import Navbar2 from "../Navbar2";
 
 function Comments() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [AllComments, setAllComments] = useState([]);
   const [Profile, setProfile] = useState();
   const [filterComment, setFilterComment] = useState("");

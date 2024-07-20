@@ -18,8 +18,8 @@ import LeftPanel3 from "../LeftPanel3";
 import Navbar2 from "../Navbar2";
 
 function VideoComments() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
   const [videoComments, setVideoComments] = useState([]);
   const [Profile, setProfile] = useState();

@@ -11,8 +11,8 @@ import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 
 function Subscriptions() {
-  const backendURL = "http://localhost:3000";
-  // const backendURL = "http://localhost:3000";
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [subscriptions, setSubscriptions] = useState([]);
   const [subsVideos, setSubsVideos] = useState([]);
   const [menuClicked, setMenuClicked] = useState(() => {
