@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "../Css/navbar.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../Css/navbar.css";
 
 function Signup() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [data, setData] = useState({});
   const [theme, setTheme] = useState(() => {
@@ -76,7 +76,7 @@ function Signup() {
       if (message === "REGISTRATION SUCCESSFUL") {
         SignupNotify();
         localStorage.setItem("userData", JSON.stringify(user));
-        
+
         setTimeout(() => {
           window.location.reload();
           document.body.classList.remove("bg-class");

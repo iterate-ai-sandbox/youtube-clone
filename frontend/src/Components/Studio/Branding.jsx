@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import defaultimg from "../../img/avatar.png";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../../Firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import { storage } from "../../Firebase";
+import defaultimg from "../../img/avatar.png";
 
 function Branding() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [previewProfile, setPreviewProfile] = useState(defaultimg);
@@ -244,15 +244,18 @@ function Branding() {
         channelid: channelID,
       };
 
-      const response = await fetch(`${backendURL}/savecustomization/${user?.email}`, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const {success, userData} = await response.json();
+      const response = await fetch(
+        `${backendURL}/savecustomization/${user?.email}`,
+        {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const { success, userData } = await response.json();
       if (success) {
         setChanges(false);
         saveNotify();

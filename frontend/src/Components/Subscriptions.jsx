@@ -1,17 +1,17 @@
-import Navbar from "./Navbar";
-import LeftPanel from "./LeftPanel";
-import { useEffect, useState } from "react";
-import "../Css/subscriptions.css";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import nothing from "../img/nothing.png";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import "../Css/subscriptions.css";
+import nothing from "../img/nothing.png";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
 
 function Subscriptions() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [subscriptions, setSubscriptions] = useState([]);
   const [subsVideos, setSubsVideos] = useState([]);
@@ -52,7 +52,7 @@ function Subscriptions() {
         // console.log(error.message);
       }
     };
-   getSubscriptions();
+    getSubscriptions();
   }, [user?.email]);
 
   useEffect(() => {

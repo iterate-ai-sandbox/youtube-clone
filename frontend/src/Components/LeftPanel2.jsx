@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
-import "../Css/leftpanel2.css";
+import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
-import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
-import { useLocation } from "react-router-dom";
-import avatar from "../img/avatar.png";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { CiShare1 } from "react-icons/ci";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
+import { useEffect, useState } from "react";
+import { CiShare1 } from "react-icons/ci";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import "../Css/leftpanel2.css";
+import avatar from "../img/avatar.png";
 // REACT ICONS
 
-import { MdDashboard } from "react-icons/md";
-import { MdOutlineVideoLibrary } from "react-icons/md";
 import { BiCommentDetail } from "react-icons/bi";
-import { MdOutlineAutoFixHigh } from "react-icons/md";
+import {
+  MdDashboard,
+  MdOutlineAutoFixHigh,
+  MdOutlineVideoLibrary,
+} from "react-icons/md";
 
 function LeftPanel2() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [profileIMG, setProfileIMG] = useState();
   const [channel, setChannel] = useState("");

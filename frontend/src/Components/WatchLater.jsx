@@ -1,15 +1,15 @@
-import Navbar from "./Navbar";
-import LeftPanel from "./LeftPanel";
-import { useEffect, useState } from "react";
-import nothing from "../img/nothing.png";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import "../Css/likevideos.css";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import "../Css/likevideos.css";
+import nothing from "../img/nothing.png";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
 
 function WatchLater() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [email, setEmail] = useState();
   const [name, setName] = useState();
@@ -99,18 +99,14 @@ function WatchLater() {
     getWatchLater();
   }, [user?.email]);
 
-
   const updateViews = async (id) => {
     try {
-      const response = await fetch(
-        `${backendURL}/updateview/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/updateview/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       await response.json();
     } catch (error) {
       // console.log(error.message);

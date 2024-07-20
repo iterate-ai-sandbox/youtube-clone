@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import Zoom from "@mui/material/Zoom";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LanguageIcon from "@mui/icons-material/Language";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
+import Tooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
+import { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BiTrendingUp } from "react-icons/bi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function ChannelAbout(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000"
   const [Email, setEmail] = useState();
   const [description, setDescription] = useState();
@@ -63,9 +63,7 @@ function ChannelAbout(prop) {
     const GetAboutData = async () => {
       try {
         if (Email) {
-          const response = await fetch(
-            `${backendURL}/getabout/${Email}`
-          );
+          const response = await fetch(`${backendURL}/getabout/${Email}`);
           const { description, sociallinks, joining } = await response.json();
           setDescription(description);
           setLinks(sociallinks);
@@ -82,9 +80,7 @@ function ChannelAbout(prop) {
     const GetTotalViews = async () => {
       try {
         if (Email) {
-          const response = await fetch(
-            `${backendURL}/totalviews/${Email}`
-          );
+          const response = await fetch(`${backendURL}/totalviews/${Email}`);
           const totalViews = await response.json();
           setTotalViews(totalViews);
         }

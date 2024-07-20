@@ -1,24 +1,24 @@
 //MUI Icons
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import "../Css/navbar.css";
-import StudioLogo from "../img/studio.png";
-import StudioLogo2 from "../img/studio2.png";
-import { useEffect, useState, useRef } from "react";
-import AccountPop2 from "./AccountPop2";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
+import { useEffect, useRef, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { BiSearch } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import "../Css/navbar.css";
+import StudioLogo from "../img/studio.png";
+import StudioLogo2 from "../img/studio2.png";
+import AccountPop2 from "./AccountPop2";
 
 function Navbar2() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [profilePic, setProfilePic] = useState();
   const [userVideos, setUserVideos] = useState([]);

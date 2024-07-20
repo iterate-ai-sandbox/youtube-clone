@@ -1,43 +1,44 @@
-import "../Css/leftpanel.css";
-import HomeIcon from "@mui/icons-material/Home";
-import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
-import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
-import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import CodeIcon from "@mui/icons-material/Code";
+import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import PlaylistPlayOutlinedIcon from "@mui/icons-material/PlaylistPlayOutlined";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
+import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import { useEffect, useState } from "react";
-import Logo from "../img/logo1.png";
-import Logo2 from "../img/logo2.png";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import { useLocation } from "react-router-dom";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import CodeIcon from "@mui/icons-material/Code";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import { GoHome } from "react-icons/go";
-import { GoHomeFill } from "react-icons/go";
+import { GoHome, GoHomeFill } from "react-icons/go";
 import { HiOutlineFire } from "react-icons/hi";
 import { HiMiniFire } from "react-icons/hi2";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { MdOutlineSubscriptions } from "react-icons/md";
-import { MdSubscriptions } from "react-icons/md";
-import { MdOutlineVideoLibrary } from "react-icons/md";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import WatchLaterIcon from "@mui/icons-material/WatchLater";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { MdVideoLibrary } from "react-icons/md";
+import {
+  MdOutlineSubscriptions,
+  MdOutlineVideoLibrary,
+  MdSubscriptions,
+  MdVideoLibrary,
+} from "react-icons/md";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import "../Css/leftpanel.css";
+import Logo from "../img/logo1.png";
+import Logo2 from "../img/logo2.png";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 function LeftPanel() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [menuClicked, setMenuClicked] = useState(() => {
     const menu = localStorage.getItem("menuClicked");

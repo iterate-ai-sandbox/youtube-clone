@@ -1,42 +1,42 @@
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
-import Plyr from "plyr";
-import Navbar from "./Navbar";
-import Share from "./Share";
-import "../Css/videoSection.css";
-import "plyr/dist/plyr.css";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Tooltip from "@mui/material/Tooltip";
 import AddToPhotosOutlinedIcon from "@mui/icons-material/AddToPhotosOutlined";
-import Zoom from "@mui/material/Zoom";
-import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
-import ReplyIcon from "@mui/icons-material/Reply";
-import { LiaDownloadSolid } from "react-icons/lia";
-import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
-import avatar from "../img/avatar.png";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import Signin from "./Signin";
-import Signup from "./Signup";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import ReplyIcon from "@mui/icons-material/Reply";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
+import Plyr from "plyr";
+import "plyr/dist/plyr.css";
+import { useEffect, useRef, useState } from "react";
+import { LiaDownloadSolid } from "react-icons/lia";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LeftPanel from "./LeftPanel";
+import "../Css/videoSection.css";
+import avatar from "../img/avatar.png";
 import Error from "./Error";
-import { useSelector } from "react-redux";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
+import Share from "./Share";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 function VideoSection() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const { id } = useParams();
   const [videoData, setVideoData] = useState(null);
@@ -732,7 +732,7 @@ function VideoSection() {
             },
           }
         );
-        const { message, likes } = await response.json();
+        let { message, likes } = await response.json();
         if ((message = "Comment liked successfully")) {
           setCommentLikes(likes);
         } else {

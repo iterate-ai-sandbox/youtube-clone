@@ -1,17 +1,16 @@
 import { useState } from "react";
-import "../Css/reset.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../Css/reset.css";
 
 function Reset() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   const [email, setEmail] = useState("");
   const [BtnLoading, setBtnLoading] = useState(false);
   const [theme, setTheme] = useState(() => {
     const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
   });
-
 
   //TOASTS
 
@@ -42,7 +41,7 @@ function Reset() {
   const ResetData = async (e) => {
     e.preventDefault();
     if (email === "") {
-      ErrorNotify()
+      ErrorNotify();
       return;
     } else {
       setBtnLoading(true);

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function ChannelVideos(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000"
   const [myVideos, setMyVideos] = useState([]);
   const [videosort, setVideoSort] = useState();
@@ -61,15 +61,12 @@ function ChannelVideos(prop) {
 
   const updateViews = async (id) => {
     try {
-      const response = await fetch(
-        `${backendURL}/updateview/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/updateview/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       await response.json();
     } catch (error) {
       // console.log(error.message);

@@ -1,38 +1,38 @@
-import { useEffect, useState } from "react";
-import Navbar2 from "./Navbar2";
-import LeftPanel2 from "./LeftPanel2";
-import avatar from "../img/avatar.png";
-import "../Css/studio.css";
-import { storage } from "../Firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Upload from "../img/upload.png";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import SdIcon from "@mui/icons-material/Sd";
-import HdIcon from "@mui/icons-material/Hd";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CloudDoneRoundedIcon from "@mui/icons-material/CloudDoneRounded";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import HdIcon from "@mui/icons-material/Hd";
 import LinkIcon from "@mui/icons-material/Link";
+import SdIcon from "@mui/icons-material/Sd";
+import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
-import Dashboard from "./Studio/Dashboard";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useEffect, useState } from "react";
 import { LiaUploadSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../Css/studio.css";
+import { storage } from "../Firebase";
+import avatar from "../img/avatar.png";
+import Upload from "../img/upload.png";
+import LeftPanel2 from "./LeftPanel2";
+import Navbar2 from "./Navbar2";
+import Dashboard from "./Studio/Dashboard";
 
 //SOCIALS
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import LanguageIcon from "@mui/icons-material/Language";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Studio() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [isChannel, setisChannel] = useState();
   const [selectedImage, setSelectedImage] = useState(null);

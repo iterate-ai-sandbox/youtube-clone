@@ -1,27 +1,27 @@
 //MUI Icons
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import AccountPop from "./AccountPop";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import "../Css/navbar.css";
-import Logo from "../img/logo1.png";
-import Logo2 from "../img/logo2.png";
-import { useEffect, useState, useRef } from "react";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import avatar from "../img/avatar.png";
-import { useParams } from "react-router-dom";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
+import { useEffect, useRef, useState } from "react";
+import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { IoIosSearch } from "react-icons/io";
 import { RxCross1 } from "react-icons/rx";
-import { AiOutlineVideoCameraAdd } from "react-icons/ai";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import "../Css/navbar.css";
+import avatar from "../img/avatar.png";
+import Logo from "../img/logo1.png";
+import Logo2 from "../img/logo2.png";
+import AccountPop from "./AccountPop";
+import Signin from "./Signin";
+import Signup from "./Signup";
 function Navbar() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const { data } = useParams();
   const [data2, setData] = useState(data);

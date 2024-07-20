@@ -1,13 +1,13 @@
-import Navbar2 from "../Navbar2";
-import LeftPanel2 from "../LeftPanel2";
-import "../../Css/Studio/customize.css";
-import Branding from "./Branding";
-import { useState, useEffect } from "react";
-import Basic from "./Basic";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import "../../Css/Studio/customize.css";
+import LeftPanel2 from "../LeftPanel2";
+import Navbar2 from "../Navbar2";
+import Basic from "./Basic";
+import Branding from "./Branding";
 
 function Customization() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [currentTab, setCurrentTab] = useState("branding");
   const [channelID, setChannelID] = useState();
@@ -108,7 +108,7 @@ function Customization() {
       }
     };
 
-    getChannelID()
+    getChannelID();
   }, [user?.email]);
 
   return (
@@ -163,7 +163,13 @@ function Customization() {
               >
                 VIEW CHANNEL
               </p>
-              <button className={theme ?"save-customize" : "save-customize text-dark-mode"}>PUBLISH</button>
+              <button
+                className={
+                  theme ? "save-customize" : "save-customize text-dark-mode"
+                }
+              >
+                PUBLISH
+              </button>
             </div>
           </div>
           <hr className="breakk" />

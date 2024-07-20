@@ -1,17 +1,17 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import noImage from "../../img/no-video.jpg";
-import noImage2 from "../../img/novideo.png";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import noImage from "../../img/no-video.jpg";
+import noImage2 from "../../img/novideo.png";
 
 function ChannelHome(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000"
   const [myVideos, setMyVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,15 +73,12 @@ function ChannelHome(prop) {
 
   const updateViews = async (id) => {
     try {
-      const response = await fetch(
-        `${backendURL}/updateview/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/updateview/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       await response.json();
     } catch (error) {
       // console.log(error.message);

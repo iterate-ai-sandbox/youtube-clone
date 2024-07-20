@@ -7,8 +7,22 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+
 // Middlewares
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    // allowedHeaders: [
+    //   "Content-Type",
+    //   "Authorization",
+    //   "Origin",
+    //   "X-Requested-With",
+    //   "Accept",
+    // ],
+    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 app.use(router);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));

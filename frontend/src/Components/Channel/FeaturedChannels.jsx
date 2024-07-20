@@ -1,16 +1,16 @@
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import nothing from "../../img/nothing.png";
-import { useEffect, useState } from "react";
-import "../../Css/channel.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import "../../Css/channel.css";
+import nothing from "../../img/nothing.png";
 
 function FeaturedChannels(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [addChannelClicked, setAddChannelClicked] = useState(false);
   const [Subscriptions, setSubscriptions] = useState([]);
@@ -366,7 +366,7 @@ function FeaturedChannels(prop) {
               : "featured-channel-btn btn-light-mode"
           }
           style={
-            user?.email  === prop?.newmail
+            user?.email === prop?.newmail
               ? { display: "flex" }
               : { display: "none" }
           }

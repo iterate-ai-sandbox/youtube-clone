@@ -1,18 +1,18 @@
-import Navbar from "./Navbar";
-import LeftPanel from "./LeftPanel";
-import trending from "../img/trending.jpg";
-import "../Css/trending.css";
-import { useEffect, useState } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import nothing from "../img/nothing.png";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import "../Css/trending.css";
+import nothing from "../img/nothing.png";
+import trending from "../img/trending.jpg";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
 
 function Trending() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const [trendingVideos, setTrendingVideos] = useState([]);
   const [menuClicked, setMenuClicked] = useState(() => {
@@ -49,9 +49,7 @@ function Trending() {
   useEffect(() => {
     const getTrending = async () => {
       try {
-        const response = await fetch(
-          "https://youtube-clone-mern-backend.vercel.app/gettrending"
-        );
+        const response = await fetch("http://localhost:3000/gettrending");
         const trending = await response.json();
         if (trending !== "NO DATA") {
           const sortedTrending = trending.sort((a, b) => b.views - a.views);

@@ -1,24 +1,24 @@
-import LeftPanel3 from "../LeftPanel3";
-import Navbar2 from "../Navbar2";
-import "../../Css/Studio/comments.css";
-import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
-import { useEffect, useState } from "react";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Tooltip from "@mui/material/Tooltip";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import WestIcon from "@mui/icons-material/West";
+import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import noImage from "../../img/no-comment.png";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import "../../Css/Studio/comments.css";
+import noImage from "../../img/no-comment.png";
+import LeftPanel3 from "../LeftPanel3";
+import Navbar2 from "../Navbar2";
 
 function VideoComments() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const { id } = useParams();
   const [videoComments, setVideoComments] = useState([]);

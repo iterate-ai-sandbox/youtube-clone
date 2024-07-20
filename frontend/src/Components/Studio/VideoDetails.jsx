@@ -1,26 +1,26 @@
-import LeftPanel3 from "../LeftPanel3";
-import Navbar2 from "../Navbar2";
-import { useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
-import "../../Css/Studio/videodetails.css";
+import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
+import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import HdIcon from "@mui/icons-material/Hd";
-import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import KeyboardTabOutlinedIcon from "@mui/icons-material/KeyboardTabOutlined";
-import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import WestIcon from "@mui/icons-material/West";
-import { storage } from "../../Firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useEffect, useRef, useState } from "react";
+import { GrUndo } from "react-icons/gr";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GrUndo } from "react-icons/gr";
+import "../../Css/Studio/videodetails.css";
+import { storage } from "../../Firebase";
+import LeftPanel3 from "../LeftPanel3";
+import Navbar2 from "../Navbar2";
 
 function VideoDetails() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const { id } = useParams();
   const [videodata, setVideoData] = useState();
@@ -114,9 +114,7 @@ function VideoDetails() {
     const GetVideoData = async () => {
       try {
         if (id) {
-          const response = await fetch(
-            `${backendURL}/getvideodata/${id}`
-          );
+          const response = await fetch(`${backendURL}/getvideodata/${id}`);
           const data = await response.json();
           setVideoData(data);
           setPreviewTitle(data.Title);
@@ -303,17 +301,14 @@ function VideoDetails() {
         privacy: newPrivacy,
       };
 
-      const response = await fetch(
-        `${backendURL}/savevideoeditdetails/${id}`,
-        {
-          method: "POST",
-          credentials: "include",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/savevideoeditdetails/${id}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const Data = await response.json();
       if (Data) {
         setLoading(false);

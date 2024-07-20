@@ -1,31 +1,31 @@
-import Navbar from "./Navbar";
-import LeftPanel from "./LeftPanel";
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import nothing from "../img/nothing.png";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
-import PlaylistAddCheckOutlinedIcon from "@mui/icons-material/PlaylistAddCheckOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PlaylistAddCheckOutlinedIcon from "@mui/icons-material/PlaylistAddCheckOutlined";
+import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import "../Css/likevideos.css";
+import { useEffect, useRef, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import "../Css/likevideos.css";
+import nothing from "../img/nothing.png";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 function Playlists() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
+  const backendURL = "http://localhost:3000";
   // const backendURL = "http://localhost:3000";
   const { id } = useParams();
   const [menuClicked, setMenuClicked] = useState(() => {
@@ -129,9 +129,7 @@ function Playlists() {
     const getPlaylists = async () => {
       try {
         if (id) {
-          const response = await fetch(
-            `${backendURL}/getplaylists/${id}`
-          );
+          const response = await fetch(`${backendURL}/getplaylists/${id}`);
           const { playlistVideos, myPlaylists } = await response.json();
           setPlaylistsVideos(playlistVideos);
           setplaylistDetails(myPlaylists);
@@ -265,15 +263,12 @@ function Playlists() {
 
   const DeletePlaylist = async () => {
     try {
-      const response = await fetch(
-        `${backendURL}/deleteplaylist/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/deleteplaylist/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       await response.json();
     } catch (error) {
       // console.log(error.message);
@@ -538,7 +533,8 @@ function Playlists() {
                     <div
                       className="update-privacy"
                       style={
-                        playlistDetails && playlistDetails.owner_email === user?.email
+                        playlistDetails &&
+                        playlistDetails.owner_email === user?.email
                           ? { display: "block" }
                           : { display: "none" }
                       }
