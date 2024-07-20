@@ -12,11 +12,7 @@ const Comments = require("./comments");
 const Studio = require("./studio");
 
 // Middlewares
-router.use(
-  cors({
-    credentials: true,
-  })
-);
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(auth);
