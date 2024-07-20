@@ -1,7 +1,6 @@
 require("dotenv").config();
 require("../Database/database");
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const auth = require("./auth");

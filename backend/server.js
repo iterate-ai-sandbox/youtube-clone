@@ -4,14 +4,14 @@ const app = express();
 const path = require("path");
 const port = 3000;
 const bodyParser = require("body-parser");
-
+const cors = require("cors");
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(cors());
 // Middlewares
 app.use(router);
 app.set("view engine", "hbs");
-app.set('views', path.join(__dirname, 'views'));
+app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
