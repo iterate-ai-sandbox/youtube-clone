@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://iterate.rkph.me",
     // allowedHeaders: [
     //   "Content-Type",
     //   "Authorization",
