@@ -36,8 +36,10 @@ import Logo from "../img/logo1.png";
 import Logo2 from "../img/logo2.png";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import { useNavigate } from 'react-router-dom';
 
 function LeftPanel() {
+  const navigate = useNavigate();
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [menuClicked, setMenuClicked] = useState(() => {
@@ -210,7 +212,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem("selected", "home");
-              window.location.href = "/";
+              navigate("/")
             }}
           >
             {selected === "home" ? (
@@ -235,7 +237,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem("selected", "trending");
-              window.location.href = "/trending";
+              navigate("/trending")
             }}
           >
             {selected === "trending" ? (
@@ -262,7 +264,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "subscription");
-                window.location.href = "/subscriptions";
+                navigate("/subscriptions")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -330,7 +332,7 @@ function LeftPanel() {
                       className="mysubscriptions"
                       key={index}
                       onClick={() => {
-                        window.location.href = `/channel/${element.channelID}`;
+                        navigate(`/channel/${element.channelID}`)
                       }}
                       style={
                         loading === false
@@ -371,7 +373,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "library");
-                window.location.href = "/library";
+                navigate("/library")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -403,7 +405,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "watch-later");
-                window.location.href = "/watchlater";
+                navigate("/watchlater")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -435,7 +437,7 @@ function LeftPanel() {
               if (user?.email) {
                 localStorage.setItem("selected", "liked-video");
 
-                window.location.href = "/likedVideos";
+                navigate("/likedVideos")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -465,7 +467,7 @@ function LeftPanel() {
                     className="my-playlist-data"
                     key={index}
                     onClick={() => {
-                      window.location.href = `/playlist/${element._id}`;
+                      navigate(`/playlist/${element._id}`)
                     }}
                   >
                     <PlaylistPlayOutlinedIcon
@@ -494,7 +496,7 @@ function LeftPanel() {
                     className="my-playlist-data"
                     key={index}
                     onClick={() => {
-                      window.location.href = `/playlist/${element._id}`;
+                      navigate(`/playlist/${element._id}`)
                     }}
                   >
                     <PlaylistPlayOutlinedIcon
@@ -562,7 +564,7 @@ function LeftPanel() {
             onClick={() => {
               localStorage.setItem("selected", "home");
 
-              window.location.href = "/";
+              navigate("/")
             }}
           >
             {selected === "home" ? (
@@ -588,7 +590,7 @@ function LeftPanel() {
             onClick={() => {
               localStorage.setItem("selected", "trending");
 
-              window.location.href = "/trending";
+              navigate("/trending")
             }}
           >
             {selected === "trending" ? (
@@ -614,7 +616,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "subscription");
-                window.location.href = "/subscriptions";
+                navigate("/subscriptions")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -647,7 +649,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "library");
-                window.location.href = "/library";
+                navigate("/library")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -677,7 +679,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "watch-later");
-                window.location.href = "/watchlater";
+                navigate("/watchlater")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -708,7 +710,7 @@ function LeftPanel() {
               if (user?.email) {
                 localStorage.setItem("selected", "liked-video");
 
-                window.location.href = "/likedVideos";
+                navigate("/likedVideos")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -751,7 +753,7 @@ function LeftPanel() {
             onClick={() => {
               localStorage.setItem("selected", "home");
 
-              window.location.href = "/";
+              navigate("/")
             }}
           >
             {selected === "home" ? (
@@ -777,7 +779,7 @@ function LeftPanel() {
             onClick={() => {
               localStorage.setItem("selected", "trending");
 
-              window.location.href = "/trending";
+              navigate("/trending")
             }}
           >
             {selected === "trending" ? (
@@ -803,7 +805,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "subscription");
-                window.location.href = "/subscriptions";
+                navigate("/subscriptions")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -836,7 +838,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "library");
-                window.location.href = "/library";
+                navigate("/library")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -866,7 +868,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "watch-later");
-                window.location.href = "/watchlater";
+                navigate("/watchlater")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -897,7 +899,7 @@ function LeftPanel() {
               if (user?.email) {
                 localStorage.setItem("selected", "liked-video");
 
-                window.location.href = "/likedVideos";
+                navigate("/likedVideos")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -1019,7 +1021,7 @@ function LeftPanel() {
             style={{ marginLeft: "5px" }}
             className="youtubeLogo"
             onClick={() => {
-              window.location.href = "/";
+              navigate("/")
             }}
           />
         </div>
@@ -1037,7 +1039,7 @@ function LeftPanel() {
               }
               onClick={() => {
                 localStorage.setItem("selected", "home");
-                window.location.href = "/";
+                navigate("/")
               }}
             >
               {selected === "home" ? (
@@ -1061,7 +1063,7 @@ function LeftPanel() {
               }
               onClick={() => {
                 localStorage.setItem("selected", "trending");
-                window.location.href = "/trending";
+                navigate("/trending")
               }}
             >
               {selected === "trending" ? (
@@ -1088,7 +1090,7 @@ function LeftPanel() {
               onClick={() => {
                 if (user?.email) {
                   localStorage.setItem("selected", "subscription");
-                  window.location.href = "/subscriptions";
+                  navigate("/subscriptions")
                 } else {
                   setisbtnClicked(true);
                   document.body.classList.add("bg-css");
@@ -1156,7 +1158,7 @@ function LeftPanel() {
                         className="mysubscriptions"
                         key={index}
                         onClick={() => {
-                          window.location.href = `/channel/${element.channelID}`;
+                          navigate(`/channel/${element.channelID}`)
                         }}
                         style={
                           loading === false
@@ -1197,7 +1199,7 @@ function LeftPanel() {
               onClick={() => {
                 if (user?.email) {
                   localStorage.setItem("selected", "library");
-                  window.location.href = "/library";
+                  navigate("/library")
                 } else {
                   setisbtnClicked(true);
                   document.body.classList.add("bg-css");
@@ -1229,7 +1231,7 @@ function LeftPanel() {
               onClick={() => {
                 if (user?.email) {
                   localStorage.setItem("selected", "watch-later");
-                  window.location.href = "/watchlater";
+                  navigate("/watchlater")
                 } else {
                   setisbtnClicked(true);
                   document.body.classList.add("bg-css");
@@ -1261,7 +1263,7 @@ function LeftPanel() {
                 if (user?.email) {
                   localStorage.setItem("selected", "liked-video");
 
-                  window.location.href = "/likedVideos";
+                  navigate("/likedVideos")
                 } else {
                   setisbtnClicked(true);
                   document.body.classList.add("bg-css");
@@ -1291,7 +1293,7 @@ function LeftPanel() {
                       className="my-playlist-data"
                       key={index}
                       onClick={() => {
-                        window.location.href = `/playlist/${element._id}`;
+                        navigate(`/playlist/${element._id}`)
                       }}
                     >
                       <PlaylistPlayOutlinedIcon
@@ -1320,7 +1322,7 @@ function LeftPanel() {
                       className="my-playlist-data"
                       key={index}
                       onClick={() => {
-                        window.location.href = `/playlist/${element._id}`;
+                        navigate(`/playlist/${element._id}`);
                       }}
                     >
                       <PlaylistPlayOutlinedIcon
@@ -1378,7 +1380,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem("selected", "home");
-              window.location.href = "/";
+              navigate("/")
             }}
           >
             {selected === "home" ? (
@@ -1405,7 +1407,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem("selected", "trending");
-              window.location.href = "/trending";
+              navigate("/trending")
             }}
           >
             {selected === "trending" ? (
@@ -1429,7 +1431,7 @@ function LeftPanel() {
             className="addvid-icon"
             onClick={() => {
               if (user?.email) {
-                window.location.href = "/studio";
+                navigate("/studio")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -1445,7 +1447,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "subscription");
-                window.location.href = "/subscriptions";
+                navigate("/subscriptions")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
@@ -1474,7 +1476,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem("selected", "library");
-                window.location.href = "/library";
+                navigate("/library")
               } else {
                 setisbtnClicked(true);
                 document.body.classList.add("bg-css");
