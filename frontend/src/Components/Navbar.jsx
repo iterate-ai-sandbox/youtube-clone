@@ -121,7 +121,7 @@ function Navbar() {
               id={theme ? "searchType" : "searchType-light-mode"}
               value={data2 ? data2 : searchedData}
               onChange={handleSearch}
-              onKeyDown={handleKeyPress}
+              // onKeyDown={handleKeyPress}
             />
             <IoIosSearch
               className={theme ? "search-icon" : "search-light-icon"}
@@ -384,7 +384,7 @@ function Navbar() {
             className="extra-search"
             value={data2 ? data2 : searchedData}
             onChange={handleSearch}
-            onKeyDown={handleKeyPress}
+            // onKeyDown={handleKeyPress}
           />
           <RxCross1
             fontSize="26px"
