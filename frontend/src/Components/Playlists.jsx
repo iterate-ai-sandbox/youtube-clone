@@ -102,7 +102,7 @@ function Playlists() {
         setprivacyClicked(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
     const handler = (e) => {
@@ -111,7 +111,7 @@ function Playlists() {
         document.body.classList.remove("bg-css");
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
     localStorage.setItem("menuClicked", JSON.stringify(menuClicked));
@@ -142,7 +142,7 @@ function Playlists() {
     };
     const menuButton = document.querySelector(".menu");
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
@@ -156,7 +156,7 @@ function Playlists() {
     };
     const menuButton = document.querySelector(".menu-light");
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {

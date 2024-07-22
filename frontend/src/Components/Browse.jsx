@@ -1,19 +1,19 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
-import { useEffect, useState } from 'react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { useSelector } from 'react-redux';
-import '../Css/browse.css';
-import '../Css/theme.css';
-import LeftPanel from './LeftPanel';
-import Navbar from './Navbar';
-import { useNavigate } from 'react-router-dom';
-import mixpanel from 'mixpanel-browser';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import Tooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
+import mixpanel from "mixpanel-browser";
+import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import "../Css/browse.css";
+import "../Css/theme.css";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
 function Browse() {
   const navigate = useNavigate();
-  const backendURL = 'https://youtube-iterate-ai.vercel.app';
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [thumbnails, setThumbnails] = useState([]);
   const [Titles, setTitles] = useState();
@@ -23,17 +23,17 @@ function Browse() {
   const [VideoID, setVideoID] = useState();
   const [Visibility, setVisibility] = useState();
   const [menuClicked, setMenuClicked] = useState(() => {
-    const menu = localStorage.getItem('menuClicked');
+    const menu = localStorage.getItem("menuClicked");
     return menu ? JSON.parse(menu) : false;
   });
   const [VideoViews, setVideoViews] = useState();
   const [VideoData, setVideoData] = useState([]);
-  const [TagsSelected, setTagsSelected] = useState('All');
+  const [TagsSelected, setTagsSelected] = useState("All");
   const [publishDate, setPublishDate] = useState();
   const [FilteredVideos, setFilteredVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem('Dark');
+    const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
   });
   const user = useSelector((state) => state.user.user);
@@ -44,13 +44,13 @@ function Browse() {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector('.menu');
+    const menuButton = document.querySelector(".menu");
     if (menuButton) {
-      menuButton.addEventListener('click', handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener('click', handleMenuButtonClick);
+        menuButton?.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
@@ -58,29 +58,29 @@ function Browse() {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector('.menu-light');
+    const menuButton = document.querySelector(".menu-light");
     if (menuButton) {
-      menuButton.addEventListener('click', handleMenuButtonClick);
+      menuButton.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener('click', handleMenuButtonClick);
+        menuButton.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
   useEffect(() => {
-    localStorage.setItem('menuClicked', JSON.stringify(menuClicked));
+    localStorage.setItem("menuClicked", JSON.stringify(menuClicked));
   }, [menuClicked]);
   const Tags = [
-    'All',
-    'Artificial Intelligence',
-    'Comedy',
-    'Gaming',
-    'Vlog',
-    'Beauty',
-    'Travel',
-    'Food',
-    'Fashion',
+    "All",
+    "Artificial Intelligence",
+    "Comedy",
+    "Gaming",
+    "Vlog",
+    "Beauty",
+    "Travel",
+    "Food",
+    "Fashion",
   ];
   useEffect(() => {
     const getVideos = async () => {
@@ -115,7 +115,7 @@ function Browse() {
     getVideos();
   }, []);
   useEffect(() => {
-    if (TagsSelected !== 'All') {
+    if (TagsSelected !== "All") {
       const tagsSelectedLower = TagsSelected.toLowerCase();
       const filteredVideos = VideoData.flatMap((item) =>
         item.VideoData.filter(
@@ -135,10 +135,10 @@ function Browse() {
     }, 3600);
   }, []);
   useEffect(() => {
-    if (theme === false && !window.location.href.includes('/studio')) {
-      document.body.style.backgroundColor = 'white';
-    } else if (theme === true && !window.location.href.includes('/studio')) {
-      document.body.style.backgroundColor = '0f0f0f';
+    if (theme === false && !window.location.href.includes("/studio")) {
+      document.body.style.backgroundColor = "white";
+    } else if (theme === true && !window.location.href.includes("/studio")) {
+      document.body.style.backgroundColor = "0f0f0f";
     }
   }, [theme]);
 
@@ -147,9 +147,9 @@ function Browse() {
   const updateViews = async (id) => {
     try {
       const response = await fetch(`${backendURL}/updateview/${id}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       await response.json();
@@ -162,40 +162,40 @@ function Browse() {
       <Navbar />
       <LeftPanel />
       <SkeletonTheme
-        baseColor={theme ? '#353535' : '#aaaaaa'}
-        highlightColor={theme ? '#444' : '#b6b6b6'}
+        baseColor={theme ? "#353535" : "#aaaaaa"}
+        highlightColor={theme ? "#444" : "#b6b6b6"}
       >
         <div
-          className={theme ? 'browse' : 'browse light-mode'}
+          className={theme ? "browse" : "browse light-mode"}
           style={
             loading === true
               ? {
-                  display: 'flex',
+                  display: "flex",
                 }
               : {
-                  display: 'none',
+                  display: "none",
                 }
           }
         >
           <div
             className={
               menuClicked === true
-                ? `browse-data ${theme ? '' : 'light-mode'}`
-                : `browse-data2 ${theme ? '' : 'light-mode'}`
+                ? `browse-data ${theme ? "" : "light-mode"}`
+                : `browse-data2 ${theme ? "" : "light-mode"}`
             }
             style={
               menuClicked === false
                 ? {
-                    left: '74px',
+                    left: "74px",
                   }
                 : {
-                    left: '250px',
+                    left: "250px",
                   }
             }
           >
             <div
               className={
-                theme ? 'popular-categories' : 'popular-categories light-mode'
+                theme ? "popular-categories" : "popular-categories light-mode"
               }
             >
               {Tags.map((element, index) => {
@@ -203,15 +203,15 @@ function Browse() {
                   <div
                     className={
                       TagsSelected === element
-                        ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}`
-                        : `top-tags ${theme ? '' : 'tagcolor-newlight'}`
+                        ? `top-tags ${theme ? "tag-color" : "tag-color-light"}`
+                        : `top-tags ${theme ? "" : "tagcolor-newlight"}`
                     }
                     key={index}
                   >
                     <p
                       onClick={() => {
                         mixpanel.track(`tag_${element}_clicked`, {
-                          Location: 'Browse.jsx',
+                          Location: "Browse.jsx",
                           date: new Date().toISOString(),
                         });
                         setTagsSelected(`${element}`);
@@ -226,7 +226,7 @@ function Browse() {
             <div
               className="video-section"
               style={{
-                marginLeft: menuClicked ? '40px' : '40px',
+                marginLeft: menuClicked ? "40px" : "40px",
               }}
             >
               <div className="uploaded-videos">
@@ -241,7 +241,7 @@ function Browse() {
                         width={330}
                         height={186}
                         style={{
-                          borderRadius: '12px',
+                          borderRadius: "12px",
                         }}
                         className="sk-browse-vid"
                       />
@@ -252,8 +252,8 @@ function Browse() {
                           width={40}
                           height={40}
                           style={{
-                            borderRadius: '100%',
-                            marginTop: '40px',
+                            borderRadius: "100%",
+                            marginTop: "40px",
                           }}
                           className="sk-browse-profile"
                         />
@@ -263,9 +263,9 @@ function Browse() {
                           width={250}
                           height={15}
                           style={{
-                            position: 'relative',
-                            top: '40px',
-                            left: '15px',
+                            position: "relative",
+                            top: "40px",
+                            left: "15px",
                           }}
                           className="sk-browse-title"
                         />
@@ -279,38 +279,38 @@ function Browse() {
         </div>
       </SkeletonTheme>
       <div
-        className={theme ? 'browse' : 'browse light-mode'}
+        className={theme ? "browse" : "browse light-mode"}
         style={
           loading === true
             ? {
-                visibility: 'hidden',
-                display: 'none',
+                visibility: "hidden",
+                display: "none",
               }
             : {
-                visibility: 'visible',
-                display: 'flex',
+                visibility: "visible",
+                display: "flex",
               }
         }
       >
         <div
           className={
             menuClicked === true
-              ? `browse-data ${theme ? '' : 'light-mode'}`
-              : `browse-data2 ${theme ? '' : 'light-mode'}`
+              ? `browse-data ${theme ? "" : "light-mode"}`
+              : `browse-data2 ${theme ? "" : "light-mode"}`
           }
           style={
             menuClicked === false
               ? {
-                  left: '74px ',
+                  left: "74px ",
                 }
               : {
-                  left: '250px ',
+                  left: "250px ",
                 }
           }
         >
           <div
             className={
-              theme ? 'popular-categories' : 'popular-categories light-mode'
+              theme ? "popular-categories" : "popular-categories light-mode"
             }
           >
             {Tags.map((element, index) => {
@@ -318,8 +318,8 @@ function Browse() {
                 <div
                   className={
                     TagsSelected === element
-                      ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}`
-                      : `top-tags ${theme ? '' : 'tagcolor-newlight'}`
+                      ? `top-tags ${theme ? "tag-color" : "tag-color-light"}`
+                      : `top-tags ${theme ? "" : "tagcolor-newlight"}`
                   }
                   key={index}
                 >
@@ -338,7 +338,7 @@ function Browse() {
           <div
             className="video-section"
             style={{
-              marginLeft: menuClicked ? '40px' : '40px',
+              marginLeft: menuClicked ? "40px" : "40px",
             }}
           >
             <div
@@ -346,12 +346,12 @@ function Browse() {
               style={
                 menuClicked === true
                   ? {
-                      paddingRight: '50px',
-                      display: TagsSelected === 'All' ? 'grid' : 'none',
+                      paddingRight: "50px",
+                      display: TagsSelected === "All" ? "grid" : "none",
                     }
                   : {
-                      paddingRight: '0px',
-                      display: TagsSelected === 'All' ? 'grid' : 'none',
+                      paddingRight: "0px",
+                      display: TagsSelected === "All" ? "grid" : "none",
                     }
               }
             >
@@ -363,12 +363,12 @@ function Browse() {
                       className="video-data"
                       key={index}
                       style={
-                        Visibility[index] === 'Public'
+                        Visibility[index] === "Public"
                           ? {
-                              display: 'block',
+                              display: "block",
                             }
                           : {
-                              display: 'none',
+                              display: "none",
                             }
                       }
                       onClick={() => {
@@ -383,8 +383,8 @@ function Browse() {
                     >
                       <img
                         style={{
-                          width: '330px',
-                          borderRadius: '10px',
+                          width: "330px",
+                          borderRadius: "10px",
                         }}
                         src={element}
                         alt="thumbnails"
@@ -392,17 +392,17 @@ function Browse() {
                       />
                       <p className="duration">
                         {Math.floor(duration[index] / 60) +
-                          ':' +
+                          ":" +
                           (Math.round(duration[index] % 60) < 10
-                            ? '0' + Math.round(duration[index] % 60)
+                            ? "0" + Math.round(duration[index] % 60)
                             : Math.round(duration[index] % 60))}
                       </p>
 
                       <div
                         className={
                           theme === true
-                            ? 'channel-basic-data'
-                            : 'channel-basic-data text-light-mode'
+                            ? "channel-basic-data"
+                            : "channel-basic-data text-light-mode"
                         }
                       >
                         <div className="channel-pic">
@@ -416,7 +416,7 @@ function Browse() {
                           <p
                             className="title"
                             style={{
-                              marginTop: '10px',
+                              marginTop: "10px",
                             }}
                           >
                             {Titles[index] && Titles[index].length <= 60
@@ -432,11 +432,11 @@ function Browse() {
                               <p
                                 className={
                                   theme
-                                    ? 'uploader'
-                                    : 'uploader text-light-mode2'
+                                    ? "uploader"
+                                    : "uploader text-light-mode2"
                                 }
                                 style={{
-                                  marginTop: '10px',
+                                  marginTop: "10px",
                                 }}
                               >
                                 {uploader[index]}
@@ -450,16 +450,16 @@ function Browse() {
                               <CheckCircleIcon
                                 fontSize="100px"
                                 style={{
-                                  color: 'rgb(138, 138, 138)',
-                                  marginTop: '8px',
-                                  marginLeft: '4px',
+                                  color: "rgb(138, 138, 138)",
+                                  marginTop: "8px",
+                                  marginLeft: "4px",
                                 }}
                               />
                             </Tooltip>
                           </div>
                           <div
                             className={
-                              theme ? 'view-time' : 'view-time text-light-mode2'
+                              theme ? "view-time" : "view-time text-light-mode2"
                             }
                           >
                             <p className="views">
@@ -469,16 +469,16 @@ function Browse() {
                                 ? `${(VideoViews[index] / 1e6).toFixed(1)}M`
                                 : VideoViews[index] >= 1e3
                                 ? `${(VideoViews[index] / 1e3).toFixed(1)}K`
-                                : VideoViews[index]}{' '}
+                                : VideoViews[index]}{" "}
                               views
                             </p>
                             <p
                               className="upload-time"
                               style={{
-                                marginLeft: '4px',
+                                marginLeft: "4px",
                               }}
                             >
-                              &#x2022;{' '}
+                              &#x2022;{" "}
                               {(() => {
                                 const timeDifference =
                                   new Date() - new Date(publishDate[index]);
@@ -498,7 +498,7 @@ function Browse() {
                                   timeDifference / 31536000000
                                 );
                                 if (minutes < 1) {
-                                  return 'just now';
+                                  return "just now";
                                 } else if (minutes < 60) {
                                   return `${minutes} mins ago`;
                                 } else if (hours < 24) {
@@ -524,12 +524,12 @@ function Browse() {
               style={
                 menuClicked === true
                   ? {
-                      paddingRight: '50px',
-                      display: TagsSelected !== 'All' ? 'grid' : 'none',
+                      paddingRight: "50px",
+                      display: TagsSelected !== "All" ? "grid" : "none",
                     }
                   : {
-                      paddingRight: '0px',
-                      display: TagsSelected !== 'All' ? 'grid' : 'none',
+                      paddingRight: "0px",
+                      display: TagsSelected !== "All" ? "grid" : "none",
                     }
               }
             >
@@ -540,12 +540,12 @@ function Browse() {
                       className="video-data"
                       key={index}
                       style={
-                        element.visibility === 'Public'
+                        element.visibility === "Public"
                           ? {
-                              display: 'block',
+                              display: "block",
                             }
                           : {
-                              display: 'none',
+                              display: "none",
                             }
                       }
                       onClick={() => {
@@ -560,8 +560,8 @@ function Browse() {
                     >
                       <img
                         style={{
-                          width: '330px',
-                          borderRadius: '10px',
+                          width: "330px",
+                          borderRadius: "10px",
                         }}
                         src={element.thumbnailURL}
                         alt="thumbnails"
@@ -569,17 +569,17 @@ function Browse() {
                       />
                       <p className="duration">
                         {Math.floor(element.videoLength / 60) +
-                          ':' +
+                          ":" +
                           (Math.round(element.videoLength % 60) < 10
-                            ? '0' + Math.round(element.videoLength % 60)
+                            ? "0" + Math.round(element.videoLength % 60)
                             : Math.round(element.videoLength % 60))}
                       </p>
 
                       <div
                         className={
                           theme === true
-                            ? 'channel-basic-data'
-                            : 'channel-basic-data text-light-mode'
+                            ? "channel-basic-data"
+                            : "channel-basic-data text-light-mode"
                         }
                       >
                         <div className="channel-pic">
@@ -593,7 +593,7 @@ function Browse() {
                           <p
                             className="title"
                             style={{
-                              marginTop: '10px',
+                              marginTop: "10px",
                             }}
                           >
                             {element.Title}
@@ -601,10 +601,10 @@ function Browse() {
                           <div className="video-uploader">
                             <p
                               className={
-                                theme ? 'uploader' : 'uploader text-light-mode2'
+                                theme ? "uploader" : "uploader text-light-mode2"
                               }
                               style={{
-                                marginTop: '10px',
+                                marginTop: "10px",
                               }}
                             >
                               {element.uploader}
@@ -617,16 +617,16 @@ function Browse() {
                               <CheckCircleIcon
                                 fontSize="100px"
                                 style={{
-                                  color: 'rgb(138, 138, 138)',
-                                  marginTop: '8px',
-                                  marginLeft: '4px',
+                                  color: "rgb(138, 138, 138)",
+                                  marginTop: "8px",
+                                  marginLeft: "4px",
                                 }}
                               />
                             </Tooltip>
                           </div>
                           <div
                             className={
-                              theme ? 'view-time' : 'view-time text-light-mode2'
+                              theme ? "view-time" : "view-time text-light-mode2"
                             }
                           >
                             <p className="views">
@@ -636,16 +636,16 @@ function Browse() {
                                 ? `${(element.views / 1e6).toFixed(1)}M`
                                 : element.views >= 1e3
                                 ? `${(element.views / 1e3).toFixed(1)}K`
-                                : element.views}{' '}
+                                : element.views}{" "}
                               views
                             </p>
                             <p
                               className="upload-time"
                               style={{
-                                marginLeft: '4px',
+                                marginLeft: "4px",
                               }}
                             >
-                              &#x2022;{' '}
+                              &#x2022;{" "}
                               {(() => {
                                 const timeDifference =
                                   new Date() - new Date(element.uploaded_date);
@@ -665,7 +665,7 @@ function Browse() {
                                   timeDifference / 31536000000
                                 );
                                 if (minutes < 1) {
-                                  return 'just now';
+                                  return "just now";
                                 } else if (minutes < 60) {
                                   return `${minutes} mins ago`;
                                 } else if (hours < 24) {

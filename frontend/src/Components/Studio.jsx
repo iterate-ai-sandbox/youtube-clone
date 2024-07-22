@@ -155,7 +155,7 @@ function Studio() {
 
     const uploadBtn = document.querySelector(".uploadnewone-video");
     if (uploadBtn) {
-      uploadBtn.addEventListener("click", handleClick);
+      uploadBtn?.addEventListener("click", handleClick);
 
       return () => {
         if (uploadBtn) {
@@ -173,7 +173,7 @@ function Studio() {
     const searchInp = document.getElementById("searchType2");
 
     if (searchInp) {
-      searchInp.addEventListener("click", handleClick);
+      searchInp?.addEventListener("click", handleClick);
     }
 
     return () => {
@@ -191,7 +191,7 @@ function Studio() {
     const crossBtn = document.querySelector(".clear-search");
 
     if (crossBtn) {
-      crossBtn.addEventListener("click", handleClick);
+      crossBtn?.addEventListener("click", handleClick);
     }
 
     return () => {

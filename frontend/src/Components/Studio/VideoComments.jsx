@@ -44,12 +44,12 @@ function VideoComments() {
 
     const menuButton = document.querySelector(".menu2");
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
 
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener("click", handleMenuButtonClick);
+        menuButton?.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
@@ -85,12 +85,12 @@ function VideoComments() {
     const searchInp = document.getElementById("searchType2");
 
     if (searchInp) {
-      searchInp.addEventListener("click", handleClick);
+      searchInp?.addEventListener("click", handleClick);
     }
 
     return () => {
       if (searchInp) {
-        searchInp.removeEventListener("click", handleClick);
+        searchInp?.removeEventListener("click", handleClick);
       }
     };
   });
@@ -105,12 +105,12 @@ function VideoComments() {
     const clearBtn = document.querySelector(".clear-search");
 
     if (clearBtn) {
-      clearBtn.addEventListener("click", handleClick);
+      clearBtn?.addEventListener("click", handleClick);
     }
 
     return () => {
       if (clearBtn) {
-        clearBtn.removeEventListener("click", handleClick);
+        clearBtn?.removeEventListener("click", handleClick);
       }
     };
   });

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../../Css/Studio/customize.css";
 import LeftPanel2 from "../LeftPanel2";
 import Navbar2 from "../Navbar2";
 import Basic from "./Basic";
 import Branding from "./Branding";
-import { useNavigate } from "react-router-dom";
 function Customization() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [currentTab, setCurrentTab] = useState("branding");
@@ -20,22 +20,20 @@ function Customization() {
     const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
   });
-  const User = useSelector(state => state.user.user);
-  const {
-    user
-  } = User;
+  const User = useSelector((state) => state.user.user);
+  const { user } = User;
   document.title = "Channel customization - YouTube Studio";
   useEffect(() => {
     const handleMenuButtonClick = () => {
-      setmenu(prevMenuClicked => !prevMenuClicked);
+      setmenu((prevMenuClicked) => !prevMenuClicked);
     };
     const menuButton = document.querySelector(".menu2");
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener("click", handleMenuButtonClick);
+        menuButton?.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
@@ -45,7 +43,10 @@ function Customization() {
   useEffect(() => {
     if (theme === false && window.location.href.includes("/studio/customize")) {
       document.body.style.backgroundColor = "white";
-    } else if (theme === true && window.location.href.includes("/studio/customize")) {
+    } else if (
+      theme === true &&
+      window.location.href.includes("/studio/customize")
+    ) {
       document.body.style.backgroundColor = "#282828";
     }
   }, [theme]);
@@ -55,25 +56,27 @@ function Customization() {
     };
     const searchInp = document.getElementById("searchType2");
     if (searchInp) {
-      searchInp.addEventListener("click", handleClick);
+      searchInp?.addEventListener("click", handleClick);
     }
     return () => {
       if (searchInp) {
-        searchInp.removeEventListener("click", handleClick);
+        searchInp?.removeEventListener("click", handleClick);
       }
     };
   });
   useEffect(() => {
     const handleClick = () => {
-      document.querySelector(".channel-customize").classList.remove("studio-dark");
+      document
+        .querySelector(".channel-customize")
+        .classList.remove("studio-dark");
     };
     const crossBtn = document.querySelector(".clear-search");
     if (crossBtn) {
-      crossBtn.addEventListener("click", handleClick);
+      crossBtn?.addEventListener("click", handleClick);
     }
     return () => {
       if (crossBtn) {
-        crossBtn.removeEventListener("click", handleClick);
+        crossBtn?.removeEventListener("click", handleClick);
       }
     };
   });
@@ -81,10 +84,10 @@ function Customization() {
     const getChannelID = async () => {
       try {
         if (user?.email) {
-          const response = await fetch(`${backendURL}/getchannelid/${user?.email}`);
-          const {
-            channelID
-          } = await response.json();
+          const response = await fetch(
+            `${backendURL}/getchannelid/${user?.email}`
+          );
+          const { channelID } = await response.json();
           setChannelID(channelID);
         }
       } catch (error) {
@@ -93,14 +96,18 @@ function Customization() {
     };
     getChannelID();
   }, [user?.email]);
-  return <>
+  return (
+    <>
       <Navbar2 />
       <LeftPanel2 />
       <div className="channel-customize">
-        <div className="channel-customize-section" style={{
-        left: menu ? "90px" : " 270px",
-        transition: menu ? "all .12s ease" : "none"
-      }}>
+        <div
+          className="channel-customize-section"
+          style={{
+            left: menu ? "90px" : " 270px",
+            transition: menu ? "all .12s ease" : "none",
+          }}
+        >
           <div className="customize-header">
             <p className={theme ? "" : "text-light-mode"}>
               Channel customization
@@ -108,26 +115,48 @@ function Customization() {
           </div>
           <div className="redirectss">
             <div className="left-redirects">
-              <p className={currentTab === "branding" ? `branding-txt1 ${theme ? "" : "text-light-mode2"}` : `branding-txt ${theme ? "" : "text-light-mode2"}`} onClick={() => setCurrentTab("branding")}>
+              <p
+                className={
+                  currentTab === "branding"
+                    ? `branding-txt1 ${theme ? "" : "text-light-mode2"}`
+                    : `branding-txt ${theme ? "" : "text-light-mode2"}`
+                }
+                onClick={() => setCurrentTab("branding")}
+              >
                 Branding
               </p>
-              <p className={currentTab === "basic" ? `basic-txt1 ${theme ? "" : "text-light-mode2"}` : `basic-txt ${theme ? "" : "text-light-mode2"}`} style={{
-              marginLeft: "40px"
-            }} onClick={() => setCurrentTab("basic")}>
+              <p
+                className={
+                  currentTab === "basic"
+                    ? `basic-txt1 ${theme ? "" : "text-light-mode2"}`
+                    : `basic-txt ${theme ? "" : "text-light-mode2"}`
+                }
+                style={{
+                  marginLeft: "40px",
+                }}
+                onClick={() => setCurrentTab("basic")}
+              >
                 Basic info
               </p>
             </div>
             <div className="right-redirects">
-              <p onClick={() => {
-              if (channelID !== undefined) {
-                navigate(`/channel/${channelID}`);
-              }
-            }} style={{
-              cursor: "pointer"
-            }}>
+              <p
+                onClick={() => {
+                  if (channelID !== undefined) {
+                    navigate(`/channel/${channelID}`);
+                  }
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 VIEW CHANNEL
               </p>
-              <button className={theme ? "save-customize" : "save-customize text-dark-mode"}>
+              <button
+                className={
+                  theme ? "save-customize" : "save-customize text-dark-mode"
+                }
+              >
                 PUBLISH
               </button>
             </div>
@@ -138,6 +167,7 @@ function Customization() {
           </div>
         </div>
       </div>
-    </>;
+    </>
+  );
 }
 export default Customization;

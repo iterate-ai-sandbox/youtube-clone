@@ -36,7 +36,7 @@ function LeftPanel2() {
     };
 
     const menuButton = document.querySelector(".menu2");
-    menuButton.addEventListener("click", handleMenuButtonClick);
+    menuButton?.addEventListener("click", handleMenuButtonClick);
 
     return () => {
       menuButton.removeEventListener("click", handleMenuButtonClick);

@@ -49,7 +49,7 @@ function Navbar2() {
         setShowResults2(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Navbar2() {
         setShowPop(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function Navbar2() {
     }
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window?.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -77,7 +77,7 @@ function Navbar2() {
     }
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window?.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 

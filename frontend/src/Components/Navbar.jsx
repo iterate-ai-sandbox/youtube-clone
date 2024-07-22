@@ -52,7 +52,7 @@ function Navbar() {
         setShowPop(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
     const handler = (e) => {
@@ -60,7 +60,7 @@ function Navbar() {
         setNewSearch(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document?.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
     const getData = async () => {

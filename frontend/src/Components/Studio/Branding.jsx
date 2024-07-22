@@ -57,10 +57,10 @@ function Branding() {
     const basicInfo = document.querySelector(".basic-txt");
 
     if (changes === true) {
-      basicInfo.addEventListener("click", handleMenuButtonClick);
+      basicInfo?.addEventListener("click", handleMenuButtonClick);
 
       return () => {
-        basicInfo.removeEventListener("click", handleMenuButtonClick);
+        basicInfo?.removeEventListener("click", handleMenuButtonClick);
       };
     }
   }, [changes]);
@@ -274,10 +274,10 @@ function Branding() {
     } else {
       publishBtn.classList.remove("disable-btn");
 
-      publishBtn.addEventListener("click", saveChannelData);
+      publishBtn?.addEventListener("click", saveChannelData);
 
       return () => {
-        publishBtn.removeEventListener("click", saveChannelData);
+        publishBtn?.removeEventListener("click", saveChannelData);
       };
     }
   });

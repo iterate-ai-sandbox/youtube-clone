@@ -130,8 +130,8 @@ function Basic() {
     }
 
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window?.addEventListener("resize", handleResize);
+    return () => window?.removeEventListener("resize", handleResize);
   }, []);
 
   //POST REQUEST
@@ -228,10 +228,10 @@ function Basic() {
     } else {
       publishBtn.classList.remove("disable-btn");
 
-      publishBtn.addEventListener("click", handleMenuButtonClick);
+      publishBtn?.addEventListener("click", handleMenuButtonClick);
 
       return () => {
-        publishBtn.removeEventListener("click", handleMenuButtonClick);
+        publishBtn?.removeEventListener("click", handleMenuButtonClick);
       };
     }
   });
