@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Css/navbar.css";
+import mixpanel from 'mixpanel-browser';
 
 function Signup() {
   const backendURL = "https://youtube-iterate-ai.vercel.app";
@@ -63,6 +64,10 @@ function Signup() {
       ErrorNotify();
       return;
     }
+    mixpanel.track('user_created_account', {
+      Location: 'Signup.jsx',
+      date: new Date().toISOString(),
+    });
     try {
       const response = await fetch(`${backendURL}/signup`, {
         method: "POST",

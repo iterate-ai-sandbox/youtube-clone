@@ -23,13 +23,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "./reducer/user";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
+import mixpanel from "mixpanel-browser";
 
 function App() {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
 
   const dispatch = useDispatch();
-
+  mixpanel.init("ea80762cb49f3dc9e1531668bb8a2ed0", {track_pageview: true})
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);

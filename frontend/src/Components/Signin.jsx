@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Css/navbar.css";
 import Reset from "./Reset";
-
+import mixpanel from 'mixpanel-browser';
 function Signin(prop) {
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app"
@@ -89,6 +89,10 @@ function Signin(prop) {
       ErrorNotify();
       return;
     }
+    mixpanel.track('user_logged_in', {
+      Location: 'Signin.jsx',
+      date: new Date().toISOString(),
+    });
     try {
       const response = await fetch(`${backendURL}/login`, {
         method: "POST",

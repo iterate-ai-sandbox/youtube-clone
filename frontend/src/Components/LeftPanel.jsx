@@ -1,49 +1,50 @@
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import CodeIcon from "@mui/icons-material/Code";
-import HomeIcon from "@mui/icons-material/Home";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import PlaylistPlayOutlinedIcon from "@mui/icons-material/PlaylistPlayOutlined";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
-import WatchLaterIcon from "@mui/icons-material/WatchLater";
-import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
-import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
-import Tooltip from "@mui/material/Tooltip";
-import Zoom from "@mui/material/Zoom";
-import { useEffect, useState } from "react";
-import { GoHome, GoHomeFill } from "react-icons/go";
-import { HiOutlineFire } from "react-icons/hi";
-import { HiMiniFire } from "react-icons/hi2";
-import { IoAddCircleOutline } from "react-icons/io5";
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import CodeIcon from '@mui/icons-material/Code';
+import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+import { useEffect, useState } from 'react';
+import { GoHome, GoHomeFill } from 'react-icons/go';
+import { HiOutlineFire } from 'react-icons/hi';
+import { HiMiniFire } from 'react-icons/hi2';
+import { IoAddCircleOutline } from 'react-icons/io5';
+import mixpanel from 'mixpanel-browser';
 import {
   MdOutlineSubscriptions,
   MdOutlineVideoLibrary,
   MdSubscriptions,
   MdVideoLibrary,
-} from "react-icons/md";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import "../Css/leftpanel.css";
-import Logo from "../img/logo1.png";
-import Logo2 from "../img/logo2.png";
-import Signin from "./Signin";
-import Signup from "./Signup";
+} from 'react-icons/md';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import '../Css/leftpanel.css';
+import Logo from '../img/logo1.png';
+import Logo2 from '../img/logo2.png';
+import Signin from './Signin';
+import Signup from './Signup';
 import { useNavigate } from 'react-router-dom';
 
 function LeftPanel() {
   const navigate = useNavigate();
-  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  const backendURL = 'https://youtube-iterate-ai.vercel.app';
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [menuClicked, setMenuClicked] = useState(() => {
-    const menu = localStorage.getItem("menuClicked");
+    const menu = localStorage.getItem('menuClicked');
     return menu ? JSON.parse(menu) : false;
   });
   const location = useLocation();
@@ -56,7 +57,7 @@ function LeftPanel() {
   const [togglepanel, setTogglePannel] = useState(false);
   const [closePanel, setClosePanel] = useState(false);
   const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
+    const Dark = localStorage.getItem('Dark');
     return Dark ? JSON.parse(Dark) : true;
   });
 
@@ -68,19 +69,19 @@ function LeftPanel() {
       if (window.innerWidth >= 860) {
         setMenuClicked((prevMenuClicked) => !prevMenuClicked);
       } else {
-        document.body.classList.add("bg-css");
+        document.body.classList.add('bg-css');
         setTogglePannel(true);
       }
     };
 
-    const menuButton = document.querySelector(".menu");
+    const menuButton = document.querySelector('.menu');
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton.addEventListener('click', handleMenuButtonClick);
     }
 
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener("click", handleMenuButtonClick);
+        menuButton.removeEventListener('click', handleMenuButtonClick);
       }
     };
   }, []);
@@ -90,50 +91,50 @@ function LeftPanel() {
       if (window.innerWidth >= 860) {
         setMenuClicked((prevMenuClicked) => !prevMenuClicked);
       } else {
-        document.body.classList.add("bg-css");
+        document.body.classList.add('bg-css');
         setTogglePannel(true);
       }
     };
 
-    const menuButton = document.querySelector(".menu-light");
+    const menuButton = document.querySelector('.menu-light');
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton.addEventListener('click', handleMenuButtonClick);
     }
 
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener("click", handleMenuButtonClick);
+        menuButton.removeEventListener('click', handleMenuButtonClick);
       }
     };
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("menuClicked", JSON.stringify(menuClicked));
+    localStorage.setItem('menuClicked', JSON.stringify(menuClicked));
   }, [menuClicked]);
 
-  const selected = localStorage.getItem("selected");
+  const selected = localStorage.getItem('selected');
 
   useEffect(() => {
     const currentUrl = location.pathname;
-    let selected = "";
+    let selected = '';
 
-    if (currentUrl === "/") {
-      selected = "home";
-    } else if (currentUrl === "/trending") {
-      selected = "trending";
-    } else if (currentUrl === "/watchlater") {
-      selected = "watch-later";
-    } else if (currentUrl === "/subscriptions") {
-      selected = "subscription";
-    } else if (currentUrl === "/likedVideos") {
-      selected = "liked-video";
-    } else if (currentUrl === "/library") {
-      selected = "library";
+    if (currentUrl === '/') {
+      selected = 'home';
+    } else if (currentUrl === '/trending') {
+      selected = 'trending';
+    } else if (currentUrl === '/watchlater') {
+      selected = 'watch-later';
+    } else if (currentUrl === '/subscriptions') {
+      selected = 'subscription';
+    } else if (currentUrl === '/likedVideos') {
+      selected = 'liked-video';
+    } else if (currentUrl === '/library') {
+      selected = 'library';
     } else {
-      selected = "other";
+      selected = 'other';
     }
 
-    localStorage.setItem("selected", selected);
+    localStorage.setItem('selected', selected);
   }, [location]);
 
   useEffect(() => {
@@ -198,32 +199,36 @@ function LeftPanel() {
   return (
     <>
       <div
-        className={theme ? "main-left-section" : "main-left-section light-mode"}
+        className={theme ? 'main-left-section' : 'main-left-section light-mode'}
         style={
-          menuClicked === false ? { display: "none" } : { display: "block" }
+          menuClicked === false ? { display: 'none' } : { display: 'block' }
         }
       >
         <div className="first-section ">
           <div
             className={
-              selected === "home"
-                ? `home sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                : "home sec-data"
+              selected === 'home'
+                ? `home sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                : 'home sec-data'
             }
             onClick={() => {
-              localStorage.setItem("selected", "home");
-              navigate("/")
+              localStorage.setItem('selected', 'home');
+              mixpanel.track('checked_home', {
+                Location: 'LeftPanel.jsx',
+                date: new Date().toISOString(),
+              });
+              navigate('/');
             }}
           >
-            {selected === "home" ? (
+            {selected === 'home' ? (
               <HomeIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <HomeOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
 
@@ -231,55 +236,63 @@ function LeftPanel() {
           </div>
           <div
             className={
-              selected === "trending"
-                ? `trending sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                : "trending sec-data"
+              selected === 'trending'
+                ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                : 'trending sec-data'
             }
             onClick={() => {
-              localStorage.setItem("selected", "trending");
-              navigate("/trending")
+              localStorage.setItem('selected', 'trending');
+              mixpanel.track('checked_trending', {
+                Location: 'LeftPanel.jsx',
+                date: new Date().toISOString(),
+              });
+              navigate('/trending');
             }}
           >
-            {selected === "trending" ? (
+            {selected === 'trending' ? (
               <WhatshotIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WhatshotOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
             <p>Trending</p>
           </div>
           <div
             className={
-              selected === "subscription"
+              selected === 'subscription'
                 ? `subscription sec-data ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "subscription sec-data"
+                : 'subscription sec-data'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "subscription");
-                navigate("/subscriptions")
+                localStorage.setItem('selected', 'subscription');
+                mixpanel.track('checked_subscriptions', {
+                  Location: 'LeftPanel.jsx',
+                  date: new Date().toISOString(),
+                });
+                navigate('/subscriptions');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "subscription" ? (
+            {selected === 'subscription' ? (
               <SubscriptionsIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <SubscriptionsOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
             <p>Subscriptions</p>
@@ -288,8 +301,8 @@ function LeftPanel() {
             className="subscribed-channels"
             style={
               Subscriptions && Subscriptions.length > 0
-                ? { display: "block" }
-                : { display: "none" }
+                ? { display: 'block' }
+                : { display: 'none' }
             }
           >
             {Subscriptions &&
@@ -298,32 +311,32 @@ function LeftPanel() {
                 return (
                   <>
                     <SkeletonTheme
-                      baseColor={theme ? "#353535" : "#aaaaaa"}
-                      highlightColor={theme ? "#444" : "#b6b6b6"}
+                      baseColor={theme ? '#353535' : '#aaaaaa'}
+                      highlightColor={theme ? '#444' : '#b6b6b6'}
                     >
                       <div
                         className="mysubscriptions"
                         key={index}
                         style={
                           loading === true
-                            ? { visibility: "visible" }
-                            : { display: "none" }
+                            ? { visibility: 'visible' }
+                            : { display: 'none' }
                         }
                       >
                         <Skeleton
                           count={1}
                           width={35}
                           height={35}
-                          style={{ borderRadius: "100%" }}
+                          style={{ borderRadius: '100%' }}
                         />
                         <Skeleton
                           count={1}
                           width={122}
                           height={16}
                           style={{
-                            position: "relative",
-                            left: "10px",
-                            top: "5px",
+                            position: 'relative',
+                            left: '10px',
+                            top: '5px',
                           }}
                         />
                       </div>
@@ -332,12 +345,16 @@ function LeftPanel() {
                       className="mysubscriptions"
                       key={index}
                       onClick={() => {
-                        navigate(`/channel/${element.channelID}`)
+                        mixpanel.track(`checked_channel_${element.channelID}`, {
+                          Location: 'LeftPanel.jsx',
+                          date: new Date().toISOString(),
+                        });
+                        navigate(`/channel/${element.channelID}`);
                       }}
                       style={
                         loading === false
-                          ? { display: "flex" }
-                          : { display: "none" }
+                          ? { display: 'flex' }
+                          : { display: 'none' }
                       }
                     >
                       <img
@@ -362,33 +379,37 @@ function LeftPanel() {
               })}
           </div>
         </div>
-        <hr className={theme ? "seperate" : "seperate-light"} />
+        <hr className={theme ? 'seperate' : 'seperate-light'} />
         <div className="second-section">
           <div
             className={
-              selected === "library"
-                ? `library sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                : "library sec-data"
+              selected === 'library'
+                ? `library sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                : 'library sec-data'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "library");
-                navigate("/library")
+                localStorage.setItem('selected', 'library');
+                mixpanel.track('checked_library', {
+                  Location: 'LeftPanel.jsx',
+                  date: new Date().toISOString(),
+                });
+                navigate('/library');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "library" ? (
+            {selected === 'library' ? (
               <VideoLibraryIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <VideoLibraryOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
             <p>Library</p>
@@ -396,70 +417,77 @@ function LeftPanel() {
 
           <div
             className={
-              selected === "watch-later"
+              selected === 'watch-later'
                 ? `watch-later sec-data ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "watch-later sec-data"
+                : 'watch-later sec-data'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "watch-later");
-                navigate("/watchlater")
+                localStorage.setItem('selected', 'watch-later');
+                mixpanel.track('checked_watch_later', {
+                  Location: 'LeftPanel.jsx',
+                  date: new Date().toISOString(),
+                });
+                navigate('/watchlater');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "watch-later" ? (
+            {selected === 'watch-later' ? (
               <WatchLaterIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WatchLaterOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
             <p>Watch later</p>
           </div>
           <div
             className={
-              selected === "liked-video"
+              selected === 'liked-video'
                 ? `liked-video sec-data ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "liked-video sec-data"
+                : 'liked-video sec-data'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "liked-video");
-
-                navigate("/likedVideos")
+                localStorage.setItem('selected', 'liked-video');
+                mixpanel.track('checked_liked_videos', {
+                  Location: 'LeftPanel.jsx',
+                  date: new Date().toISOString(),
+                });
+                navigate('/likedVideos');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "liked-video" ? (
+            {selected === 'liked-video' ? (
               <ThumbUpIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <ThumbUpOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
             <p>Liked videos</p>
           </div>
           <div className="my-playlists-sectionn">
             {PlaylistData &&
-              PlaylistData !== "No playlists available..." &&
+              PlaylistData !== 'No playlists available...' &&
               PlaylistData.length > 0 &&
               PlaylistData.map((element, index) => {
                 return (
@@ -467,12 +495,16 @@ function LeftPanel() {
                     className="my-playlist-data"
                     key={index}
                     onClick={() => {
-                      navigate(`/playlist/${element._id}`)
+                      mixpanel.track(`checked_playlist_${element._id}`, {
+                        Location: 'LeftPanel.jsx',
+                        date: new Date().toISOString(),
+                      });
+                      navigate(`/playlist/${element._id}`);
                     }}
                   >
                     <PlaylistPlayOutlinedIcon
                       fontSize="medium"
-                      style={{ color: theme ? "white" : "black" }}
+                      style={{ color: theme ? 'white' : 'black' }}
                     />
                     <Tooltip
                       TransitionComponent={Zoom}
@@ -496,12 +528,16 @@ function LeftPanel() {
                     className="my-playlist-data"
                     key={index}
                     onClick={() => {
-                      navigate(`/playlist/${element._id}`)
+                      mixpanel.track(`checked_playlist_${element._id}`, {
+                        Location: 'LeftPanel.jsx',
+                        date: new Date().toISOString(),
+                      });
+                      navigate(`/playlist/${element._id}`);
                     }}
                   >
                     <PlaylistPlayOutlinedIcon
                       fontSize="medium"
-                      style={{ color: theme ? "white" : "black" }}
+                      style={{ color: theme ? 'white' : 'black' }}
                     />
                     <Tooltip
                       TransitionComponent={Zoom}
@@ -518,7 +554,7 @@ function LeftPanel() {
                 );
               })}
           </div>
-          <hr className={theme ? "seperate" : "seperate-light"} />
+          <hr className={theme ? 'seperate' : 'seperate-light'} />
           <Tooltip
             TransitionComponent={Zoom}
             title="Made with 💖 by Shubhojeet"
@@ -527,7 +563,7 @@ function LeftPanel() {
             <div className="developer">
               <CodeIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
               <a
                 href="https://github.com/shubho0908"
@@ -545,93 +581,99 @@ function LeftPanel() {
       <div
         className={
           theme
-            ? "main-left-section main-2"
-            : "main-left-section main-2 light-mode"
+            ? 'main-left-section main-2'
+            : 'main-left-section main-2 light-mode'
         }
         style={
-          menuClicked === false ? { display: "flex" } : { display: "none" }
+          menuClicked === false ? { display: 'flex' } : { display: 'none' }
         }
       >
         <div className="first-section ">
           <div
             className={
-              selected === "home"
+              selected === 'home'
                 ? `home sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "home sec-data sec-data2"
+                : 'home sec-data sec-data2'
             }
             onClick={() => {
-              localStorage.setItem("selected", "home");
-
-              navigate("/")
+              localStorage.setItem('selected', 'home');
+              mixpanel.track('checked_home', {
+                Location: 'LeftPanel.jsx',
+                date: new Date().toISOString(),
+              });
+              navigate('/');
             }}
           >
-            {selected === "home" ? (
+            {selected === 'home' ? (
               <HomeIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <HomeOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "trending"
+              selected === 'trending'
                 ? `trending trending2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "trending trending2 sec-data sec-data2"
+                : 'trending trending2 sec-data sec-data2'
             }
             onClick={() => {
-              localStorage.setItem("selected", "trending");
-
-              navigate("/trending")
+              localStorage.setItem('selected', 'trending');
+              mixpanel.track('checked_trending', {
+                Location: 'LeftPanel.jsx',
+                date: new Date().toISOString(),
+              });
+              navigate('/trending');
             }}
           >
-            {selected === "trending" ? (
+            {selected === 'trending' ? (
               <WhatshotIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WhatshotOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "subscription"
+              selected === 'subscription'
                 ? `subscription subscription2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "subscription subscription2 sec-data sec-data2"
+                : 'subscription subscription2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "subscription");
-                navigate("/subscriptions")
+                localStorage.setItem('selected', 'subscription');
+                navigate('/subscriptions');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "subscription" ? (
+            {selected === 'subscription' ? (
               <SubscriptionsIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <SubscriptionsOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
@@ -640,92 +682,92 @@ function LeftPanel() {
         <div className="second-section">
           <div
             className={
-              selected === "library"
+              selected === 'library'
                 ? `library library2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "library library2 sec-data sec-data2"
+                : 'library library2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "library");
-                navigate("/library")
+                localStorage.setItem('selected', 'library');
+                navigate('/library');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "library" ? (
+            {selected === 'library' ? (
               <VideoLibraryIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <VideoLibraryOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "watch-later"
+              selected === 'watch-later'
                 ? `watch-later watch-later2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "watch-later watch-later2 sec-data sec-data2"
+                : 'watch-later watch-later2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "watch-later");
-                navigate("/watchlater")
+                localStorage.setItem('selected', 'watch-later');
+                navigate('/watchlater');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "watch-later" ? (
+            {selected === 'watch-later' ? (
               <WatchLaterIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WatchLaterOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "liked-video"
+              selected === 'liked-video'
                 ? `liked-video liked-video2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "liked-video liked-video2 sec-data sec-data2"
+                : 'liked-video liked-video2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "liked-video");
+                localStorage.setItem('selected', 'liked-video');
 
-                navigate("/likedVideos")
+                navigate('/likedVideos');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "liked-video" ? (
+            {selected === 'liked-video' ? (
               <ThumbUpIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <ThumbUpOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
@@ -736,91 +778,94 @@ function LeftPanel() {
       <div
         className={
           theme
-            ? "main-left-section main-2 main-3"
-            : "main-left-section main-2 main-3 light-mode"
+            ? 'main-left-section main-2 main-3'
+            : 'main-left-section main-2 main-3 light-mode'
         }
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       >
         <div className="first-section ">
           <div
             className={
-              selected === "home"
+              selected === 'home'
                 ? `home sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "home sec-data sec-data2"
+                : 'home sec-data sec-data2'
             }
             onClick={() => {
-              localStorage.setItem("selected", "home");
+              localStorage.setItem('selected', 'home');
 
-              navigate("/")
+              navigate('/');
             }}
           >
-            {selected === "home" ? (
+            {selected === 'home' ? (
               <HomeIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <HomeOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "trending"
+              selected === 'trending'
                 ? `trending trending2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "trending trending2 sec-data sec-data2"
+                : 'trending trending2 sec-data sec-data2'
             }
             onClick={() => {
-              localStorage.setItem("selected", "trending");
-
-              navigate("/trending")
+              localStorage.setItem('selected', 'trending');
+              mixpanel.track('checked_trending', {
+                Location: 'LeftPanel.jsx',
+                date: new Date().toISOString(),
+              });
+              navigate('/trending');
             }}
           >
-            {selected === "trending" ? (
+            {selected === 'trending' ? (
               <WhatshotIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WhatshotOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "subscription"
+              selected === 'subscription'
                 ? `subscription subscription2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "subscription subscription2 sec-data sec-data2"
+                : 'subscription subscription2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "subscription");
-                navigate("/subscriptions")
+                localStorage.setItem('selected', 'subscription');
+                navigate('/subscriptions');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "subscription" ? (
+            {selected === 'subscription' ? (
               <SubscriptionsIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <SubscriptionsOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
@@ -829,92 +874,92 @@ function LeftPanel() {
         <div className="second-section">
           <div
             className={
-              selected === "library"
+              selected === 'library'
                 ? `library library2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "library library2 sec-data sec-data2"
+                : 'library library2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "library");
-                navigate("/library")
+                localStorage.setItem('selected', 'library');
+                navigate('/library');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "library" ? (
+            {selected === 'library' ? (
               <VideoLibraryIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <VideoLibraryOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "watch-later"
+              selected === 'watch-later'
                 ? `watch-later watch-later2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "watch-later watch-later2 sec-data sec-data2"
+                : 'watch-later watch-later2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "watch-later");
-                navigate("/watchlater")
+                localStorage.setItem('selected', 'watch-later');
+                navigate('/watchlater');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "watch-later" ? (
+            {selected === 'watch-later' ? (
               <WatchLaterIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <WatchLaterOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
           <div
             className={
-              selected === "liked-video"
+              selected === 'liked-video'
                 ? `liked-video liked-video2 sec-data sec-data2 ${
-                    theme ? "changeBG" : "changeBG-light"
+                    theme ? 'changeBG' : 'changeBG-light'
                   }`
-                : "liked-video liked-video2 sec-data sec-data2"
+                : 'liked-video liked-video2 sec-data sec-data2'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "liked-video");
+                localStorage.setItem('selected', 'liked-video');
 
-                navigate("/likedVideos")
+                navigate('/likedVideos');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "liked-video" ? (
+            {selected === 'liked-video' ? (
               <ThumbUpIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             ) : (
               <ThumbUpOutlinedIcon
                 fontSize="medium"
-                style={{ color: theme ? "white" : "black" }}
+                style={{ color: theme ? 'white' : 'black' }}
               />
             )}
           </div>
@@ -925,10 +970,10 @@ function LeftPanel() {
 
       <div
         className={
-          theme ? "auth-popup" : "auth-popup light-mode text-light-mode"
+          theme ? 'auth-popup' : 'auth-popup light-mode text-light-mode'
         }
         style={
-          isbtnClicked === true ? { display: "block" } : { display: "none" }
+          isbtnClicked === true ? { display: 'block' } : { display: 'none' }
         }
       >
         <ClearRoundedIcon
@@ -937,17 +982,17 @@ function LeftPanel() {
               setisbtnClicked(true);
             } else {
               setisbtnClicked(false);
-              document.body.classList.remove("bg-css");
+              document.body.classList.remove('bg-css');
             }
           }}
           className="cancel"
           fontSize="large"
-          style={{ color: "gray" }}
+          style={{ color: 'gray' }}
         />
         <div
           className="signup-last"
           style={
-            isSwitch === false ? { display: "block" } : { display: "none" }
+            isSwitch === false ? { display: 'block' } : { display: 'none' }
           }
         >
           <Signup />
@@ -968,7 +1013,7 @@ function LeftPanel() {
         </div>
         <div
           className="signin-last"
-          style={isSwitch === true ? { display: "block" } : { display: "none" }}
+          style={isSwitch === true ? { display: 'block' } : { display: 'none' }}
         >
           <Signin />
           <div className="already">
@@ -992,20 +1037,20 @@ function LeftPanel() {
       <div
         className={
           closePanel === true
-            ? `secondary-panel moveout ${theme ? "" : "light-mode"}`
-            : `secondary-panel ${theme ? "" : "light-mode"}`
+            ? `secondary-panel moveout ${theme ? '' : 'light-mode'}`
+            : `secondary-panel ${theme ? '' : 'light-mode'}`
         }
-        style={{ display: togglepanel ? "block" : "none" }}
+        style={{ display: togglepanel ? 'block' : 'none' }}
       >
-        <div className={theme ? "panel-topdata" : "panel-topdata light-mode"}>
+        <div className={theme ? 'panel-topdata' : 'panel-topdata light-mode'}>
           <MenuRoundedIcon
             fontSize="large"
-            style={{ color: theme ? "white" : "black" }}
+            style={{ color: theme ? 'white' : 'black' }}
             className="close-sidepanel"
             onClick={() => {
               setClosePanel(true);
               setTimeout(() => {
-                document.body.classList.remove("bg-css");
+                document.body.classList.remove('bg-css');
               }, 250);
               setTimeout(() => {
                 setClosePanel(false);
@@ -1018,94 +1063,98 @@ function LeftPanel() {
             src={theme ? Logo : Logo2}
             alt="logo"
             loading="lazy"
-            style={{ marginLeft: "5px" }}
+            style={{ marginLeft: '5px' }}
             className="youtubeLogo"
             onClick={() => {
-              navigate("/")
+              navigate('/');
             }}
           />
         </div>
         <div
           className={
-            theme ? "main-left-section-new" : "main-left-section-new light-mode"
+            theme ? 'main-left-section-new' : 'main-left-section-new light-mode'
           }
         >
           <div className="first-section ">
             <div
               className={
-                selected === "home"
-                  ? `home sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                  : "home sec-data"
+                selected === 'home'
+                  ? `home sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                  : 'home sec-data'
               }
               onClick={() => {
-                localStorage.setItem("selected", "home");
-                navigate("/")
+                localStorage.setItem('selected', 'home');
+                navigate('/');
               }}
             >
-              {selected === "home" ? (
+              {selected === 'home' ? (
                 <HomeIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <HomeOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Home</p>
             </div>
             <div
               className={
-                selected === "trending"
-                  ? `trending sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                  : "trending sec-data"
+                selected === 'trending'
+                  ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                  : 'trending sec-data'
               }
               onClick={() => {
-                localStorage.setItem("selected", "trending");
-                navigate("/trending")
+                localStorage.setItem('selected', 'trending');
+                mixpanel.track('checked_trending', {
+                  Location: 'LeftPanel.jsx',
+                  date: new Date().toISOString(),
+                });
+                navigate('/trending');
               }}
             >
-              {selected === "trending" ? (
+              {selected === 'trending' ? (
                 <WhatshotIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <WhatshotOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Trending</p>
             </div>
             <div
               className={
-                selected === "subscription"
+                selected === 'subscription'
                   ? `subscription sec-data ${
-                      theme ? "changeBG" : "changeBG-light"
+                      theme ? 'changeBG' : 'changeBG-light'
                     }`
-                  : "subscription sec-data"
+                  : 'subscription sec-data'
               }
               onClick={() => {
                 if (user?.email) {
-                  localStorage.setItem("selected", "subscription");
-                  navigate("/subscriptions")
+                  localStorage.setItem('selected', 'subscription');
+                  navigate('/subscriptions');
                 } else {
                   setisbtnClicked(true);
-                  document.body.classList.add("bg-css");
+                  document.body.classList.add('bg-css');
                 }
               }}
             >
-              {selected === "subscription" ? (
+              {selected === 'subscription' ? (
                 <SubscriptionsIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <SubscriptionsOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Subscriptions</p>
@@ -1114,8 +1163,8 @@ function LeftPanel() {
               className="subscribed-channels"
               style={
                 Subscriptions && Subscriptions.length > 0
-                  ? { display: "block" }
-                  : { display: "none" }
+                  ? { display: 'block' }
+                  : { display: 'none' }
               }
             >
               {Subscriptions &&
@@ -1124,32 +1173,32 @@ function LeftPanel() {
                   return (
                     <>
                       <SkeletonTheme
-                        baseColor={theme ? "#353535" : "#aaaaaa"}
-                        highlightColor={theme ? "#444" : "#b6b6b6"}
+                        baseColor={theme ? '#353535' : '#aaaaaa'}
+                        highlightColor={theme ? '#444' : '#b6b6b6'}
                       >
                         <div
                           className="mysubscriptions"
                           key={index}
                           style={
                             loading === true
-                              ? { visibility: "visible" }
-                              : { display: "none" }
+                              ? { visibility: 'visible' }
+                              : { display: 'none' }
                           }
                         >
                           <Skeleton
                             count={1}
                             width={40}
                             height={40}
-                            style={{ borderRadius: "100%" }}
+                            style={{ borderRadius: '100%' }}
                           />
                           <Skeleton
                             count={1}
                             width={122}
                             height={20}
                             style={{
-                              position: "relative",
-                              left: "10px",
-                              top: "5px",
+                              position: 'relative',
+                              left: '10px',
+                              top: '5px',
                             }}
                           />
                         </div>
@@ -1158,12 +1207,12 @@ function LeftPanel() {
                         className="mysubscriptions"
                         key={index}
                         onClick={() => {
-                          navigate(`/channel/${element.channelID}`)
+                          navigate(`/channel/${element.channelID}`);
                         }}
                         style={
                           loading === false
-                            ? { display: "flex" }
-                            : { display: "none" }
+                            ? { display: 'flex' }
+                            : { display: 'none' }
                         }
                       >
                         <img
@@ -1188,33 +1237,37 @@ function LeftPanel() {
                 })}
             </div>
           </div>
-          <hr className={theme ? "seperate" : "seperate-light"} />
+          <hr className={theme ? 'seperate' : 'seperate-light'} />
           <div className="second-section">
             <div
               className={
-                selected === "library"
-                  ? `library sec-data ${theme ? "changeBG" : "changeBG-light"}`
-                  : "library sec-data"
+                selected === 'library'
+                  ? `library sec-data ${theme ? 'changeBG' : 'changeBG-light'}`
+                  : 'library sec-data'
               }
               onClick={() => {
                 if (user?.email) {
-                  localStorage.setItem("selected", "library");
-                  navigate("/library")
+                  localStorage.setItem('selected', 'library');
+                  mixpanel.track('checked_library', {
+                    Location: 'LeftPanel.jsx',
+                    date: new Date().toISOString(),
+                  });
+                  navigate('/library');
                 } else {
                   setisbtnClicked(true);
-                  document.body.classList.add("bg-css");
+                  document.body.classList.add('bg-css');
                 }
               }}
             >
-              {selected === "library" ? (
+              {selected === 'library' ? (
                 <VideoLibraryIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <VideoLibraryOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Library</p>
@@ -1222,70 +1275,77 @@ function LeftPanel() {
 
             <div
               className={
-                selected === "watch-later"
+                selected === 'watch-later'
                   ? `watch-later sec-data ${
-                      theme ? "changeBG" : "changeBG-light"
+                      theme ? 'changeBG' : 'changeBG-light'
                     }`
-                  : "watch-later sec-data"
+                  : 'watch-later sec-data'
               }
               onClick={() => {
                 if (user?.email) {
-                  localStorage.setItem("selected", "watch-later");
-                  navigate("/watchlater")
+                  localStorage.setItem('selected', 'watch-later');
+                  mixpanel.track('checked_watchlater', {
+                    Location: 'LeftPanel.jsx',
+                    date: new Date().toISOString(),
+                  });
+                  navigate('/watchlater');
                 } else {
                   setisbtnClicked(true);
-                  document.body.classList.add("bg-css");
+                  document.body.classList.add('bg-css');
                 }
               }}
             >
-              {selected === "watch-later" ? (
+              {selected === 'watch-later' ? (
                 <WatchLaterIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <WatchLaterOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Watch later</p>
             </div>
             <div
               className={
-                selected === "liked-video"
+                selected === 'liked-video'
                   ? `liked-video sec-data ${
-                      theme ? "changeBG" : "changeBG-light"
+                      theme ? 'changeBG' : 'changeBG-light'
                     }`
-                  : "liked-video sec-data"
+                  : 'liked-video sec-data'
               }
               onClick={() => {
                 if (user?.email) {
-                  localStorage.setItem("selected", "liked-video");
-
-                  navigate("/likedVideos")
+                  localStorage.setItem('selected', 'liked-video');
+                  mixpanel.track('checked_liked_videos', {
+                    Location: 'LeftPanel.jsx',
+                    date: new Date().toISOString(),
+                  });
+                  navigate('/likedVideos');
                 } else {
                   setisbtnClicked(true);
-                  document.body.classList.add("bg-css");
+                  document.body.classList.add('bg-css');
                 }
               }}
             >
-              {selected === "liked-video" ? (
+              {selected === 'liked-video' ? (
                 <ThumbUpIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               ) : (
                 <ThumbUpOutlinedIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
               )}
               <p>Liked videos</p>
             </div>
             <div className="my-playlists-sectionn">
               {PlaylistData &&
-                PlaylistData !== "No playlists available..." &&
+                PlaylistData !== 'No playlists available...' &&
                 PlaylistData.length > 0 &&
                 PlaylistData.map((element, index) => {
                   return (
@@ -1293,12 +1353,12 @@ function LeftPanel() {
                       className="my-playlist-data"
                       key={index}
                       onClick={() => {
-                        navigate(`/playlist/${element._id}`)
+                        navigate(`/playlist/${element._id}`);
                       }}
                     >
                       <PlaylistPlayOutlinedIcon
                         fontSize="medium"
-                        style={{ color: theme ? "white" : "black" }}
+                        style={{ color: theme ? 'white' : 'black' }}
                       />
                       <Tooltip
                         TransitionComponent={Zoom}
@@ -1327,7 +1387,7 @@ function LeftPanel() {
                     >
                       <PlaylistPlayOutlinedIcon
                         fontSize="medium"
-                        style={{ color: theme ? "white" : "black" }}
+                        style={{ color: theme ? 'white' : 'black' }}
                       />
                       <Tooltip
                         TransitionComponent={Zoom}
@@ -1344,7 +1404,7 @@ function LeftPanel() {
                   );
                 })}
             </div>
-            <hr className={theme ? "seperate" : "seperate-light"} />
+            <hr className={theme ? 'seperate' : 'seperate-light'} />
             <Tooltip
               TransitionComponent={Zoom}
               title="Made with 💖 by Shubhojeet"
@@ -1353,7 +1413,7 @@ function LeftPanel() {
               <div className="developer">
                 <CodeIcon
                   fontSize="medium"
-                  style={{ color: theme ? "white" : "black" }}
+                  style={{ color: theme ? 'white' : 'black' }}
                 />
                 <a
                   href="https://github.com/shubho0908"
@@ -1371,28 +1431,28 @@ function LeftPanel() {
       {/* HORIZONTAL PANEL */}
 
       <div
-        className={theme ? "horizontal-panel" : "horizontal-panel light-mode"}
+        className={theme ? 'horizontal-panel' : 'horizontal-panel light-mode'}
       >
         <div className="horizontal-main-section">
           <div
             className={
-              theme ? "home-hori hori" : "home-hori hori text-light-mode"
+              theme ? 'home-hori hori' : 'home-hori hori text-light-mode'
             }
             onClick={() => {
-              localStorage.setItem("selected", "home");
-              navigate("/")
+              localStorage.setItem('selected', 'home');
+              navigate('/');
             }}
           >
-            {selected === "home" ? (
+            {selected === 'home' ? (
               <GoHomeFill
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             ) : (
               <GoHome
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             )}
@@ -1402,24 +1462,24 @@ function LeftPanel() {
           <div
             className={
               theme
-                ? "trending-hori hori"
-                : "trending-hori hori text-light-mode"
+                ? 'trending-hori hori'
+                : 'trending-hori hori text-light-mode'
             }
             onClick={() => {
-              localStorage.setItem("selected", "trending");
-              navigate("/trending")
+              localStorage.setItem('selected', 'trending');
+              navigate('/trending');
             }}
           >
-            {selected === "trending" ? (
+            {selected === 'trending' ? (
               <HiMiniFire
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             ) : (
               <HiOutlineFire
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             )}
@@ -1427,43 +1487,43 @@ function LeftPanel() {
           </div>
           <IoAddCircleOutline
             fontSize="50px"
-            color={theme ? "white" : "black"}
+            color={theme ? 'white' : 'black'}
             className="addvid-icon"
             onClick={() => {
               if (user?.email) {
-                navigate("/studio")
+                navigate('/studio');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           />
           <div
             className={
               theme
-                ? "subscriptions-hori hori"
-                : "subscriptions-hori hori text-light-mode"
+                ? 'subscriptions-hori hori'
+                : 'subscriptions-hori hori text-light-mode'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "subscription");
-                navigate("/subscriptions")
+                localStorage.setItem('selected', 'subscription');
+                navigate('/subscriptions');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "subscription" ? (
+            {selected === 'subscription' ? (
               <MdSubscriptions
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             ) : (
               <MdOutlineSubscriptions
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             )}
@@ -1471,28 +1531,28 @@ function LeftPanel() {
           </div>
           <div
             className={
-              theme ? "library-hori hori" : "library-hori hori text-light-mode"
+              theme ? 'library-hori hori' : 'library-hori hori text-light-mode'
             }
             onClick={() => {
               if (user?.email) {
-                localStorage.setItem("selected", "library");
-                navigate("/library")
+                localStorage.setItem('selected', 'library');
+                navigate('/library');
               } else {
                 setisbtnClicked(true);
-                document.body.classList.add("bg-css");
+                document.body.classList.add('bg-css');
               }
             }}
           >
-            {selected === "library" ? (
+            {selected === 'library' ? (
               <MdVideoLibrary
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             ) : (
               <MdOutlineVideoLibrary
                 fontSize="28px"
-                color={theme ? "white" : "black"}
+                color={theme ? 'white' : 'black'}
                 className="hor-icons"
               />
             )}

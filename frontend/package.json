@@ -20,6 +20,7 @@
     "dotenv": "^16.1.4",
     "firebase": "^9.22.2",
     "hls.js": "^1.4.6",
+    "mixpanel-browser": "^2.53.0",
     "plyr": "^3.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
