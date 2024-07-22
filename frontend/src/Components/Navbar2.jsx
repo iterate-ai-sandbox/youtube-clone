@@ -43,7 +43,7 @@ function Navbar2() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!searchRef.current.contains(e.target)) {
+      if (!searchRef?.current?.contains(e.target)) {
         setSearchClicked(false);
         setSearchInput2("");
         setShowResults2(false);
@@ -54,7 +54,7 @@ function Navbar2() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!accountRef.current.contains(e.target)) {
+      if (!accountRef?.current?.contains(e.target)) {
         setShowPop(false);
       }
     };

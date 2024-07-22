@@ -1,42 +1,41 @@
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
-import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
-import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
-import { useEffect, useRef, useState } from 'react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../Css/likevideos.css';
-import nothing from '../img/nothing.png';
-import LeftPanel from './LeftPanel';
-import Navbar from './Navbar';
-import Signin from './Signin';
-import Signup from './Signup';
-import { useNavigate } from 'react-router-dom';
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PlaylistAddCheckOutlinedIcon from "@mui/icons-material/PlaylistAddCheckOutlined";
+import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
+import { useEffect, useRef, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../Css/likevideos.css";
+import nothing from "../img/nothing.png";
+import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 function Playlists() {
   const navigate = useNavigate();
-  const backendURL = 'https://youtube-iterate-ai.vercel.app';
+  const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
   const [menuClicked, setMenuClicked] = useState(() => {
-    const menu = localStorage.getItem('menuClicked');
+    const menu = localStorage.getItem("menuClicked");
     return menu ? JSON.parse(menu) : false;
   });
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem('Dark');
+    const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
   });
   const [isbtnClicked, setisbtnClicked] = useState(false);
@@ -46,7 +45,7 @@ function Playlists() {
   const [isEditmode, setIsEditmode] = useState(false);
   const [privacyClicked, setprivacyClicked] = useState(false);
   const [channelID, setChannelID] = useState();
-  const [PlaylistName, setPlaylistName] = useState('');
+  const [PlaylistName, setPlaylistName] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [deleteClicked, setDeleteClicked] = useState(false);
   const privacyRef = useRef();
@@ -57,37 +56,37 @@ function Playlists() {
   //TOAST FUNCTIONS
 
   const savePlaylistNotify = () =>
-    toast.success('Playlist added to library!', {
-      position: 'bottom-center',
+    toast.success("Playlist added to library!", {
+      position: "bottom-center",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? 'dark' : 'light',
+      theme: theme ? "dark" : "light",
     });
   const RemovePlaylistNotify = () =>
-    toast.success('Playlist removed from library!', {
-      position: 'bottom-center',
+    toast.success("Playlist removed from library!", {
+      position: "bottom-center",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? 'dark' : 'light',
+      theme: theme ? "dark" : "light",
     });
   const CopiedNotify = () =>
-    toast.success('Link Copied!', {
-      position: 'bottom-center',
+    toast.success("Link Copied!", {
+      position: "bottom-center",
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? 'dark' : 'light',
+      theme: theme ? "dark" : "light",
     });
 
   //USE EFFECTS
@@ -99,23 +98,23 @@ function Playlists() {
   }, []);
   useEffect(() => {
     const handler = (e) => {
-      if (!privacyRef.current.contains(e.target)) {
+      if (!privacyRef?.current?.contains(e.target)) {
         setprivacyClicked(false);
       }
     };
-    document.addEventListener('mousedown', handler);
+    document.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
     const handler = (e) => {
-      if (!deleteRef.current.contains(e.target)) {
+      if (!deleteRef?.current?.contains(e.target)) {
         setDeleteClicked(false);
-        document.body.classList.remove('bg-css');
+        document.body.classList.remove("bg-css");
       }
     };
-    document.addEventListener('mousedown', handler);
+    document.addEventListener("mousedown", handler);
   }, []);
   useEffect(() => {
-    localStorage.setItem('menuClicked', JSON.stringify(menuClicked));
+    localStorage.setItem("menuClicked", JSON.stringify(menuClicked));
   }, [menuClicked]);
   useEffect(() => {
     const getPlaylists = async () => {
@@ -136,18 +135,18 @@ function Playlists() {
   document.title =
     PlaylistName && PlaylistName !== undefined
       ? `${PlaylistName} - YouTube`
-      : 'YouTube';
+      : "YouTube";
   useEffect(() => {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector('.menu');
+    const menuButton = document.querySelector(".menu");
     if (menuButton) {
-      menuButton.addEventListener('click', handleMenuButtonClick);
+      menuButton.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener('click', handleMenuButtonClick);
+        menuButton.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
@@ -155,29 +154,29 @@ function Playlists() {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector('.menu-light');
+    const menuButton = document.querySelector(".menu-light");
     if (menuButton) {
-      menuButton.addEventListener('click', handleMenuButtonClick);
+      menuButton.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton.removeEventListener('click', handleMenuButtonClick);
+        menuButton.removeEventListener("click", handleMenuButtonClick);
       }
     };
   }, []);
   useEffect(() => {
-    if (theme === false && !window.location.href.includes('/studio')) {
-      document.body.style.backgroundColor = 'white';
-    } else if (theme === true && !window.location.href.includes('/studio')) {
-      document.body.style.backgroundColor = '0f0f0f';
+    if (theme === false && !window.location.href.includes("/studio")) {
+      document.body.style.backgroundColor = "white";
+    } else if (theme === true && !window.location.href.includes("/studio")) {
+      document.body.style.backgroundColor = "0f0f0f";
     }
   }, [theme]);
   const updateViews = async (id) => {
     try {
       const response = await fetch(`${backendURL}/updateview/${id}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       await response.json();
@@ -209,7 +208,7 @@ function Playlists() {
             `${backendURL}/getsavedplaylist/${id}/${user?.email}`
           );
           const data = await response.json();
-          if (data === 'Found') {
+          if (data === "Found") {
             setIsSaved(true);
           } else {
             setIsSaved(false);
@@ -227,12 +226,12 @@ function Playlists() {
   const saveEditData = async () => {
     try {
       const response = await fetch(`${backendURL}/saveplaylist/${id}`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           playlist_name: PlaylistName,
         }),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       await response.json();
@@ -243,9 +242,9 @@ function Playlists() {
   const DeletePlaylist = async () => {
     try {
       const response = await fetch(`${backendURL}/deleteplaylist/${id}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       await response.json();
@@ -260,18 +259,18 @@ function Playlists() {
         CopiedNotify();
       })
       .catch((error) => {
-        console.log('Error copying link to clipboard:', error);
+        console.log("Error copying link to clipboard:", error);
       });
   };
   const setPrivacy = async (privacy) => {
     try {
       const response = await fetch(`${backendURL}/saveplaylistprivacy/${id}`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           privacy,
         }),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       await response.json();
@@ -284,16 +283,16 @@ function Playlists() {
       const response = await fetch(
         `${backendURL}/addotherplaylist/${id}/${user?.email}`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
       const data = await response.json();
-      if (data === 'Saved') {
+      if (data === "Saved") {
         savePlaylistNotify();
-      } else if (data === 'Removed') {
+      } else if (data === "Removed") {
         RemovePlaylistNotify();
       }
     } catch (error) {
@@ -301,10 +300,10 @@ function Playlists() {
     }
   };
   if (
-    playlistsVideos === 'No Playlists Found' ||
+    playlistsVideos === "No Playlists Found" ||
     (playlistsVideos &&
       playlistsVideos.length === 1 &&
-      playlistsVideos[0].videoprivacy === 'Private')
+      playlistsVideos[0].videoprivacy === "Private")
   ) {
     return (
       <>
@@ -320,8 +319,8 @@ function Playlists() {
   if (
     playlistDetails &&
     playlistDetails.owner_email !== user?.email &&
-    playlistsVideos !== 'No Playlists Found' &&
-    playlistDetails.playlist_privacy === 'Private'
+    playlistsVideos !== "No Playlists Found" &&
+    playlistDetails.playlist_privacy === "Private"
   ) {
     return (
       <>
@@ -331,10 +330,10 @@ function Playlists() {
           <img src={nothing} alt="no results" className="nothing-found" />
           <p
             className={
-              theme ? 'no-results text-dark-mode' : 'no-results text-light-mode'
+              theme ? "no-results text-dark-mode" : "no-results text-light-mode"
             }
             style={{
-              fontSize: '16.8px',
+              fontSize: "16.8px",
             }}
           >
             This playlist is set to private by the user!
@@ -350,8 +349,8 @@ function Playlists() {
       <div
         className={
           theme
-            ? 'liked-video-data'
-            : 'liked-video-data light-mode text-light-mode'
+            ? "liked-video-data"
+            : "liked-video-data light-mode text-light-mode"
         }
       >
         {playlistsVideos && playlistsVideos.length > 0 ? (
@@ -360,16 +359,16 @@ function Playlists() {
             style={
               menuClicked === false
                 ? {
-                    left: '80px',
+                    left: "80px",
                   }
                 : {
-                    left: '255px',
+                    left: "255px",
                   }
             }
           >
             <div
               className={
-                theme ? 'like-left-section' : 'like-left-section-light'
+                theme ? "like-left-section" : "like-left-section-light"
               }
               style={{
                 backgroundImage: `url(${playlistsVideos[0]?.thumbnail})`,
@@ -391,18 +390,18 @@ function Playlists() {
                     }}
                   >
                     <SkeletonTheme
-                      baseColor={theme ? '#353535' : '#aaaaaa'}
-                      highlightColor={theme ? '#444' : '#b6b6b6'}
+                      baseColor={theme ? "#353535" : "#aaaaaa"}
+                      highlightColor={theme ? "#444" : "#b6b6b6"}
                     >
                       <div
                         className="thisimggg"
                         style={
                           loading === true
                             ? {
-                                display: 'block',
+                                display: "block",
                               }
                             : {
-                                display: 'none',
+                                display: "none",
                               }
                         }
                       >
@@ -411,7 +410,7 @@ function Playlists() {
                           width={310}
                           height={174}
                           style={{
-                            borderRadius: '12px',
+                            borderRadius: "12px",
                           }}
                           className="sk-watch-bigimg"
                         />
@@ -425,12 +424,12 @@ function Playlists() {
                       style={
                         loading === true
                           ? {
-                              visibility: 'hidden',
-                              display: 'none',
+                              visibility: "hidden",
+                              display: "none",
                             }
                           : {
-                              visibility: 'visible',
-                              display: 'block',
+                              visibility: "visible",
+                              display: "block",
                             }
                       }
                     />
@@ -443,10 +442,10 @@ function Playlists() {
                     style={
                       isEditmode === false
                         ? {
-                            display: 'flex',
+                            display: "flex",
                           }
                         : {
-                            display: 'none',
+                            display: "none",
                           }
                     }
                   >
@@ -467,10 +466,10 @@ function Playlists() {
                         style={
                           playlistDetails.owner_email === user?.email
                             ? {
-                                color: 'white',
+                                color: "white",
                               }
                             : {
-                                display: 'none',
+                                display: "none",
                               }
                         }
                         onClick={() => {
@@ -486,10 +485,10 @@ function Playlists() {
                     style={
                       isEditmode === true
                         ? {
-                            display: 'block',
+                            display: "block",
                           }
                         : {
-                            display: 'none',
+                            display: "none",
                           }
                     }
                   >
@@ -526,10 +525,10 @@ function Playlists() {
                     style={
                       isEditmode === true
                         ? {
-                            marginTop: '65px',
+                            marginTop: "65px",
                           }
                         : {
-                            marginTop: '15px',
+                            marginTop: "15px",
                           }
                     }
                   >
@@ -546,10 +545,10 @@ function Playlists() {
                         playlistDetails &&
                         playlistDetails.owner_email === user?.email
                           ? {
-                              display: 'block',
+                              display: "block",
                             }
                           : {
-                              display: 'none',
+                              display: "none",
                             }
                       }
                     >
@@ -569,10 +568,10 @@ function Playlists() {
                           style={
                             playlistDetails.owner_email === user?.email
                               ? {
-                                  color: 'white',
+                                  color: "white",
                                 }
                               : {
-                                  display: 'none',
+                                  display: "none",
                                 }
                           }
                         />
@@ -580,29 +579,29 @@ function Playlists() {
                       <div
                         className={
                           theme
-                            ? 'choose-privacy2'
-                            : 'choose-privacy2 light-mode text-light-mode'
+                            ? "choose-privacy2"
+                            : "choose-privacy2 light-mode text-light-mode"
                         }
                         ref={window.innerWidth >= 1290 ? privacyRef : null}
                         style={
                           privacyClicked === true
                             ? {
-                                display: 'block',
+                                display: "block",
                               }
                             : {
-                                display: 'none',
+                                display: "none",
                               }
                         }
                       >
                         <div
                           className={
                             theme
-                              ? 'first-privacy'
-                              : 'first-privacy feature-light text-light-mode'
+                              ? "first-privacy"
+                              : "first-privacy feature-light text-light-mode"
                           }
                           onClick={() => {
                             setprivacyClicked(false);
-                            setPrivacy('Public');
+                            setPrivacy("Public");
                             setTimeout(() => {
                               window.location.reload();
                             }, 200);
@@ -611,12 +610,12 @@ function Playlists() {
                           <PublicOutlinedIcon
                             fontSize="medium"
                             style={{
-                              color: theme ? 'white' : 'black',
+                              color: theme ? "white" : "black",
                             }}
                           />
                           <div className="right-privacy">
                             <p>Public</p>
-                            <p className={theme ? '' : 'text-light-mode2'}>
+                            <p className={theme ? "" : "text-light-mode2"}>
                               Anyone can view
                             </p>
                           </div>
@@ -624,12 +623,12 @@ function Playlists() {
                         <div
                           className={
                             theme
-                              ? 'second-privacy'
-                              : 'second-privacy feature-light text-light-mode'
+                              ? "second-privacy"
+                              : "second-privacy feature-light text-light-mode"
                           }
                           onClick={() => {
                             setprivacyClicked(false);
-                            setPrivacy('Private');
+                            setPrivacy("Private");
                             setTimeout(() => {
                               window.location.reload();
                             }, 200);
@@ -638,12 +637,12 @@ function Playlists() {
                           <LockOutlinedIcon
                             fontSize="medium"
                             style={{
-                              color: theme ? 'white' : 'black',
+                              color: theme ? "white" : "black",
                             }}
                           />
                           <div className="right-privacy">
                             <p>Private</p>
-                            <p className={theme ? '' : 'text-light-mode2'}>
+                            <p className={theme ? "" : "text-light-mode2"}>
                               Only you can view
                             </p>
                           </div>
@@ -669,11 +668,11 @@ function Playlists() {
                           style={
                             playlistDetails.owner_email === user?.email
                               ? {
-                                  display: 'none',
+                                  display: "none",
                                 }
                               : {
-                                  display: 'block',
-                                  color: 'white',
+                                  display: "block",
+                                  color: "white",
                                 }
                           }
                           onClick={() => {
@@ -681,7 +680,7 @@ function Playlists() {
                               SaveOtherPlaylist();
                             } else {
                               setisbtnClicked(true);
-                              document.body.classList.add('bg-css');
+                              document.body.classList.add("bg-css");
                             }
                           }}
                         />
@@ -698,11 +697,11 @@ function Playlists() {
                           style={
                             playlistDetails.owner_email === user?.email
                               ? {
-                                  display: 'none',
+                                  display: "none",
                                 }
                               : {
-                                  display: 'block',
-                                  color: 'white',
+                                  display: "block",
+                                  color: "white",
                                 }
                           }
                           onClick={() => {
@@ -710,7 +709,7 @@ function Playlists() {
                               SaveOtherPlaylist();
                             } else {
                               setisbtnClicked(true);
-                              document.body.classList.add('bg-css');
+                              document.body.classList.add("bg-css");
                             }
                           }}
                         />
@@ -725,7 +724,7 @@ function Playlists() {
                         className="share-playlist"
                         fontSize="medium"
                         style={{
-                          color: 'white',
+                          color: "white",
                         }}
                         onClick={handleCopyLink}
                       />
@@ -741,15 +740,15 @@ function Playlists() {
                         style={
                           playlistDetails.owner_email === user?.email
                             ? {
-                                color: 'white',
+                                color: "white",
                               }
                             : {
-                                display: 'none',
+                                display: "none",
                               }
                         }
                         onClick={() => {
                           setDeleteClicked(true);
-                          document.body.classList.add('bg-css');
+                          document.body.classList.add("bg-css");
                         }}
                       />
                     </Tooltip>
@@ -771,7 +770,7 @@ function Playlists() {
                   <PlayArrowIcon
                     fontSize="medium"
                     style={{
-                      color: 'black',
+                      color: "black",
                     }}
                   />
                   <p className="play-all">Play all</p>
@@ -779,18 +778,18 @@ function Playlists() {
               </div>
             </div>
             <SkeletonTheme
-              baseColor={theme ? '#353535' : '#aaaaaa'}
-              highlightColor={theme ? '#444' : '#b6b6b6'}
+              baseColor={theme ? "#353535" : "#aaaaaa"}
+              highlightColor={theme ? "#444" : "#b6b6b6"}
             >
               <div
                 className="like-right-section"
                 style={
                   loading === true
                     ? {
-                        display: 'block',
+                        display: "block",
                       }
                     : {
-                        display: 'none',
+                        display: "none",
                       }
                 }
               >
@@ -800,15 +799,15 @@ function Playlists() {
                         <div
                           className={
                             theme
-                              ? 'liked-all-videos'
-                              : 'liked-all-videos liked-all-videos-light text-light-mode'
+                              ? "liked-all-videos"
+                              : "liked-all-videos liked-all-videos-light text-light-mode"
                           }
                           key={index}
                           style={{
                             display:
-                              element.videoprivacy === 'Public'
-                                ? 'flex'
-                                : 'none',
+                              element.videoprivacy === "Public"
+                                ? "flex"
+                                : "none",
                           }}
                         >
                           <div className="liked-videos-all-data">
@@ -817,16 +816,16 @@ function Playlists() {
                               width={180}
                               height={101}
                               style={{
-                                borderRadius: '12px',
+                                borderRadius: "12px",
                               }}
                               className="sk-watch-thumbnail"
                             />
                             <div
                               className="its-content"
                               style={{
-                                position: 'relative',
-                                left: '10px',
-                                top: '6px',
+                                position: "relative",
+                                left: "10px",
+                                top: "6px",
                               }}
                             >
                               <Skeleton
@@ -840,8 +839,8 @@ function Playlists() {
                                 width={250}
                                 height={16}
                                 style={{
-                                  position: 'relative',
-                                  top: '10px',
+                                  position: "relative",
+                                  top: "10px",
                                 }}
                                 className="sk-watch-channel"
                               />
@@ -850,7 +849,7 @@ function Playlists() {
                         </div>
                       );
                     })
-                  : ''}
+                  : ""}
               </div>
             </SkeletonTheme>
             <div
@@ -858,12 +857,12 @@ function Playlists() {
               style={
                 loading === true
                   ? {
-                      visibility: 'hidden',
-                      display: 'none',
+                      visibility: "hidden",
+                      display: "none",
                     }
                   : {
-                      visibility: 'visible',
-                      display: 'block',
+                      visibility: "visible",
+                      display: "block",
                     }
               }
             >
@@ -873,18 +872,18 @@ function Playlists() {
                       <div
                         className={
                           theme
-                            ? 'liked-all-videos'
-                            : 'liked-all-videos liked-all-videos-light text-light-mode'
+                            ? "liked-all-videos"
+                            : "liked-all-videos liked-all-videos-light text-light-mode"
                         }
                         key={index}
                         style={{
                           display:
-                            element.videoprivacy === 'Public' ? 'flex' : 'none',
+                            element.videoprivacy === "Public" ? "flex" : "none",
                         }}
                       >
                         <p
                           style={{
-                            color: '#aaa',
+                            color: "#aaa",
                           }}
                         >
                           {index + 1}
@@ -910,14 +909,14 @@ function Playlists() {
                           <p
                             className={
                               theme
-                                ? 'durationn3 playlist-duration'
-                                : 'durationn3 playlist-duration text-dark-mode'
+                                ? "durationn3 playlist-duration"
+                                : "durationn3 playlist-duration text-dark-mode"
                             }
                           >
                             {Math.floor(element.videolength / 60) +
-                              ':' +
+                              ":" +
                               (Math.round(element.videolength % 60) < 10
-                                ? '0' + Math.round(element.videolength % 60)
+                                ? "0" + Math.round(element.videolength % 60)
                                 : Math.round(element.videolength % 60))}
                           </p>
                           <div className="its-content playlist-contentt">
@@ -937,7 +936,7 @@ function Playlists() {
                       </div>
                     );
                   })
-                : ''}
+                : ""}
             </div>
           </div>
         ) : (
@@ -945,10 +944,10 @@ function Playlists() {
             <div
               className="spin23"
               style={{
-                top: '200px',
+                top: "200px",
               }}
             >
-              <span className={theme ? 'loader2' : 'loader2-light'}></span>
+              <span className={theme ? "loader2" : "loader2-light"}></span>
             </div>
           </div>
         )}
@@ -959,8 +958,8 @@ function Playlists() {
       <div
         className={
           theme
-            ? 'liked-video-data-new'
-            : 'liked-video-data-new light-mode text-light-mode'
+            ? "liked-video-data-new"
+            : "liked-video-data-new light-mode text-light-mode"
         }
       >
         {playlistsVideos && playlistsVideos.length > 0 ? (
@@ -969,16 +968,16 @@ function Playlists() {
             style={
               menuClicked === false
                 ? {
-                    left: '80px',
+                    left: "80px",
                   }
                 : {
-                    left: '255px',
+                    left: "255px",
                   }
             }
           >
             <div
               className={
-                theme ? 'like-left-section2' : 'like-left-section2-light'
+                theme ? "like-left-section2" : "like-left-section2-light"
               }
               style={{
                 backgroundImage: `url(${playlistsVideos[0]?.thumbnail})`,
@@ -1001,18 +1000,18 @@ function Playlists() {
                       }}
                     >
                       <SkeletonTheme
-                        baseColor={theme ? '#353535' : '#aaaaaa'}
-                        highlightColor={theme ? '#444' : '#b6b6b6'}
+                        baseColor={theme ? "#353535" : "#aaaaaa"}
+                        highlightColor={theme ? "#444" : "#b6b6b6"}
                       >
                         <div
                           className="thisimggg"
                           style={
                             loading === true
                               ? {
-                                  display: 'block',
+                                  display: "block",
                                 }
                               : {
-                                  display: 'none',
+                                  display: "none",
                                 }
                           }
                         >
@@ -1021,7 +1020,7 @@ function Playlists() {
                             width={310}
                             height={174}
                             style={{
-                              borderRadius: '12px',
+                              borderRadius: "12px",
                             }}
                             className="sk-watch-bigimg"
                           />
@@ -1035,12 +1034,12 @@ function Playlists() {
                         style={
                           loading === true
                             ? {
-                                visibility: 'hidden',
-                                display: 'none',
+                                visibility: "hidden",
+                                display: "none",
                               }
                             : {
-                                visibility: 'visible',
-                                display: 'block',
+                                visibility: "visible",
+                                display: "block",
                               }
                         }
                       />
@@ -1053,10 +1052,10 @@ function Playlists() {
                       style={
                         isEditmode === false
                           ? {
-                              display: 'flex',
+                              display: "flex",
                             }
                           : {
-                              display: 'none',
+                              display: "none",
                             }
                       }
                     >
@@ -1077,10 +1076,10 @@ function Playlists() {
                           style={
                             playlistDetails.owner_email === user?.email
                               ? {
-                                  color: 'white',
+                                  color: "white",
                                 }
                               : {
-                                  display: 'none',
+                                  display: "none",
                                 }
                           }
                           onClick={() => {
@@ -1096,10 +1095,10 @@ function Playlists() {
                       style={
                         isEditmode === true
                           ? {
-                              display: 'block',
+                              display: "block",
                             }
                           : {
-                              display: 'none',
+                              display: "none",
                             }
                       }
                     >
@@ -1136,10 +1135,10 @@ function Playlists() {
                       style={
                         isEditmode === true
                           ? {
-                              marginTop: '65px',
+                              marginTop: "65px",
                             }
                           : {
-                              marginTop: '15px',
+                              marginTop: "15px",
                             }
                       }
                     >
@@ -1156,10 +1155,10 @@ function Playlists() {
                           playlistDetails &&
                           playlistDetails.owner_email === user?.email
                             ? {
-                                display: 'block',
+                                display: "block",
                               }
                             : {
-                                display: 'none',
+                                display: "none",
                               }
                         }
                       >
@@ -1179,10 +1178,10 @@ function Playlists() {
                             style={
                               playlistDetails.owner_email === user?.email
                                 ? {
-                                    color: 'white',
+                                    color: "white",
                                   }
                                 : {
-                                    display: 'none',
+                                    display: "none",
                                   }
                             }
                           />
@@ -1190,29 +1189,29 @@ function Playlists() {
                         <div
                           className={
                             theme
-                              ? 'choose-privacy2'
-                              : 'choose-privacy2 light-mode text-light-mode'
+                              ? "choose-privacy2"
+                              : "choose-privacy2 light-mode text-light-mode"
                           }
                           ref={window.innerWidth <= 1290 ? privacyRef : null}
                           style={
                             privacyClicked === true
                               ? {
-                                  display: 'block',
+                                  display: "block",
                                 }
                               : {
-                                  display: 'none',
+                                  display: "none",
                                 }
                           }
                         >
                           <div
                             className={
                               theme
-                                ? 'first-privacy'
-                                : 'first-privacy feature-light text-light-mode'
+                                ? "first-privacy"
+                                : "first-privacy feature-light text-light-mode"
                             }
                             onClick={() => {
                               setprivacyClicked(false);
-                              setPrivacy('Public');
+                              setPrivacy("Public");
                               setTimeout(() => {
                                 window.location.reload();
                               }, 200);
@@ -1221,12 +1220,12 @@ function Playlists() {
                             <PublicOutlinedIcon
                               fontSize="medium"
                               style={{
-                                color: theme ? 'white' : 'black',
+                                color: theme ? "white" : "black",
                               }}
                             />
                             <div className="right-privacy">
                               <p>Public</p>
-                              <p className={theme ? '' : 'text-light-mode2'}>
+                              <p className={theme ? "" : "text-light-mode2"}>
                                 Anyone can view
                               </p>
                             </div>
@@ -1234,12 +1233,12 @@ function Playlists() {
                           <div
                             className={
                               theme
-                                ? 'second-privacy'
-                                : 'second-privacy feature-light text-light-mode'
+                                ? "second-privacy"
+                                : "second-privacy feature-light text-light-mode"
                             }
                             onClick={() => {
                               setprivacyClicked(false);
-                              setPrivacy('Private');
+                              setPrivacy("Private");
                               setTimeout(() => {
                                 window.location.reload();
                               }, 200);
@@ -1248,12 +1247,12 @@ function Playlists() {
                             <LockOutlinedIcon
                               fontSize="medium"
                               style={{
-                                color: theme ? 'white' : 'black',
+                                color: theme ? "white" : "black",
                               }}
                             />
                             <div className="right-privacy">
                               <p>Private</p>
-                              <p className={theme ? '' : 'text-light-mode2'}>
+                              <p className={theme ? "" : "text-light-mode2"}>
                                 Only you can view
                               </p>
                             </div>
@@ -1279,11 +1278,11 @@ function Playlists() {
                             style={
                               playlistDetails.owner_email === user?.email
                                 ? {
-                                    display: 'none',
+                                    display: "none",
                                   }
                                 : {
-                                    display: 'block',
-                                    color: 'white',
+                                    display: "block",
+                                    color: "white",
                                   }
                             }
                             onClick={() => {
@@ -1291,7 +1290,7 @@ function Playlists() {
                                 SaveOtherPlaylist();
                               } else {
                                 setisbtnClicked(true);
-                                document.body.classList.add('bg-css');
+                                document.body.classList.add("bg-css");
                               }
                             }}
                           />
@@ -1308,11 +1307,11 @@ function Playlists() {
                             style={
                               playlistDetails.owner_email === user?.email
                                 ? {
-                                    display: 'none',
+                                    display: "none",
                                   }
                                 : {
-                                    display: 'block',
-                                    color: 'white',
+                                    display: "block",
+                                    color: "white",
                                   }
                             }
                             onClick={() => {
@@ -1320,7 +1319,7 @@ function Playlists() {
                                 SaveOtherPlaylist();
                               } else {
                                 setisbtnClicked(true);
-                                document.body.classList.add('bg-css');
+                                document.body.classList.add("bg-css");
                               }
                             }}
                           />
@@ -1335,7 +1334,7 @@ function Playlists() {
                           className="share-playlist"
                           fontSize="medium"
                           style={{
-                            color: 'white',
+                            color: "white",
                           }}
                           onClick={handleCopyLink}
                         />
@@ -1351,15 +1350,15 @@ function Playlists() {
                           style={
                             playlistDetails.owner_email === user?.email
                               ? {
-                                  color: 'white',
+                                  color: "white",
                                 }
                               : {
-                                  display: 'none',
+                                  display: "none",
                                 }
                           }
                           onClick={() => {
                             setDeleteClicked(true);
-                            document.body.classList.add('bg-css');
+                            document.body.classList.add("bg-css");
                           }}
                         />
                       </Tooltip>
@@ -1382,7 +1381,7 @@ function Playlists() {
                   <PlayArrowIcon
                     fontSize="medium"
                     style={{
-                      color: 'black',
+                      color: "black",
                     }}
                   />
                   <p className="play-all">Play all</p>
@@ -1390,18 +1389,18 @@ function Playlists() {
               </div>
             </div>
             <SkeletonTheme
-              baseColor={theme ? '#353535' : '#aaaaaa'}
-              highlightColor={theme ? '#444' : '#b6b6b6'}
+              baseColor={theme ? "#353535" : "#aaaaaa"}
+              highlightColor={theme ? "#444" : "#b6b6b6"}
             >
               <div
                 className="like-right-section2"
                 style={
                   loading === true
                     ? {
-                        display: 'block',
+                        display: "block",
                       }
                     : {
-                        display: 'none',
+                        display: "none",
                       }
                 }
               >
@@ -1411,15 +1410,15 @@ function Playlists() {
                         <div
                           className={
                             theme
-                              ? 'liked-all-videos'
-                              : 'liked-all-videos liked-all-videos-light text-light-mode'
+                              ? "liked-all-videos"
+                              : "liked-all-videos liked-all-videos-light text-light-mode"
                           }
                           key={index}
                           style={{
                             display:
-                              element.videoprivacy === 'Public'
-                                ? 'flex'
-                                : 'none',
+                              element.videoprivacy === "Public"
+                                ? "flex"
+                                : "none",
                           }}
                         >
                           <div className="liked-videos-all-data">
@@ -1428,16 +1427,16 @@ function Playlists() {
                               width={180}
                               height={101}
                               style={{
-                                borderRadius: '12px',
+                                borderRadius: "12px",
                               }}
                               className="sk-watch-thumbnail"
                             />
                             <div
                               className="its-content"
                               style={{
-                                position: 'relative',
-                                left: '10px',
-                                top: '6px',
+                                position: "relative",
+                                left: "10px",
+                                top: "6px",
                               }}
                             >
                               <Skeleton
@@ -1451,8 +1450,8 @@ function Playlists() {
                                 width={250}
                                 height={16}
                                 style={{
-                                  position: 'relative',
-                                  top: '10px',
+                                  position: "relative",
+                                  top: "10px",
                                 }}
                                 className="sk-watch-channel"
                               />
@@ -1461,7 +1460,7 @@ function Playlists() {
                         </div>
                       );
                     })
-                  : ''}
+                  : ""}
               </div>
             </SkeletonTheme>
             <div
@@ -1469,12 +1468,12 @@ function Playlists() {
               style={
                 loading === true
                   ? {
-                      visibility: 'hidden',
-                      display: 'none',
+                      visibility: "hidden",
+                      display: "none",
                     }
                   : {
-                      visibility: 'visible',
-                      display: 'block',
+                      visibility: "visible",
+                      display: "block",
                     }
               }
             >
@@ -1484,18 +1483,18 @@ function Playlists() {
                       <div
                         className={
                           theme
-                            ? 'liked-all-videos'
-                            : 'liked-all-videos liked-all-videos-light text-light-mode'
+                            ? "liked-all-videos"
+                            : "liked-all-videos liked-all-videos-light text-light-mode"
                         }
                         key={index}
                         style={{
                           display:
-                            element.videoprivacy === 'Public' ? 'flex' : 'none',
+                            element.videoprivacy === "Public" ? "flex" : "none",
                         }}
                       >
                         <p
                           style={{
-                            color: '#aaa',
+                            color: "#aaa",
                           }}
                         >
                           {index + 1}
@@ -1521,14 +1520,14 @@ function Playlists() {
                           <p
                             className={
                               theme
-                                ? 'durationn3 playlist-duration'
-                                : 'durationn3 playlist-duration text-dark-mode'
+                                ? "durationn3 playlist-duration"
+                                : "durationn3 playlist-duration text-dark-mode"
                             }
                           >
                             {Math.floor(element.videolength / 60) +
-                              ':' +
+                              ":" +
                               (Math.round(element.videolength % 60) < 10
-                                ? '0' + Math.round(element.videolength % 60)
+                                ? "0" + Math.round(element.videolength % 60)
                                 : Math.round(element.videolength % 60))}
                           </p>
                           <div className="its-content playlist-contentt">
@@ -1548,7 +1547,7 @@ function Playlists() {
                       </div>
                     );
                   })
-                : ''}
+                : ""}
             </div>
           </div>
         ) : (
@@ -1556,10 +1555,10 @@ function Playlists() {
             <div
               className="spin23"
               style={{
-                top: '200px',
+                top: "200px",
               }}
             >
-              <span className={theme ? 'loader2' : 'loader2-light'}></span>
+              <span className={theme ? "loader2" : "loader2-light"}></span>
             </div>
           </div>
         )}
@@ -1569,15 +1568,15 @@ function Playlists() {
 
       <div
         className={
-          theme ? 'auth-popup' : 'auth-popup light-mode text-light-mode'
+          theme ? "auth-popup" : "auth-popup light-mode text-light-mode"
         }
         style={
           isbtnClicked === true
             ? {
-                display: 'block',
+                display: "block",
               }
             : {
-                display: 'none',
+                display: "none",
               }
         }
       >
@@ -1587,13 +1586,13 @@ function Playlists() {
               setisbtnClicked(true);
             } else {
               setisbtnClicked(false);
-              document.body.classList.remove('bg-css');
+              document.body.classList.remove("bg-css");
             }
           }}
           className="cancel"
           fontSize="large"
           style={{
-            color: 'gray',
+            color: "gray",
           }}
         />
         <div
@@ -1601,10 +1600,10 @@ function Playlists() {
           style={
             isSwitch === false
               ? {
-                  display: 'block',
+                  display: "block",
                 }
               : {
-                  display: 'none',
+                  display: "none",
                 }
           }
         >
@@ -1629,10 +1628,10 @@ function Playlists() {
           style={
             isSwitch === true
               ? {
-                  display: 'block',
+                  display: "block",
                 }
               : {
-                  display: 'none',
+                  display: "none",
                 }
           }
         >
@@ -1658,11 +1657,11 @@ function Playlists() {
 
       <div
         className={
-          theme ? 'delete-playlist-pop' : 'delete-playlist-pop light-mode'
+          theme ? "delete-playlist-pop" : "delete-playlist-pop light-mode"
         }
         ref={deleteRef}
         style={{
-          display: deleteClicked ? 'block' : 'none',
+          display: deleteClicked ? "block" : "none",
         }}
       >
         <p className="delete-playlist-top">Delete playlist</p>
@@ -1670,18 +1669,18 @@ function Playlists() {
           <p
             className={
               theme
-                ? 'delete-playlist-mid'
-                : 'delete-playlist-mid text-light-mode2'
+                ? "delete-playlist-mid"
+                : "delete-playlist-mid text-light-mode2"
             }
           >
-            Are your sure you want to delete{' '}
+            Are your sure you want to delete{" "}
             <b>{PlaylistName && PlaylistName}</b>?
           </p>
           <p
             className={
               theme
-                ? 'delete-playlist-mid2'
-                : 'delete-playlist-mid2 text-light-mode2'
+                ? "delete-playlist-mid2"
+                : "delete-playlist-mid2 text-light-mode2"
             }
           >
             Note: Deleting playlists is a permanent action and cannot be undone.
@@ -1691,24 +1690,24 @@ function Playlists() {
           <button
             className={
               theme
-                ? 'delete-playlist-cancel'
-                : 'delete-playlist-cancel delete-playlist-cancel-light'
+                ? "delete-playlist-cancel"
+                : "delete-playlist-cancel delete-playlist-cancel-light"
             }
             onClick={() => {
               setDeleteClicked(false);
-              document.body.classList.remove('bg-css');
+              document.body.classList.remove("bg-css");
             }}
           >
             Cancel
           </button>
           <button
             className={
-              theme ? 'delete-playlist-ok' : 'delete-playlist-ok blue-txt'
+              theme ? "delete-playlist-ok" : "delete-playlist-ok blue-txt"
             }
             onClick={() => {
               DeletePlaylist();
               setTimeout(() => {
-                navigate('/');
+                navigate("/");
               }, 400);
             }}
           >
