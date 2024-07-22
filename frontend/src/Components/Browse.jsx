@@ -60,7 +60,7 @@ function Browse() {
     };
     const menuButton = document.querySelector(".menu-light");
     if (menuButton) {
-      menuButton.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener("click", handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
