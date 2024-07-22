@@ -50,15 +50,17 @@ auth.post("/signup", async (req, res) => {
     res
       .cookie("accessToken", accessToken, {
         httpOnly: false,
-        sameSite: "None",
+        sameSite: "none",
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
+        partitioned: true,
       })
       .cookie("refreshToken", refreshToken, {
         httpOnly: false,
-        sameSite: "None",
+        sameSite: "none",
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
+        partitioned: true,
       })
       .status(201)
       .json({
@@ -100,15 +102,17 @@ auth.post("/login", async (req, res) => {
         res
           .cookie("refreshToken", newRefreshToken, {
             httpOnly: false,
-            sameSite: "None",
+            sameSite: "none",
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
+            partitioned: true,
           })
           .cookie("accessToken", accessToken, {
             httpOnly: false,
-            sameSite: "None",
+            sameSite: "none",
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
+            partitioned: true,
           });
         user.refreshToken = newRefreshToken;
         await user.save();
@@ -116,9 +120,10 @@ auth.post("/login", async (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("accessToken", accessToken, {
           httpOnly: false,
-          sameSite: "None",
+          sameSite: "none",
           secure: true,
           maxAge: 24 * 60 * 60 * 1000,
+          partitioned: true,
         });
       }
       return res.status(200).json({
@@ -169,8 +174,16 @@ auth.get("/logout", (req, res) => {
       });
     }
 
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    res.clearCookie("accessToken", {
+      sameSite: "none",
+      secure: true,
+      partitioned: true,
+    });
+    res.clearCookie("refreshToken", {
+      sameSite: "none",
+      secure: true,
+      partitioned: true,
+    });
     res.status(200).json({
       success: true,
       message: "Logout successful",

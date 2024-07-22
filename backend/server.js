@@ -11,7 +11,12 @@ app.use(express.static(path.join(__dirname, "public")));
 // Middlewares
 app.use(
   cors({
-    origin: "http://iterate.rkph.me",
+    origin: [
+      "http://iterate.rkph.me",
+      "https://iterate.rkph.me",
+      "https://iterate-clone.vercel.app",
+      "http://iterate-clone.vercel.app",
+    ],
     // allowedHeaders: [
     //   "Content-Type",
     //   "Authorization",
