@@ -16,6 +16,7 @@ app.use(
       "https://iterate.rkph.me",
       "https://iterate-clone.vercel.app",
       "http://iterate-clone.vercel.app",
+      "http://localhost:5173",
     ],
     // allowedHeaders: [
     //   "Content-Type",
