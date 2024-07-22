@@ -242,7 +242,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem('selected', 'trending');
-              mixpanel.track('checked_trending', {
+              mixpanel.track('checked_trending_1', {
                 Location: 'LeftPanel.jsx',
                 date: new Date().toISOString(),
               });
@@ -390,7 +390,7 @@ function LeftPanel() {
             onClick={() => {
               if (user?.email) {
                 localStorage.setItem('selected', 'library');
-                mixpanel.track('checked_library', {
+                mixpanel.track('checked_library_1', {
                   Location: 'LeftPanel.jsx',
                   date: new Date().toISOString(),
                 });
@@ -528,7 +528,7 @@ function LeftPanel() {
                     className="my-playlist-data"
                     key={index}
                     onClick={() => {
-                      mixpanel.track(`checked_playlist_${element._id}`, {
+                      mixpanel.track(`checked_playlist_1_${element._id}`, {
                         Location: 'LeftPanel.jsx',
                         date: new Date().toISOString(),
                       });
@@ -599,7 +599,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem('selected', 'home');
-              mixpanel.track('checked_home', {
+              mixpanel.track('checked_home_page', {
                 Location: 'LeftPanel.jsx',
                 date: new Date().toISOString(),
               });
@@ -628,7 +628,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem('selected', 'trending');
-              mixpanel.track('checked_trending', {
+              mixpanel.track('checked_trending_2', {
                 Location: 'LeftPanel.jsx',
                 date: new Date().toISOString(),
               });
@@ -820,7 +820,7 @@ function LeftPanel() {
             }
             onClick={() => {
               localStorage.setItem('selected', 'trending');
-              mixpanel.track('checked_trending', {
+              mixpanel.track('checked_trending_3', {
                 Location: 'LeftPanel.jsx',
                 date: new Date().toISOString(),
               });
@@ -1108,7 +1108,7 @@ function LeftPanel() {
               }
               onClick={() => {
                 localStorage.setItem('selected', 'trending');
-                mixpanel.track('checked_trending', {
+                mixpanel.track('checked_trending_5', {
                   Location: 'LeftPanel.jsx',
                   date: new Date().toISOString(),
                 });
@@ -1319,7 +1319,7 @@ function LeftPanel() {
               onClick={() => {
                 if (user?.email) {
                   localStorage.setItem('selected', 'liked-video');
-                  mixpanel.track('checked_liked_videos', {
+                  mixpanel.track('checked_liked_videos_1', {
                     Location: 'LeftPanel.jsx',
                     date: new Date().toISOString(),
                   });
