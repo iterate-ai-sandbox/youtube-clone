@@ -227,7 +227,7 @@ function Playlists() {
   }, [id, user?.email]);
 
   useEffect(() => {
-    mixpanel.track_pageview();
+    mixpanel.track('playlist_page_viewed');
   }, []);
   //POST REQUEST
 

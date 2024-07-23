@@ -164,9 +164,9 @@ function VideoSection() {
     });
 
   // USE EFFECTS
-  useEffect(() => {
-    mixpanel.track_pageview({"page": `video_${id}_page`})
-}, [])
+useEffect(() => {
+  mixpanel.track(`video_${id}_page_viewed`);
+}, []);
 
   useEffect(() => {
     function handleResize() {

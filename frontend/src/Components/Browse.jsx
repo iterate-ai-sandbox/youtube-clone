@@ -142,8 +142,8 @@ function Browse() {
     }
   }, [theme]);
   useEffect(() => {
-      mixpanel.track_pageview({"page": "user_feed"})
-  }, [])
+    mixpanel.track('user_feed_viewed');
+  }, []);
 
   //UPDATE VIEWS
 

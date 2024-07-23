@@ -88,7 +88,7 @@ function WatchLater() {
     getWatchLater();
   }, [user?.email]);
   useEffect(() => {
-    mixpanel.track_pageview({ "page": `watch_later_page` });
+    mixpanel.track('watchlater_page_viewed')
   }, []);
   const updateViews = async (id) => {
     try {

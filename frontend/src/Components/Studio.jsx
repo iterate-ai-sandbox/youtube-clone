@@ -1,36 +1,37 @@
-import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import CloudDoneRoundedIcon from "@mui/icons-material/CloudDoneRounded";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import HdIcon from "@mui/icons-material/Hd";
-import LinkIcon from "@mui/icons-material/Link";
-import SdIcon from "@mui/icons-material/Sd";
-import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
-import Tooltip from "@mui/material/Tooltip";
-import Zoom from "@mui/material/Zoom";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useEffect, useState } from "react";
-import { LiaUploadSolid } from "react-icons/lia";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "../Css/studio.css";
-import { storage } from "../Firebase";
-import avatar from "../img/avatar.png";
-import Upload from "../img/upload.png";
-import LeftPanel2 from "./LeftPanel2";
-import Navbar2 from "./Navbar2";
-import Dashboard from "./Studio/Dashboard";
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloudDoneRoundedIcon from '@mui/icons-material/CloudDoneRounded';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import HdIcon from '@mui/icons-material/Hd';
+import LinkIcon from '@mui/icons-material/Link';
+import SdIcon from '@mui/icons-material/Sd';
+import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { useEffect, useState } from 'react';
+import { LiaUploadSolid } from 'react-icons/lia';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../Css/studio.css';
+import { storage } from '../Firebase';
+import avatar from '../img/avatar.png';
+import Upload from '../img/upload.png';
+import LeftPanel2 from './LeftPanel2';
+import Navbar2 from './Navbar2';
+import Dashboard from './Studio/Dashboard';
 
 //SOCIALS
 
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LanguageIcon from "@mui/icons-material/Language";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { useLocation, useNavigate } from "react-router-dom";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LanguageIcon from '@mui/icons-material/Language';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { useLocation, useNavigate } from 'react-router-dom';
+import mixpanel from 'mixpanel-browser';
 
 function Studio() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Studio() {
   const reloadPage = () => {
     navigate('/', { replace: true });
   };
-  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  const backendURL = 'https://youtube-iterate-ai.vercel.app';
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [isChannel, setisChannel] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -52,26 +53,26 @@ function Studio() {
   const [isClicked, setIsClicked] = useState(false);
   const [isVideoSelected, setIsVideoSelected] = useState(false);
   const [isThumbnailSelected, setIsThumbnailSelected] = useState(false);
-  const [videoName, setVideoName] = useState("Upload videos");
-  const [VideoURL, setVideoURL] = useState("");
+  const [videoName, setVideoName] = useState('Upload videos');
+  const [VideoURL, setVideoURL] = useState('');
   const [Progress, setProgress] = useState(0);
   const [uploadTask, setUploadTask] = useState(null);
-  const [videoDescription, setVideoDescription] = useState("");
-  const [videoTags, setVideoTags] = useState("");
+  const [videoDescription, setVideoDescription] = useState('');
+  const [videoTags, setVideoTags] = useState('');
   const [loading, setLoading] = useState(false);
   const [duration, setDuration] = useState(null);
   const [linksClicked, setLinksClicked] = useState(false);
-  const [iconClicked, setIconClicked] = useState("");
+  const [iconClicked, setIconClicked] = useState('');
   const [fblink, setfblink] = useState();
   const [instalink, setinstalink] = useState();
   const [twitterlink, settwitterlink] = useState();
   const [websitelink, setwebsitelink] = useState();
-  const [visibility, setVisibility] = useState("Public");
+  const [visibility, setVisibility] = useState('Public');
   const [isVisibilityClicked, setisVisibilityClicked] = useState(false);
   const [myVideos, setMyVideos] = useState([]);
   const [isPublished, setIsPublished] = useState(false);
   const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
+    const Dark = localStorage.getItem('Dark');
     return Dark ? JSON.parse(Dark) : true;
   });
   const User = useSelector((state) => state.user.user);
@@ -79,62 +80,65 @@ function Studio() {
   //TOAST FUNCTIONS
 
   const CancelNotify = () =>
-    toast.warning("Video upload was cancelled!", {
-      position: "bottom-center",
+    toast.warning('Video upload was cancelled!', {
+      position: 'bottom-center',
       autoClose: 950,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? "dark" : "light",
+      theme: theme ? 'dark' : 'light',
     });
 
   const ErrorNotify = () =>
     toast.error("Image/Input can't be empty.", {
-      position: "top-center",
+      position: 'top-center',
       autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? "dark" : "light",
+      theme: theme ? 'dark' : 'light',
     });
 
   const VideoErrorNotify = () =>
     toast.error("Input fields can't be empty.", {
-      position: "top-center",
+      position: 'top-center',
       autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? "dark" : "light",
+      theme: theme ? 'dark' : 'light',
     });
 
   const ThumbnailNotify = () =>
-    toast.warning("Please select a thumbnail!", {
-      position: "top-center",
+    toast.warning('Please select a thumbnail!', {
+      position: 'top-center',
       autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: theme ? "dark" : "light",
+      theme: theme ? 'dark' : 'light',
     });
 
   //USE EFFECTS
 
   useEffect(() => {
-    if (theme === false && window.location.href.includes("/studio")) {
-      document.body.style.backgroundColor = "#F9F9F9";
-    } else if (theme === true && window.location.href.includes("/studio")) {
-      document.body.style.backgroundColor = "rgb(31, 31, 31)";
+    if (theme === false && window.location.href.includes('/studio')) {
+      document.body.style.backgroundColor = '#F9F9F9';
+    } else if (theme === true && window.location.href.includes('/studio')) {
+      document.body.style.backgroundColor = 'rgb(31, 31, 31)';
     }
   }, [theme]);
+  useEffect(() => {
+    mixpanel.track('studio_page_viewed');
+  }, []);
 
   useEffect(() => {
     const getVideos = async () => {
@@ -159,13 +163,13 @@ function Studio() {
       setIsClicked(true);
     };
 
-    const uploadBtn = document.querySelector(".uploadnewone-video");
+    const uploadBtn = document.querySelector('.uploadnewone-video');
     if (uploadBtn) {
-      uploadBtn?.addEventListener("click", handleClick);
+      uploadBtn?.addEventListener('click', handleClick);
 
       return () => {
         if (uploadBtn) {
-          uploadBtn.removeEventListener("click", handleClick);
+          uploadBtn.removeEventListener('click', handleClick);
         }
       };
     }
@@ -173,53 +177,53 @@ function Studio() {
 
   useEffect(() => {
     const handleClick = () => {
-      document.querySelector(".studio").classList.add("studio-dark");
+      document.querySelector('.studio').classList.add('studio-dark');
     };
 
-    const searchInp = document.getElementById("searchType2");
+    const searchInp = document.getElementById('searchType2');
 
     if (searchInp) {
-      searchInp?.addEventListener("click", handleClick);
+      searchInp?.addEventListener('click', handleClick);
     }
 
     return () => {
       if (searchInp) {
-        searchInp.removeEventListener("click", handleClick);
+        searchInp.removeEventListener('click', handleClick);
       }
     };
   });
 
   useEffect(() => {
     const handleClick = () => {
-      document.querySelector(".studio").classList.remove("studio-dark");
+      document.querySelector('.studio').classList.remove('studio-dark');
     };
 
-    const crossBtn = document.querySelector(".clear-search");
+    const crossBtn = document.querySelector('.clear-search');
 
     if (crossBtn) {
-      crossBtn?.addEventListener("click", handleClick);
+      crossBtn?.addEventListener('click', handleClick);
     }
 
     return () => {
       if (crossBtn) {
-        crossBtn.removeEventListener("click", handleClick);
+        crossBtn.removeEventListener('click', handleClick);
       }
     };
   });
 
   useEffect(() => {
     if (isChannel === false) {
-      document.body.classList.add("bg-css");
+      document.body.classList.add('bg-css');
     } else {
-      document.body.classList.remove("bg-css");
+      document.body.classList.remove('bg-css');
     }
   }, [isChannel]);
 
   useEffect(() => {
     if (isClicked === true) {
-      document.body.classList.add("bg-css");
+      document.body.classList.add('bg-css');
     } else {
-      document.body.classList.remove("bg-css");
+      document.body.classList.remove('bg-css');
     }
   }, [isClicked]);
 
@@ -288,7 +292,7 @@ function Studio() {
 
       return new Promise((resolve, reject) => {
         uploadData.on(
-          "state_changed",
+          'state_changed',
           null,
           (error) => {
             console.log(error);
@@ -318,7 +322,7 @@ function Studio() {
     const fileSizeInMB = file.size / (1024 * 1024); // Convert file size to MB
 
     if (fileSizeInMB > 30) {
-      alert("Please select a video file with a size of up to 30MB.");
+      alert('Please select a video file with a size of up to 30MB.');
       return;
     }
 
@@ -327,7 +331,7 @@ function Studio() {
 
     if (file) {
       const fileName = file.name;
-      setVideoName(fileName.substring(0, fileName.lastIndexOf(".")));
+      setVideoName(fileName.substring(0, fileName.lastIndexOf('.')));
       uploadVideo(file);
     }
   };
@@ -336,8 +340,8 @@ function Studio() {
     setIsClicked(false);
     setIsVideoSelected(false);
     setIsThumbnailSelected(false);
-    setVideoName("Upload videos");
-    setVideoDescription("");
+    setVideoName('Upload videos');
+    setVideoDescription('');
   };
 
   const uploadVideo = async (videoFile) => {
@@ -346,8 +350,8 @@ function Studio() {
       const uploadTask = uploadBytesResumable(fileReference, videoFile);
       setUploadTask(uploadTask); // Store the upload task
 
-      const videoElement = document.createElement("video");
-      videoElement.preload = "metadata";
+      const videoElement = document.createElement('video');
+      videoElement.preload = 'metadata';
 
       videoElement.onloadedmetadata = async function () {
         const duration = videoElement.duration; // Duration in seconds
@@ -355,7 +359,7 @@ function Studio() {
         setDuration(duration);
 
         uploadTask.on(
-          "state_changed",
+          'state_changed',
           (snapshot) => {
             // Handle upload progress if needed
             let progress =
@@ -393,7 +397,7 @@ function Studio() {
     if (uploadTask) {
       uploadTask.cancel();
       setIsVideoSelected(false);
-      setVideoName("Upload videos");
+      setVideoName('Upload videos');
       setProgress(0);
     }
   };
@@ -402,7 +406,7 @@ function Studio() {
 
   const saveChannelData = async (e) => {
     e.preventDefault();
-    if (selectedImage === null || ChannelName === "" || ChannelAbout === "") {
+    if (selectedImage === null || ChannelName === '' || ChannelAbout === '') {
       ErrorNotify();
       return;
     }
@@ -431,17 +435,17 @@ function Studio() {
 
       // Proceed with saving the channel data
       const response = await fetch(`${backendURL}/savechannel`, {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
         body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       const { message } = await response.json();
-      if (message === "Channel saved successfully") {
+      if (message === 'Channel saved successfully') {
         setisChannel(true);
-        reloadPage()
+        reloadPage();
       }
     } catch (error) {
       // console.log(error.message);
@@ -453,7 +457,7 @@ function Studio() {
   //ON VIDEO DROP
 
   const handleUploadImageClick = () => {
-    const fileInput = document.getElementById("videoFileInput");
+    const fileInput = document.getElementById('videoFileInput');
     fileInput.click();
   };
 
@@ -463,14 +467,14 @@ function Studio() {
     const fileSizeInMB = file.size / (1024 * 1024);
 
     if (fileSizeInMB > 30) {
-      alert("Please select a video file with a size of up to 30MB.");
+      alert('Please select a video file with a size of up to 30MB.');
       return;
     }
 
     setSelectedVideo(file);
     setIsVideoSelected(true);
     const fileName = file.name;
-    setVideoName(fileName.substring(0, fileName.lastIndexOf(".")));
+    setVideoName(fileName.substring(0, fileName.lastIndexOf('.')));
     uploadVideo(file);
   };
 
@@ -484,7 +488,7 @@ function Studio() {
   const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
 
-    if (file && file.type.startsWith("image/")) {
+    if (file && file.type.startsWith('image/')) {
       const img = new Image();
       img.onload = function () {
         const aspectRatio = img.width / img.height;
@@ -496,7 +500,7 @@ function Studio() {
           setIsThumbnailSelected(false);
           setSelectedThumbnail(null);
           setPreviewThumbnail(null);
-          alert("Please select a 16:9 aspect ratio image.");
+          alert('Please select a 16:9 aspect ratio image.');
         }
       };
       img.src = URL.createObjectURL(file);
@@ -504,7 +508,7 @@ function Studio() {
       setIsThumbnailSelected(false);
       setSelectedThumbnail(null);
       setPreviewThumbnail(null);
-      alert("Please select an image file.");
+      alert('Please select an image file.');
     }
   };
 
@@ -519,7 +523,7 @@ function Studio() {
 
       return new Promise((resolve, reject) => {
         uploadData.on(
-          "state_changed",
+          'state_changed',
           null,
           (error) => {
             console.log(error);
@@ -545,7 +549,7 @@ function Studio() {
   //SAVE UPLOAD DATA TO DATABASE
 
   const PublishData = async () => {
-    if (videoName === "" || videoDescription === "" || videoTags === "") {
+    if (videoName === '' || videoDescription === '' || videoTags === '') {
       VideoErrorNotify();
     } else if (selectedThumbnail === null) {
       ThumbnailNotify();
@@ -569,26 +573,26 @@ function Studio() {
         };
         // Send the POST request
         const response = await fetch(`${backendURL}/publish`, {
-          method: "POST",
-          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
           body: JSON.stringify(data),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         });
 
         // Handle the response
         const Data = await response.json();
-        if (Data === "Published") {
+        if (Data === 'Published') {
           setIsPublished(true);
           setLoading(false);
           setIsClicked(false);
-          reloadPage()
+          reloadPage();
         } else {
           setLoading(true);
           setIsClicked(true);
           setTimeout(() => {
-            alert("An unknown error occurred, Please try again!");
+            alert('An unknown error occurred, Please try again!');
           }, 1500);
         }
       } catch (error) {
@@ -601,62 +605,62 @@ function Studio() {
     <>
       <Navbar2 />
       <LeftPanel2 />
-      <div className={theme ? "studio" : "studio studio-light"}>
+      <div className={theme ? 'studio' : 'studio studio-light'}>
         <div
-          className={theme ? "create-btn" : "create-btn create-btn-light"}
+          className={theme ? 'create-btn' : 'create-btn create-btn-light'}
           onClick={() => setIsClicked(true)}
-          style={isChannel === true ? { display: "flex" } : { display: "none" }}
+          style={isChannel === true ? { display: 'flex' } : { display: 'none' }}
         >
           <VideoCallOutlinedIcon
             className=""
             fontSize="large"
-            style={{ color: "#FF4E45" }}
+            style={{ color: '#FF4E45' }}
           />
-          <p className={theme ? "" : "text-light-mode"}>CREATE</p>
+          <p className={theme ? '' : 'text-light-mode'}>CREATE</p>
         </div>
         <div
           style={
             myVideos && myVideos.message === "USER DOESN'T EXIST"
-              ? { display: "block" }
-              : { display: "none" }
+              ? { display: 'block' }
+              : { display: 'none' }
           }
-          className={theme ? "create-btn2" : "create-btn2 create-btn-light"}
+          className={theme ? 'create-btn2' : 'create-btn2 create-btn-light'}
           onClick={() => setIsClicked(true)}
         >
           CREATE
         </div>
         <div
-          style={isChannel === true ? { display: "flex" } : { display: "none" }}
-          className={theme ? "create-btn-short" : "create-btn-short light-mode"}
+          style={isChannel === true ? { display: 'flex' } : { display: 'none' }}
+          className={theme ? 'create-btn-short' : 'create-btn-short light-mode'}
           onClick={() => setIsClicked(true)}
         >
           <LiaUploadSolid
             fontSize="22px"
-            color={theme ? "#b1b1b1" : "#606060"}
+            color={theme ? '#b1b1b1' : '#606060'}
           />
         </div>
         <div
           className={
             theme
-              ? "create-channel"
-              : "create-channel light-mode text-light-mode"
+              ? 'create-channel'
+              : 'create-channel light-mode text-light-mode'
           }
           style={
-            isChannel === false ? { display: "flex" } : { display: "none" }
+            isChannel === false ? { display: 'flex' } : { display: 'none' }
           }
         >
           <ClearRoundedIcon
             fontSize="large"
-            className={theme ? "close-channel" : "close-channel-light"}
-            style={{ color: theme ? "rgb(170 170 170 / 50%)" : "#606060" }}
+            className={theme ? 'close-channel' : 'close-channel-light'}
+            style={{ color: theme ? 'rgb(170 170 170 / 50%)' : '#606060' }}
             onClick={() => {
-              window.location.href = "/";
+              window.location.href = '/';
             }}
           />
           <p className="channel-head">Create Your Channel</p>
           <p
             className={
-              theme ? "channel-slogan" : "channel-slogan text-light-mode2"
+              theme ? 'channel-slogan' : 'channel-slogan text-light-mode2'
             }
           >
             Share Your Story: Inspire and Connect with a YouTube Channel!
@@ -665,7 +669,7 @@ function Studio() {
             <div className="profile-pic-section">
               <img src={previewImage} alt="" className="selected-pic" />
               <div className="upload-btn-wrapper">
-                <button className={theme ? "btn" : "btn text-dark-mode"}>
+                <button className={theme ? 'btn' : 'btn text-dark-mode'}>
                   SELECT
                 </button>
                 <input
@@ -680,8 +684,8 @@ function Studio() {
               <input
                 className={
                   theme
-                    ? "channelName"
-                    : "channelName light-mode text-light-mode new-light-border"
+                    ? 'channelName'
+                    : 'channelName light-mode text-light-mode new-light-border'
                 }
                 type="text"
                 name="channelname"
@@ -693,14 +697,14 @@ function Studio() {
               <textarea
                 className={
                   theme
-                    ? "channelAbout"
-                    : "channelAbout light-mode text-light-mode new-light-border"
+                    ? 'channelAbout'
+                    : 'channelAbout light-mode text-light-mode new-light-border'
                 }
                 type="text"
                 name="channelAbout"
                 placeholder="About channel"
                 onChange={handleChannelabout}
-                style={{ width: "93%", resize: "vertical" }}
+                style={{ width: '93%', resize: 'vertical' }}
                 required
               />
               <Tooltip
@@ -711,8 +715,8 @@ function Studio() {
                 <div
                   className={
                     theme
-                      ? "add-links"
-                      : "add-links light-mode new-light-border"
+                      ? 'add-links'
+                      : 'add-links light-mode new-light-border'
                   }
                   onClick={() => {
                     if (linksClicked === false) {
@@ -724,76 +728,76 @@ function Studio() {
                 >
                   <LinkIcon
                     fontSize="medium"
-                    style={{ color: theme ? "white" : "black" }}
+                    style={{ color: theme ? 'white' : 'black' }}
                   />
                 </div>
               </Tooltip>
               <div
                 className={
                   theme
-                    ? "social-icons-links"
-                    : "social-icons-links add-social-light"
+                    ? 'social-icons-links'
+                    : 'social-icons-links add-social-light'
                 }
                 style={
                   linksClicked === true
-                    ? { display: "block" }
-                    : { display: "none" }
+                    ? { display: 'block' }
+                    : { display: 'none' }
                 }
               >
                 <FacebookIcon
                   fontSize="large"
-                  className={theme ? "social_links" : "social_links-light"}
+                  className={theme ? 'social_links' : 'social_links-light'}
                   style={{
-                    color: theme ? "white" : "#606060",
-                    marginRight: "15px",
+                    color: theme ? 'white' : '#606060',
+                    marginRight: '15px',
                   }}
                   onClick={() => {
-                    if (iconClicked !== "Facebook") {
-                      setIconClicked("Facebook");
+                    if (iconClicked !== 'Facebook') {
+                      setIconClicked('Facebook');
                     } else {
-                      setIconClicked("");
+                      setIconClicked('');
                     }
                   }}
                 />
                 <InstagramIcon
                   fontSize="large"
-                  className={theme ? "social_links" : "social_links-light"}
+                  className={theme ? 'social_links' : 'social_links-light'}
                   style={{
-                    color: theme ? "white" : "#606060",
-                    marginRight: "15px",
+                    color: theme ? 'white' : '#606060',
+                    marginRight: '15px',
                   }}
                   onClick={() => {
-                    if (iconClicked !== "Instagram") {
-                      setIconClicked("Instagram");
+                    if (iconClicked !== 'Instagram') {
+                      setIconClicked('Instagram');
                     } else {
-                      setIconClicked("");
+                      setIconClicked('');
                     }
                   }}
                 />
                 <TwitterIcon
                   fontSize="large"
-                  className={theme ? "social_links" : "social_links-light"}
+                  className={theme ? 'social_links' : 'social_links-light'}
                   style={{
-                    color: theme ? "white" : "#606060",
-                    marginRight: "15px",
+                    color: theme ? 'white' : '#606060',
+                    marginRight: '15px',
                   }}
                   onClick={() => {
-                    if (iconClicked !== "Twitter") {
-                      setIconClicked("Twitter");
+                    if (iconClicked !== 'Twitter') {
+                      setIconClicked('Twitter');
                     } else {
-                      setIconClicked("");
+                      setIconClicked('');
                     }
                   }}
                 />
                 <LanguageIcon
                   fontSize="large"
-                  className={theme ? "social_links" : "social_links-light"}
-                  style={{ color: theme ? "white" : "#606060" }}
+                  className={theme ? 'social_links' : 'social_links-light'}
+                  style={{ color: theme ? 'white' : '#606060' }}
                   onClick={() => {
-                    if (iconClicked !== "Website") {
-                      setIconClicked("Website");
+                    if (iconClicked !== 'Website') {
+                      setIconClicked('Website');
                     } else {
-                      setIconClicked("");
+                      setIconClicked('');
                     }
                   }}
                 />
@@ -802,25 +806,25 @@ function Studio() {
                 className="edit-links"
                 style={
                   linksClicked === true
-                    ? { display: "block" }
-                    : { display: "none" }
+                    ? { display: 'block' }
+                    : { display: 'none' }
                 }
               >
                 <div
                   className="fb-link"
                   style={
-                    iconClicked === "Facebook"
-                      ? { display: "flex" }
-                      : { display: "none" }
+                    iconClicked === 'Facebook'
+                      ? { display: 'flex' }
+                      : { display: 'none' }
                   }
                 >
                   <FacebookIcon
                     fontSize="large"
-                    style={{ color: theme ? "white" : "#606060" }}
+                    style={{ color: theme ? 'white' : '#606060' }}
                     className={
                       theme
-                        ? "fb-input-icon"
-                        : "fb-input-icon social-lightt new-light-border"
+                        ? 'fb-input-icon'
+                        : 'fb-input-icon social-lightt new-light-border'
                     }
                   />
                   <input
@@ -828,8 +832,8 @@ function Studio() {
                     name="fb-link"
                     className={
                       theme
-                        ? "fb-input"
-                        : "fb-input light-mode text-light-mode new-light-border"
+                        ? 'fb-input'
+                        : 'fb-input light-mode text-light-mode new-light-border'
                     }
                     onChange={handleFacebookLink}
                   />
@@ -837,18 +841,18 @@ function Studio() {
                 <div
                   className="insta-link"
                   style={
-                    iconClicked === "Instagram"
-                      ? { display: "flex" }
-                      : { display: "none" }
+                    iconClicked === 'Instagram'
+                      ? { display: 'flex' }
+                      : { display: 'none' }
                   }
                 >
                   <InstagramIcon
                     fontSize="large"
-                    style={{ color: theme ? "white" : "#606060" }}
+                    style={{ color: theme ? 'white' : '#606060' }}
                     className={
                       theme
-                        ? "insta-input-icon"
-                        : "insta-input-icon social-lightt new-light-border"
+                        ? 'insta-input-icon'
+                        : 'insta-input-icon social-lightt new-light-border'
                     }
                   />
                   <input
@@ -856,8 +860,8 @@ function Studio() {
                     name="insta-link"
                     className={
                       theme
-                        ? "insta-input"
-                        : "insta-input light-mode text-light-mode new-light-border"
+                        ? 'insta-input'
+                        : 'insta-input light-mode text-light-mode new-light-border'
                     }
                     onChange={handleInstagramLink}
                   />
@@ -865,18 +869,18 @@ function Studio() {
                 <div
                   className="twitter-link"
                   style={
-                    iconClicked === "Twitter"
-                      ? { display: "flex" }
-                      : { display: "none" }
+                    iconClicked === 'Twitter'
+                      ? { display: 'flex' }
+                      : { display: 'none' }
                   }
                 >
                   <TwitterIcon
                     fontSize="large"
-                    style={{ color: theme ? "white" : "#606060" }}
+                    style={{ color: theme ? 'white' : '#606060' }}
                     className={
                       theme
-                        ? "twitter-input-icon"
-                        : "twitter-input-icon social-lightt new-light-border"
+                        ? 'twitter-input-icon'
+                        : 'twitter-input-icon social-lightt new-light-border'
                     }
                   />
                   <input
@@ -884,8 +888,8 @@ function Studio() {
                     name="twitter-link"
                     className={
                       theme
-                        ? "twitter-input"
-                        : "twitter-input light-mode text-light-mode new-light-border"
+                        ? 'twitter-input'
+                        : 'twitter-input light-mode text-light-mode new-light-border'
                     }
                     onChange={handleTwitterLink}
                   />
@@ -893,18 +897,18 @@ function Studio() {
                 <div
                   className="website-link"
                   style={
-                    iconClicked === "Website"
-                      ? { display: "flex" }
-                      : { display: "none" }
+                    iconClicked === 'Website'
+                      ? { display: 'flex' }
+                      : { display: 'none' }
                   }
                 >
                   <LanguageIcon
                     fontSize="large"
-                    style={{ color: theme ? "white" : "#606060" }}
+                    style={{ color: theme ? 'white' : '#606060' }}
                     className={
                       theme
-                        ? "website-input-icon"
-                        : "website-input-icon social-lightt new-light-border"
+                        ? 'website-input-icon'
+                        : 'website-input-icon social-lightt new-light-border'
                     }
                   />
                   <input
@@ -912,8 +916,8 @@ function Studio() {
                     name="website-link"
                     className={
                       theme
-                        ? "website-input"
-                        : "website-input light-mode text-light-mode new-light-border"
+                        ? 'website-input'
+                        : 'website-input light-mode text-light-mode new-light-border'
                     }
                     onChange={handleWebsiteLink}
                   />
@@ -924,14 +928,14 @@ function Studio() {
               <button
                 className={
                   isLoading
-                    ? `save-data-disable ${theme ? "" : "text-dark-mode"}`
-                    : `save-data ${theme ? "" : "text-dark-mode"}`
+                    ? `save-data-disable ${theme ? '' : 'text-dark-mode'}`
+                    : `save-data ${theme ? '' : 'text-dark-mode'}`
                 }
                 type="submit"
                 style={
                   linksClicked === true
                     ? { marginTop: 0 }
-                    : { marginTop: "22px" }
+                    : { marginTop: '22px' }
                 }
                 disabled={isLoading ? true : false}
               >
@@ -939,12 +943,12 @@ function Studio() {
               </button>
             ) : (
               <button
-                className={isLoading ? "save-data-disable" : "save-data"}
+                className={isLoading ? 'save-data-disable' : 'save-data'}
                 type="submit"
                 style={
                   linksClicked === true
                     ? { marginTop: 0 }
-                    : { marginTop: "22px" }
+                    : { marginTop: '22px' }
                 }
                 disabled={isLoading ? true : false}
               >
@@ -956,36 +960,36 @@ function Studio() {
         <div
           className={
             theme
-              ? "upload-content"
-              : "upload-content light-mode text-light-mode"
+              ? 'upload-content'
+              : 'upload-content light-mode text-light-mode'
           }
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           style={
             isChannel === true && isClicked === true
-              ? { display: "flex" }
-              : { display: "none" }
+              ? { display: 'flex' }
+              : { display: 'none' }
           }
         >
           <div className="top-head">
             {videoName.length <= 70
               ? videoName
-              : `${videoName.slice(0, 40)}...`}{" "}
+              : `${videoName.slice(0, 40)}...`}{' '}
             <CloseRoundedIcon
               className="close"
               fontSize="large"
-              style={{ color: "gray" }}
+              style={{ color: 'gray' }}
               onClick={() => {
                 if (Progress !== 100 && selectedVideo !== null) {
                   cancelVideoUpload();
                   CancelNotify();
                   setTimeout(() => {
-                    reloadPage()
+                    reloadPage();
                   }, 1000);
                 } else if (Progress === 100 && isPublished === false) {
                   CancelNotify();
                   setTimeout(() => {
-                    reloadPage()
+                    reloadPage();
                   }, 1000);
                 }
                 if (isClicked === true) {
@@ -996,20 +1000,20 @@ function Studio() {
           </div>
           <hr
             className={
-              theme ? "seperate seperate2" : "seperate seperate2 seperate-light"
+              theme ? 'seperate seperate2' : 'seperate seperate2 seperate-light'
             }
           />
           <div
             className="middle-data"
             style={
               isVideoSelected === false
-                ? { display: "flex" }
-                : { display: "none" }
+                ? { display: 'flex' }
+                : { display: 'none' }
             }
           >
             <img
               src={Upload}
-              className={theme ? "upload-img" : "upload-img upload-img-light"}
+              className={theme ? 'upload-img' : 'upload-img upload-img-light'}
               onClick={handleUploadImageClick}
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
@@ -1017,7 +1021,7 @@ function Studio() {
             <p>Drag and drop video files to upload</p>
             <p>Your videos will be private until you publish them.</p>
             <div className="upload-btn-wrapper">
-              <button className={theme ? "btn" : "btn text-dark-mode"}>
+              <button className={theme ? 'btn' : 'btn text-dark-mode'}>
                 SELECT FILES
               </button>
               <input
@@ -1033,8 +1037,8 @@ function Studio() {
             className="uploading-video-data"
             style={
               isVideoSelected === true
-                ? { display: "flex" }
-                : { display: "none" }
+                ? { display: 'flex' }
+                : { display: 'none' }
             }
           >
             <div className="left-video-section">
@@ -1043,7 +1047,7 @@ function Studio() {
                   <p>Details</p>
                   <input
                     type="text"
-                    className={theme ? "video-title" : "video-title light-mode"}
+                    className={theme ? 'video-title' : 'video-title light-mode'}
                     value={videoName}
                     placeholder="Title (required)"
                     required
@@ -1053,8 +1057,8 @@ function Studio() {
                     type="text"
                     className={
                       theme
-                        ? "video-description"
-                        : "video-description light-mode"
+                        ? 'video-description'
+                        : 'video-description light-mode'
                     }
                     placeholder="Description"
                     onChange={(e) => setVideoDescription(e.target.value)}
@@ -1062,7 +1066,7 @@ function Studio() {
                   />
                   <input
                     type="text"
-                    className={theme ? "video-tags" : "video-tags light-mode"}
+                    className={theme ? 'video-tags' : 'video-tags light-mode'}
                     placeholder="Tags"
                     onChange={(e) => setVideoTags(e.target.value)}
                   />
@@ -1072,8 +1076,8 @@ function Studio() {
                 className="thumbnail-section"
                 style={
                   isThumbnailSelected === false
-                    ? { display: "flex" }
-                    : { display: "none" }
+                    ? { display: 'flex' }
+                    : { display: 'none' }
                 }
               >
                 <p>Thumbnail</p>
@@ -1085,7 +1089,7 @@ function Studio() {
                 <label htmlFor="thumbnail-input" className="upload-thumbnail">
                   <AddPhotoAlternateOutlinedIcon
                     fontSize="medium"
-                    style={{ color: "#808080" }}
+                    style={{ color: '#808080' }}
                   />
                   <p>Upload thumbnail</p>
                 </label>
@@ -1093,7 +1097,7 @@ function Studio() {
                   id="thumbnail-input"
                   type="file"
                   accept=".jpg, .png"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                   onChange={handleThumbnailChange}
                 />
               </div>
@@ -1101,8 +1105,8 @@ function Studio() {
                 className="thumbnail-section thumb2"
                 style={
                   isThumbnailSelected === true
-                    ? { display: "flex" }
-                    : { display: "none" }
+                    ? { display: 'flex' }
+                    : { display: 'none' }
                 }
               >
                 <p>Thumbnail</p>
@@ -1115,7 +1119,7 @@ function Studio() {
                   <CloseRoundedIcon
                     className="close close2"
                     fontSize="medium"
-                    style={{ color: theme ? "gray" : "white" }}
+                    style={{ color: theme ? 'gray' : 'white' }}
                     onClick={() => {
                       setIsThumbnailSelected(false);
                     }}
@@ -1132,22 +1136,22 @@ function Studio() {
             <div className="right-video-section">
               <div
                 className={
-                  theme ? "preview-video" : "preview-video preview-light"
+                  theme ? 'preview-video' : 'preview-video preview-light'
                 }
               >
                 <div
                   className="preview-img"
                   style={
-                    Progress === 100 && VideoURL !== ""
-                      ? { display: "none" }
-                      : { display: "block" }
+                    Progress === 100 && VideoURL !== ''
+                      ? { display: 'none' }
+                      : { display: 'block' }
                   }
                 >
-                  <p className={theme ? "" : "text-light-mode"}>
+                  <p className={theme ? '' : 'text-light-mode'}>
                     Uploading video...
                   </p>
                 </div>
-                {Progress === 100 && VideoURL !== "" ? (
+                {Progress === 100 && VideoURL !== '' ? (
                   <iframe
                     width="284.44"
                     height="160"
@@ -1161,7 +1165,7 @@ function Studio() {
 
               <div
                 className={
-                  theme ? "preview-bottom" : "preview-bottom preview-light2"
+                  theme ? 'preview-bottom' : 'preview-bottom preview-light2'
                 }
               >
                 <div className="file-details">
@@ -1175,8 +1179,8 @@ function Studio() {
                 <div
                   className={
                     theme
-                      ? "selected-visibility"
-                      : "selected-visibility text-light-mode"
+                      ? 'selected-visibility'
+                      : 'selected-visibility text-light-mode'
                   }
                   onClick={() => {
                     if (isVisibilityClicked === false) {
@@ -1189,24 +1193,24 @@ function Studio() {
                   <p>{visibility}</p>
                   <ArrowDropDownRoundedIcon
                     fontSize="large"
-                    style={{ color: theme ? "white" : "black" }}
+                    style={{ color: theme ? 'white' : 'black' }}
                   />
                 </div>
                 {isVisibilityClicked === true ? (
                   <div
                     className={
-                      theme ? "show-visibility" : "show-visibility studio-light"
+                      theme ? 'show-visibility' : 'show-visibility studio-light'
                     }
                   >
                     <p
                       className="public"
                       style={
-                        visibility === "Public"
-                          ? { backgroundColor: "rgba(255, 255, 255, 0.134)" }
-                          : { backgroundColor: "rgba(255, 255, 255, 0)" }
+                        visibility === 'Public'
+                          ? { backgroundColor: 'rgba(255, 255, 255, 0.134)' }
+                          : { backgroundColor: 'rgba(255, 255, 255, 0)' }
                       }
                       onClick={() => {
-                        setVisibility("Public");
+                        setVisibility('Public');
                         setisVisibilityClicked(false);
                       }}
                     >
@@ -1216,12 +1220,12 @@ function Studio() {
                     <p
                       className="private"
                       style={
-                        visibility === "Private"
-                          ? { backgroundColor: "rgba(255, 255, 255, 0.134)" }
-                          : { backgroundColor: "rgba(255, 255, 255, 0)" }
+                        visibility === 'Private'
+                          ? { backgroundColor: 'rgba(255, 255, 255, 0.134)' }
+                          : { backgroundColor: 'rgba(255, 255, 255, 0)' }
                       }
                       onClick={() => {
-                        setVisibility("Private");
+                        setVisibility('Private');
                         setisVisibilityClicked(false);
                       }}
                     >
@@ -1229,7 +1233,7 @@ function Studio() {
                     </p>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
             </div>
@@ -1238,15 +1242,15 @@ function Studio() {
             className="last-segment"
             style={
               isVideoSelected === true
-                ? { display: "block" }
-                : { display: "none" }
+                ? { display: 'block' }
+                : { display: 'none' }
             }
           >
             <hr
               className={
                 theme
-                  ? "seperate seperate2"
-                  : "seperate seperate2 seperate-light"
+                  ? 'seperate seperate2'
+                  : 'seperate seperate2 seperate-light'
               }
             />
             <div className="last-btn">
@@ -1256,8 +1260,8 @@ function Studio() {
                   fontSize="large"
                   style={
                     Progress === 100
-                      ? { display: "none" }
-                      : { color: "gray", marginRight: "6px" }
+                      ? { display: 'none' }
+                      : { color: 'gray', marginRight: '6px' }
                   }
                 />
                 <SdIcon
@@ -1265,8 +1269,8 @@ function Studio() {
                   fontSize="large"
                   style={
                     Progress >= 60
-                      ? { display: "none" }
-                      : { color: "gray", marginLeft: "6px" }
+                      ? { display: 'none' }
+                      : { color: 'gray', marginLeft: '6px' }
                   }
                 />
                 <CloudDoneRoundedIcon
@@ -1275,12 +1279,12 @@ function Studio() {
                   style={
                     Progress === 100
                       ? {
-                          display: "block",
-                          color: "#3ea6ff",
-                          marginRight: "6px",
-                          animation: "none",
+                          display: 'block',
+                          color: '#3ea6ff',
+                          marginRight: '6px',
+                          animation: 'none',
                         }
-                      : { display: "none" }
+                      : { display: 'none' }
                   }
                 />
                 <HdIcon
@@ -1289,19 +1293,19 @@ function Studio() {
                   style={
                     Progress >= 60
                       ? {
-                          display: "block",
-                          color: "#3ea6ff",
-                          marginLeft: "6px",
-                          animation: "none",
+                          display: 'block',
+                          color: '#3ea6ff',
+                          marginLeft: '6px',
+                          animation: 'none',
                         }
-                      : { display: "none" }
+                      : { display: 'none' }
                   }
                 />
                 <p
                   style={
                     Progress === 100
-                      ? { display: "none" }
-                      : { marginLeft: "12px" }
+                      ? { display: 'none' }
+                      : { marginLeft: '12px' }
                   }
                 >
                   Uploading {Progress}% ...
@@ -1309,8 +1313,8 @@ function Studio() {
                 <p
                   style={
                     Progress === 100
-                      ? { marginLeft: "12px" }
-                      : { display: "none" }
+                      ? { marginLeft: '12px' }
+                      : { display: 'none' }
                   }
                 >
                   Video uploaded
@@ -1320,8 +1324,8 @@ function Studio() {
                 <button
                   className={
                     loading || Progress !== 100
-                      ? "save-video-data-disable"
-                      : "save-video-data"
+                      ? 'save-video-data-disable'
+                      : 'save-video-data'
                   }
                   onClick={PublishData}
                   disabled={loading === true || Progress !== 100 ? true : false}
@@ -1333,9 +1337,9 @@ function Studio() {
                   className={
                     loading || Progress !== 100
                       ? `save-video-data-disable ${
-                          theme ? "" : "text-dark-mode"
+                          theme ? '' : 'text-dark-mode'
                         }`
-                      : `save-video-data ${theme ? "" : "text-dark-mode"}`
+                      : `save-video-data ${theme ? '' : 'text-dark-mode'}`
                   }
                   onClick={PublishData}
                   disabled={loading === true || Progress !== 100 ? true : false}
@@ -1347,7 +1351,7 @@ function Studio() {
           </div>
         </div>
       </div>
-      {isChannel === true ? <Dashboard /> : ""}
+      {isChannel === true ? <Dashboard /> : ''}
     </>
   );
 }

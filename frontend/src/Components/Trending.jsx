@@ -92,7 +92,7 @@ function Trending() {
     };
   }, []);
   useEffect(() => {
-    mixpanel.track_pageview({ "page": `trending_page` });
+    mixpanel.track('trending_page_viewed');
   }, []);
   //Update Views
 

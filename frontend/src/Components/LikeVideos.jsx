@@ -87,7 +87,7 @@ function LikeVideos() {
     }
   }, [theme]);
   useEffect(() => {
-    mixpanel.track_pageview({ "page": `watch_later_page` });
+    mixpanel.track('watch_later_page_view');
   }, []);
   const updateViews = async (id) => {
     try {

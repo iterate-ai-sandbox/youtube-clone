@@ -162,9 +162,8 @@ function Library() {
     };
   }, []);
   useEffect(() => {
-    mixpanel.track_pageview({ "page": `library_page` });
-  }, []);
-  useEffect(() => {
+    mixpanel.track('library_page_viewed');
+  }, []);  useEffect(() => {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
