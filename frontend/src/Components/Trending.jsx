@@ -11,6 +11,7 @@ import nothing from "../img/nothing.png";
 import trending from "../img/trending.jpg";
 import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
+import mixpanel from "mixpanel-browser";
 function Trending() {
   const navigate = useNavigate();
   const backendURL = "https://youtube-iterate-ai.vercel.app";
@@ -90,7 +91,9 @@ function Trending() {
       }
     };
   }, []);
-
+  useEffect(() => {
+    mixpanel.track_pageview({ "page": `trending_page` });
+  }, []);
   //Update Views
 
   const updateViews = async (id) => {

@@ -23,6 +23,7 @@ import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import mixpanel from "mixpanel-browser";
 
 function Playlists() {
   const navigate = useNavigate();
@@ -225,6 +226,9 @@ function Playlists() {
     return () => GetSavedPlaylistData();
   }, [id, user?.email]);
 
+  useEffect(() => {
+    mixpanel.track_pageview();
+  }, []);
   //POST REQUEST
 
   const saveEditData = async () => {

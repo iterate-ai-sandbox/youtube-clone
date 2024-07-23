@@ -1,9 +1,9 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-const connectDB = async () =>
+const connectDB = async () => {
   await mongoose.connect(
-    `mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@youtube.s8lcajd.mongodb.net/${process.env.DB_name}?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.DB_user.trim()}:${process.env.DB_password.trim()}@youtube.s8lcajd.mongodb.net/${process.env.DB_name.trim()}?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -13,4 +13,6 @@ const connectDB = async () =>
       serverSelectionTimeoutMS: 30000,
     }
   );
-export default connectDB;
+};
+
+module.exports = connectDB;

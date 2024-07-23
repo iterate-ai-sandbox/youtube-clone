@@ -8,6 +8,7 @@ import "../Css/likevideos.css";
 import nothing from "../img/nothing.png";
 import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
+import mixpanel from "mixpanel-browser";
 
 function LikeVideos() {
   const navigate = useNavigate();
@@ -85,6 +86,9 @@ function LikeVideos() {
       document.body.style.backgroundColor = "0f0f0f";
     }
   }, [theme]);
+  useEffect(() => {
+    mixpanel.track_pageview({ "page": `watch_later_page` });
+  }, []);
   const updateViews = async (id) => {
     try {
       const response = await fetch(`${backendURL}/updateview/${id}`, {

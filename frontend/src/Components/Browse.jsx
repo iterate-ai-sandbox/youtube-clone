@@ -141,6 +141,9 @@ function Browse() {
       document.body.style.backgroundColor = "0f0f0f";
     }
   }, [theme]);
+  useEffect(() => {
+      mixpanel.track_pageview({"page": "user_feed"})
+  }, [])
 
   //UPDATE VIEWS
 

@@ -5,7 +5,7 @@ const path = require("path");
 const port = 3000;
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { default: connectDB } = require("./Database/database");
+const connectDB = require("./Database/database");
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "public")));
 

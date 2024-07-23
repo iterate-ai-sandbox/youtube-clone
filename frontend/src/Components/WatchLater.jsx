@@ -1,32 +1,33 @@
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { useEffect, useState } from "react";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import "../Css/likevideos.css";
-import nothing from "../img/nothing.png";
-import LeftPanel from "./LeftPanel";
-import Navbar from "./Navbar";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useEffect, useState } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import '../Css/likevideos.css';
+import nothing from '../img/nothing.png';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import mixpanel from 'mixpanel-browser';
 function WatchLater() {
   const navigate = useNavigate();
-  const backendURL = "https://youtube-iterate-ai.vercel.app";
+  const backendURL = 'https://youtube-iterate-ai.vercel.app';
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   const [menuClicked, setMenuClicked] = useState(() => {
-    const menu = localStorage.getItem("menuClicked");
+    const menu = localStorage.getItem('menuClicked');
     return menu ? JSON.parse(menu) : false;
   });
   const [watchlater, setWatchLater] = useState([]);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
+    const Dark = localStorage.getItem('Dark');
     return Dark ? JSON.parse(Dark) : true;
   });
   const User = useSelector((state) => state.user.user);
   const { user } = User;
-  document.title = "Watch later - YouTube";
+  document.title = 'Watch later - YouTube';
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -36,13 +37,13 @@ function WatchLater() {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector(".menu");
+    const menuButton = document.querySelector('.menu');
     if (menuButton) {
-      menuButton?.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener('click', handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton?.removeEventListener("click", handleMenuButtonClick);
+        menuButton?.removeEventListener('click', handleMenuButtonClick);
       }
     };
   }, []);
@@ -50,25 +51,25 @@ function WatchLater() {
     const handleMenuButtonClick = () => {
       setMenuClicked((prevMenuClicked) => !prevMenuClicked);
     };
-    const menuButton = document.querySelector(".menu-light");
+    const menuButton = document.querySelector('.menu-light');
     if (menuButton) {
-      menuButton?.addEventListener("click", handleMenuButtonClick);
+      menuButton?.addEventListener('click', handleMenuButtonClick);
     }
     return () => {
       if (menuButton) {
-        menuButton?.removeEventListener("click", handleMenuButtonClick);
+        menuButton?.removeEventListener('click', handleMenuButtonClick);
       }
     };
   }, []);
   useEffect(() => {
-    if (theme === false && !window.location.href.includes("/studio")) {
-      document.body.style.backgroundColor = "white";
-    } else if (theme === true && !window.location.href.includes("/studio")) {
-      document.body.style.backgroundColor = "0f0f0f";
+    if (theme === false && !window.location.href.includes('/studio')) {
+      document.body.style.backgroundColor = 'white';
+    } else if (theme === true && !window.location.href.includes('/studio')) {
+      document.body.style.backgroundColor = '0f0f0f';
     }
   }, [theme]);
   useEffect(() => {
-    localStorage.setItem("menuClicked", JSON.stringify(menuClicked));
+    localStorage.setItem('menuClicked', JSON.stringify(menuClicked));
   }, [menuClicked]);
   useEffect(() => {
     const getWatchLater = async () => {
@@ -86,12 +87,15 @@ function WatchLater() {
     };
     getWatchLater();
   }, [user?.email]);
+  useEffect(() => {
+    mixpanel.track_pageview({ "page": `watch_later_page` });
+  }, []);
   const updateViews = async (id) => {
     try {
       const response = await fetch(`${backendURL}/updateview/${id}`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       await response.json();
@@ -99,14 +103,14 @@ function WatchLater() {
       // console.log(error.message);
     }
   };
-  if (watchlater.savedData === "NO DATA") {
+  if (watchlater.savedData === 'NO DATA') {
     return (
       <>
         <Navbar />
         <LeftPanel />
         <div className="searched-content">
           <img src={nothing} alt="no results" className="nothing-found" />
-          <p className={theme ? "no-results" : "no-results text-light-mode"}>
+          <p className={theme ? 'no-results' : 'no-results text-light-mode'}>
             No videos found!
           </p>
         </div>
@@ -120,8 +124,8 @@ function WatchLater() {
       <div
         className={
           theme
-            ? "liked-video-data"
-            : "liked-video-data light-mode text-light-mode"
+            ? 'liked-video-data'
+            : 'liked-video-data light-mode text-light-mode'
         }
       >
         {watchlater.length > 0 ? (
@@ -130,16 +134,16 @@ function WatchLater() {
             style={
               menuClicked === false
                 ? {
-                    left: "80px",
+                    left: '80px',
                   }
                 : {
-                    left: "255px",
+                    left: '255px',
                   }
             }
           >
             <div
               className={
-                theme ? "like-left-section" : "like-left-section-light"
+                theme ? 'like-left-section' : 'like-left-section-light'
               }
               style={{
                 backgroundImage: `url(${watchlater[0]?.thumbnailURL})`,
@@ -161,18 +165,18 @@ function WatchLater() {
                     }}
                   >
                     <SkeletonTheme
-                      baseColor={theme ? "#353535" : "#aaaaaa"}
-                      highlightColor={theme ? "#444" : "#b6b6b6"}
+                      baseColor={theme ? '#353535' : '#aaaaaa'}
+                      highlightColor={theme ? '#444' : '#b6b6b6'}
                     >
                       <div
                         className="thisimggg"
                         style={
                           loading === true
                             ? {
-                                display: "block",
+                                display: 'block',
                               }
                             : {
-                                display: "none",
+                                display: 'none',
                               }
                         }
                       >
@@ -181,7 +185,7 @@ function WatchLater() {
                           width={310}
                           height={174}
                           style={{
-                            borderRadius: "12px",
+                            borderRadius: '12px',
                           }}
                           className="sk-watch-bigimg"
                         />
@@ -195,19 +199,19 @@ function WatchLater() {
                       style={
                         loading === true
                           ? {
-                              visibility: "hidden",
-                              display: "none",
+                              visibility: 'hidden',
+                              display: 'none',
                             }
                           : {
-                              visibility: "visible",
-                              display: "block",
+                              visibility: 'visible',
+                              display: 'block',
                             }
                       }
                     />
                     <p
                       className="sample-play"
                       style={{
-                        pointerEvents: "none",
+                        pointerEvents: 'none',
                       }}
                     >
                       &#9654; PLAY ALL
@@ -239,7 +243,7 @@ function WatchLater() {
                   <PlayArrowIcon
                     fontSize="medium"
                     style={{
-                      color: "black",
+                      color: 'black',
                     }}
                   />
                   <p className="play-all">Play all</p>
@@ -247,18 +251,18 @@ function WatchLater() {
               </div>
             </div>
             <SkeletonTheme
-              baseColor={theme ? "#353535" : "#aaaaaa"}
-              highlightColor={theme ? "#444" : "#b6b6b6"}
+              baseColor={theme ? '#353535' : '#aaaaaa'}
+              highlightColor={theme ? '#444' : '#b6b6b6'}
             >
               <div
                 className="like-right-section sk-right-like"
                 style={
                   loading === true
                     ? {
-                        display: "block",
+                        display: 'block',
                       }
                     : {
-                        display: "none",
+                        display: 'none',
                       }
                 }
               >
@@ -268,15 +272,15 @@ function WatchLater() {
                         <div
                           className={
                             theme
-                              ? "liked-all-videos"
-                              : "liked-all-videos liked-all-videos-light"
+                              ? 'liked-all-videos'
+                              : 'liked-all-videos liked-all-videos-light'
                           }
                           key={index}
                           style={{
                             display:
-                              element.videoprivacy === "Public"
-                                ? "flex"
-                                : "none",
+                              element.videoprivacy === 'Public'
+                                ? 'flex'
+                                : 'none',
                           }}
                         >
                           <div className="liked-videos-all-data">
@@ -285,16 +289,16 @@ function WatchLater() {
                               width={180}
                               height={101}
                               style={{
-                                borderRadius: "12px",
+                                borderRadius: '12px',
                               }}
                               className="sk-watch-thumbnail"
                             />
                             <div
                               className="its-content"
                               style={{
-                                position: "relative",
-                                left: "10px",
-                                top: "6px",
+                                position: 'relative',
+                                left: '10px',
+                                top: '6px',
                               }}
                             >
                               <Skeleton
@@ -308,8 +312,8 @@ function WatchLater() {
                                 width={250}
                                 height={16}
                                 style={{
-                                  position: "relative",
-                                  top: "10px",
+                                  position: 'relative',
+                                  top: '10px',
                                 }}
                                 className="sk-watch-channel"
                               />
@@ -318,7 +322,7 @@ function WatchLater() {
                         </div>
                       );
                     })
-                  : ""}
+                  : ''}
               </div>
             </SkeletonTheme>
             <div
@@ -326,12 +330,12 @@ function WatchLater() {
               style={
                 loading === true
                   ? {
-                      visibility: "hidden",
-                      display: "none",
+                      visibility: 'hidden',
+                      display: 'none',
                     }
                   : {
-                      visibility: "visible",
-                      display: "block",
+                      visibility: 'visible',
+                      display: 'block',
                     }
               }
             >
@@ -341,18 +345,18 @@ function WatchLater() {
                       <div
                         className={
                           theme
-                            ? "liked-all-videos"
-                            : "liked-all-videos liked-all-videos-light text-light-mode"
+                            ? 'liked-all-videos'
+                            : 'liked-all-videos liked-all-videos-light text-light-mode'
                         }
                         key={index}
                         style={{
                           display:
-                            element.videoprivacy === "Public" ? "flex" : "none",
+                            element.videoprivacy === 'Public' ? 'flex' : 'none',
                         }}
                       >
                         <p
                           style={{
-                            color: "#aaa",
+                            color: '#aaa',
                           }}
                         >
                           {index + 1}
@@ -377,13 +381,13 @@ function WatchLater() {
                           />
                           <p
                             className={
-                              theme ? "durationn3" : "durationn3 text-dark-mode"
+                              theme ? 'durationn3' : 'durationn3 text-dark-mode'
                             }
                           >
                             {Math.floor(element.videoLength / 60) +
-                              ":" +
+                              ':' +
                               (Math.round(element.videoLength % 60) < 10
-                                ? "0" + Math.round(element.videoLength % 60)
+                                ? '0' + Math.round(element.videoLength % 60)
                                 : Math.round(element.videoLength % 60))}
                           </p>
                           <div className="its-content">
@@ -403,7 +407,7 @@ function WatchLater() {
                       </div>
                     );
                   })
-                : ""}
+                : ''}
             </div>
           </div>
         ) : (
@@ -411,10 +415,10 @@ function WatchLater() {
             <div
               className="spin23"
               style={{
-                top: "200px",
+                top: '200px',
               }}
             >
-              <span className={theme ? "loader2" : "loader2-light"}></span>
+              <span className={theme ? 'loader2' : 'loader2-light'}></span>
             </div>
           </div>
         )}
@@ -425,8 +429,8 @@ function WatchLater() {
       <div
         className={
           theme
-            ? "liked-video-data-new"
-            : "liked-video-data-new light-mode text-light-mode"
+            ? 'liked-video-data-new'
+            : 'liked-video-data-new light-mode text-light-mode'
         }
       >
         {watchlater.length > 0 ? (
@@ -435,16 +439,16 @@ function WatchLater() {
             style={
               menuClicked === false
                 ? {
-                    left: "80px",
+                    left: '80px',
                   }
                 : {
-                    left: "255px",
+                    left: '255px',
                   }
             }
           >
             <div
               className={
-                theme ? "like-left-section2" : "like-left-section2-light"
+                theme ? 'like-left-section2' : 'like-left-section2-light'
               }
               style={{
                 backgroundImage: `url(${watchlater[0]?.thumbnailURL})`,
@@ -467,18 +471,18 @@ function WatchLater() {
                       }}
                     >
                       <SkeletonTheme
-                        baseColor={theme ? "#353535" : "#aaaaaa"}
-                        highlightColor={theme ? "#444" : "#b6b6b6"}
+                        baseColor={theme ? '#353535' : '#aaaaaa'}
+                        highlightColor={theme ? '#444' : '#b6b6b6'}
                       >
                         <div
                           className="thisimggg"
                           style={
                             loading === true
                               ? {
-                                  display: "block",
+                                  display: 'block',
                                 }
                               : {
-                                  display: "none",
+                                  display: 'none',
                                 }
                           }
                         >
@@ -487,7 +491,7 @@ function WatchLater() {
                             width={310}
                             height={174}
                             style={{
-                              borderRadius: "12px",
+                              borderRadius: '12px',
                             }}
                             className="sk-watch-bigimg"
                           />
@@ -501,19 +505,19 @@ function WatchLater() {
                         style={
                           loading === true
                             ? {
-                                visibility: "hidden",
-                                display: "none",
+                                visibility: 'hidden',
+                                display: 'none',
                               }
                             : {
-                                visibility: "visible",
-                                display: "block",
+                                visibility: 'visible',
+                                display: 'block',
                               }
                         }
                       />
                       <p
                         className="sample-play"
                         style={{
-                          pointerEvents: "none",
+                          pointerEvents: 'none',
                         }}
                       >
                         &#9654; PLAY ALL
@@ -546,7 +550,7 @@ function WatchLater() {
                   <PlayArrowIcon
                     fontSize="medium"
                     style={{
-                      color: "black",
+                      color: 'black',
                     }}
                   />
                   <p className="play-all">Play all</p>
@@ -554,18 +558,18 @@ function WatchLater() {
               </div>
             </div>
             <SkeletonTheme
-              baseColor={theme ? "#353535" : "#aaaaaa"}
-              highlightColor={theme ? "#444" : "#b6b6b6"}
+              baseColor={theme ? '#353535' : '#aaaaaa'}
+              highlightColor={theme ? '#444' : '#b6b6b6'}
             >
               <div
                 className="like-right-section  sk-right-like"
                 style={
                   loading === true
                     ? {
-                        display: "block",
+                        display: 'block',
                       }
                     : {
-                        display: "none",
+                        display: 'none',
                       }
                 }
               >
@@ -575,15 +579,15 @@ function WatchLater() {
                         <div
                           className={
                             theme
-                              ? "liked-all-videos"
-                              : "liked-all-videos liked-all-videos-light text-light-mode"
+                              ? 'liked-all-videos'
+                              : 'liked-all-videos liked-all-videos-light text-light-mode'
                           }
                           key={index}
                           style={{
                             display:
-                              element.videoprivacy === "Public"
-                                ? "flex"
-                                : "none",
+                              element.videoprivacy === 'Public'
+                                ? 'flex'
+                                : 'none',
                           }}
                         >
                           <div className="liked-videos-all-data">
@@ -592,16 +596,16 @@ function WatchLater() {
                               width={180}
                               height={101}
                               style={{
-                                borderRadius: "12px",
+                                borderRadius: '12px',
                               }}
                               className="sk-watch-thumbnail"
                             />
                             <div
                               className="its-content"
                               style={{
-                                position: "relative",
-                                left: "10px",
-                                top: "6px",
+                                position: 'relative',
+                                left: '10px',
+                                top: '6px',
                               }}
                             >
                               <Skeleton
@@ -615,8 +619,8 @@ function WatchLater() {
                                 width={250}
                                 height={16}
                                 style={{
-                                  position: "relative",
-                                  top: "10px",
+                                  position: 'relative',
+                                  top: '10px',
                                 }}
                                 className="sk-watch-channel"
                               />
@@ -625,7 +629,7 @@ function WatchLater() {
                         </div>
                       );
                     })
-                  : ""}
+                  : ''}
               </div>
             </SkeletonTheme>
             <div
@@ -633,12 +637,12 @@ function WatchLater() {
               style={
                 loading === true
                   ? {
-                      visibility: "hidden",
-                      display: "none",
+                      visibility: 'hidden',
+                      display: 'none',
                     }
                   : {
-                      visibility: "visible",
-                      display: "block",
+                      visibility: 'visible',
+                      display: 'block',
                     }
               }
             >
@@ -648,18 +652,18 @@ function WatchLater() {
                       <div
                         className={
                           theme
-                            ? "liked-all-videos"
-                            : "liked-all-videos liked-all-videos-light text-light-mode"
+                            ? 'liked-all-videos'
+                            : 'liked-all-videos liked-all-videos-light text-light-mode'
                         }
                         key={index}
                         style={{
                           display:
-                            element.videoprivacy === "Public" ? "flex" : "none",
+                            element.videoprivacy === 'Public' ? 'flex' : 'none',
                         }}
                       >
                         <p
                           style={{
-                            color: "#aaa",
+                            color: '#aaa',
                           }}
                         >
                           {index + 1}
@@ -684,13 +688,13 @@ function WatchLater() {
                           />
                           <p
                             className={
-                              theme ? "durationn3" : "durationn3 text-dark-mode"
+                              theme ? 'durationn3' : 'durationn3 text-dark-mode'
                             }
                           >
                             {Math.floor(element.videoLength / 60) +
-                              ":" +
+                              ':' +
                               (Math.round(element.videoLength % 60) < 10
-                                ? "0" + Math.round(element.videoLength % 60)
+                                ? '0' + Math.round(element.videoLength % 60)
                                 : Math.round(element.videoLength % 60))}
                           </p>
                           <div className="its-content2">
@@ -710,7 +714,7 @@ function WatchLater() {
                       </div>
                     );
                   })
-                : ""}
+                : ''}
             </div>
           </div>
         ) : (
@@ -718,10 +722,10 @@ function WatchLater() {
             <div
               className="spin23"
               style={{
-                top: "200px",
+                top: '200px',
               }}
             >
-              <span className={theme ? "loader2" : "loader2-light"}></span>
+              <span className={theme ? 'loader2' : 'loader2-light'}></span>
             </div>
           </div>
         )}

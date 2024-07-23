@@ -30,7 +30,7 @@ function App() {
   const { user } = User;
 
   const dispatch = useDispatch();
-  mixpanel.init("ea80762cb49f3dc9e1531668bb8a2ed0", {track_pageview: true})
+  mixpanel.init("ea80762cb49f3dc9e1531668bb8a2ed0")
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);

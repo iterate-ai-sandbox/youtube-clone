@@ -34,6 +34,7 @@ import Navbar from "./Navbar";
 import Share from "./Share";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import mixpanel from "mixpanel-browser";
 function VideoSection() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -163,6 +164,9 @@ function VideoSection() {
     });
 
   // USE EFFECTS
+  useEffect(() => {
+    mixpanel.track_pageview({"page": `video_${id}_page`})
+}, [])
 
   useEffect(() => {
     function handleResize() {
