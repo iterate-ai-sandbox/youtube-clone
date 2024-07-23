@@ -35,6 +35,7 @@ import Share from "./Share";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 function VideoSection() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -1291,22 +1292,7 @@ useEffect(() => {
                 title="Add to playlist"
                 placement="top"
               >
-                <div
-                  className={
-                    theme
-                      ? "add-playlist"
-                      : "add-playlist add-playlist-light text-light-mode"
-                  }
-                  onClick={() => {
-                    if (playlistClicked === false && user?.email) {
-                      setPlaylistClicked(true);
-                      document.body.classList.add("bg-css");
-                    } else if (!user?.email) {
-                      setisbtnClicked(true);
-                      document.body.classList.add("bg-css");
-                    }
-                  }}
-                >
+                <div className={ theme ? "add-playlist" : "add-playlist add-playlist-light text-light-mode" } onClick={() => { mixpanel.track('video_add_to_playlist', { 'Video Title': Title, 'List of hashtag': checkTrending ? '#TRENDING' : '', 'Channel name': channelName }); if (playlistClicked === false && user?.email) { setPlaylistClicked(true); document.body.classList.add("bg-css"); } else if (!user?.email) { setisbtnClicked(true); document.body.classList.add("bg-css"); } }} >
                   <PlaylistAddIcon
                     fontSize="medium"
                     style={{
