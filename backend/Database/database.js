@@ -7,6 +7,10 @@ mongoose
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      connectTimeoutMS: 30000,
+      socketTimeoutMS: 30000,
+      waitQueueTimeoutMS: 30000,
+      serverSelectionTimeoutMS: 30000,
     }
   )
   .then(() => console.log("Connected")) //If connected to DB
