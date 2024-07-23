@@ -323,11 +323,7 @@ function Browse() {
                   }
                   key={index}
                 >
-                  <p
-                    onClick={() => {
-                      setTagsSelected(`${element}`);
-                    }}
-                  >
+                  <p onClick={() => { mixpanel.track('tag_clicked', { list_of_video_titles: Titles, tag_name: element }); setTagsSelected(element); }}>
                     {element}
                   </p>
                 </div>
