@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../Css/Studio/dashboard.css';
 import noVideo from '../../img/no-video2.png';
-import CustomTestCompo from '../../CustomTestCompo';
 import mixpanel from 'mixpanel-browser';
 function Dashboard() {
   const navigate = useNavigate();
@@ -356,15 +355,6 @@ function Dashboard() {
           >
             Channel dashboard
           </p>
-          <CustomTestCompo
-            title="This is a test wrapper"
-            onClick={() => {
-              mixpanel.track('checked_custom_compo', {
-                Location: 'LeftPanel.jsx',
-                date: new Date().toISOString(),
-              });
-            }}
-          />
           <div className="dash-data-all">
             <div className="left-dashboard-data">
               <div
