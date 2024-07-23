@@ -89,8 +89,8 @@ function Signup() {
         localStorage.setItem("userData", JSON.stringify(user));
 
         setTimeout(() => {
-          reloadPage()
           document.body.classList.remove("bg-class");
+          window.location.replace('/')
         }, 2000);
       } else {
         EmailErrorNotify(message);

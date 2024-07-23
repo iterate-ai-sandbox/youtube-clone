@@ -115,6 +115,8 @@ function Signin(prop) {
           reloadPage()
           document.body.classList.remove("bg-class");
         }, 2000);
+        document.body.classList.remove('bg-css');
+        window.location.replace('/')
       } else if (message === "INVALID CREDENTIALS") {
         InvalidNotify();
       } else if (message === "USER DOESN'T EXIST") {
