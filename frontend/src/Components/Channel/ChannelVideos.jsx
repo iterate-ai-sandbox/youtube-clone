@@ -20,7 +20,7 @@ function ChannelVideos(prop) {
   const navigate = useNavigate();
   const location = useLocation();
   const reloadPage = () => {
-    navigate(location.pathname, { replace: true });
+    navigate('/', { replace: true });
   };
 
   useEffect(() => {

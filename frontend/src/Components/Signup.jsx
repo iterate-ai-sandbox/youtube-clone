@@ -9,7 +9,7 @@ function Signup() {
   const navigate = useNavigate();
   const location = useLocation();
   const reloadPage = () => {
-    navigate(location.pathname, { replace: true });
+    navigate('/', { replace: true });
   };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
