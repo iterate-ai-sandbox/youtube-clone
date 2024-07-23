@@ -13,5 +13,5 @@ mongoose
       serverSelectionTimeoutMS: 30000,
     }
   )
-  .then(() => console.log("Connected")) //If connected to DB
-  .catch((err) => console.log(err)); //If not connected to DB
+  .then(() => console.log(`MongoDB Connected`)) //If connected to DB
+  .catch((err) => console.log(`MongoDB Connection Error: ${err}`)); //If not connected to DB
