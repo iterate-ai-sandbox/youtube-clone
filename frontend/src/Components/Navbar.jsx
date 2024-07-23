@@ -1,6 +1,6 @@
 //MUI Icons
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import mixpanel from 'mixpanel-browser';
+import mixpanel from "mixpanel-browser";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import Tooltip from "@mui/material/Tooltip";
@@ -68,7 +68,7 @@ function Navbar() {
       try {
         if (user?.email) {
           const response = await fetch(
-            `${backendURL}/getuserimage/${user?.email}`
+            `${backendURL}/getuserimage/${user?.email}`,
           );
           const { channelIMG } = await response.json();
           setProfilePic(channelIMG);
@@ -180,7 +180,22 @@ function Navbar() {
             />
           </Tooltip>
 
-          <button onClick={() => { if (isbtnClicked === false) { setisbtnClicked(true); document.body.classList.add("bg-css"); mixpanel.track('signin_clicked', { list_of_video_titles: 'NONE' }); } else { setisbtnClicked(false); document.body.classList.remove("bg-css"); } }} className={theme ? "signin" : "signin signin-light"} style={ User.success ? { display: "none", } : { display: "flex", } } >
+          <button
+            onClick={() => {
+              if (isbtnClicked === false) {
+                setisbtnClicked(true);
+                document.body.classList.add("bg-css");
+                mixpanel.track("signin_clicked", {
+                  list_of_video_titles: "NONE",
+                });
+              } else {
+                setisbtnClicked(false);
+                document.body.classList.remove("bg-css");
+              }
+            }}
+            className={theme ? "signin" : "signin signin-light"}
+<button onClick={() => { if (isbtnClicked === false) { setisbtnClicked(true); document.body.classList.add('bg-css'); mixpanel.track('signin_clicked', { list_of_video_titles: 'NONE', }); } else { setisbtnClicked(false); document.body.classList.remove('bg-css'); } }} className={theme ? 'signin' : 'signin signin-light'} style={User.success ? { display: 'none' } : { display: 'flex' }}>
+          >
             <AccountCircleOutlinedIcon
               fontSize="medium"
               style={{
