@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Css/likevideos.css";
@@ -26,6 +26,10 @@ import Signup from "./Signup";
 
 function Playlists() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
@@ -512,7 +516,7 @@ function Playlists() {
                         onClick={() => {
                           saveEditData();
                           setTimeout(() => {
-                            window.location.reload();
+                            reloadPage()
                           }, 300);
                         }}
                       >
@@ -603,7 +607,7 @@ function Playlists() {
                             setprivacyClicked(false);
                             setPrivacy("Public");
                             setTimeout(() => {
-                              window.location.reload();
+                              reloadPage()
                             }, 200);
                           }}
                         >
@@ -630,7 +634,7 @@ function Playlists() {
                             setprivacyClicked(false);
                             setPrivacy("Private");
                             setTimeout(() => {
-                              window.location.reload();
+                              reloadPage()
                             }, 200);
                           }}
                         >
@@ -1122,7 +1126,7 @@ function Playlists() {
                           onClick={() => {
                             saveEditData();
                             setTimeout(() => {
-                              window.location.reload();
+                              reloadPage()
                             }, 300);
                           }}
                         >
@@ -1213,7 +1217,7 @@ function Playlists() {
                               setprivacyClicked(false);
                               setPrivacy("Public");
                               setTimeout(() => {
-                                window.location.reload();
+                                reloadPage()
                               }, 200);
                             }}
                           >
@@ -1240,7 +1244,7 @@ function Playlists() {
                               setprivacyClicked(false);
                               setPrivacy("Private");
                               setTimeout(() => {
-                                window.location.reload();
+                                reloadPage()
                               }, 200);
                             }}
                           >

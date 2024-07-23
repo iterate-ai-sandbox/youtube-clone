@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../Css/Studio/content.css";
@@ -26,6 +26,10 @@ import LeftPanel2 from "../LeftPanel2";
 import Navbar2 from "../Navbar2";
 function Content() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [userVideos, setUserVideos] = useState([]);
@@ -878,7 +882,7 @@ function Content() {
               onClick={() => {
                 setIsDeleteClicked(false);
                 document.body.classList.remove("bg-css2");
-                window.location.reload();
+                reloadPage()
               }}
             >
               CANCEL
@@ -896,7 +900,7 @@ function Content() {
                 if (boxclicked === true && DeleteVideoData) {
                   DeleteVideo(DeleteVideoData._id);
                   setTimeout(() => {
-                    window.location.reload();
+                    reloadPage()
                   }, 300);
                 }
               }}

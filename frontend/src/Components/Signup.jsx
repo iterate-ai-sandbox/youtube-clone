@@ -3,8 +3,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Css/navbar.css";
 import mixpanel from 'mixpanel-browser';
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [data, setData] = useState({});
@@ -83,7 +89,7 @@ function Signup() {
         localStorage.setItem("userData", JSON.stringify(user));
 
         setTimeout(() => {
-          window.location.reload();
+          reloadPage()
           document.body.classList.remove("bg-class");
         }, 2000);
       } else {

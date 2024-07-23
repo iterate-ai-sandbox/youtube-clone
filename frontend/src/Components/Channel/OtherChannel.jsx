@@ -8,7 +8,7 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../Css/channel.css";
@@ -23,6 +23,10 @@ import ChannelVideos from "./ChannelVideos";
 import FeaturedChannels from "./FeaturedChannels";
 function OtherChannel() {
   const navigate = useNavigate()
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const {
@@ -305,7 +309,7 @@ function OtherChannel() {
                   </div>
                   <div className={theme ? "more-about" : "more-about text-light-mode2"} onClick={() => {
                 localStorage.setItem("Section", "About");
-                window.location.reload();
+                reloadPage()
               }}>
                     <p className="more-text">More about this channel</p>
                     <ArrowForwardIosIcon fontSize="15px" style={{
@@ -367,12 +371,12 @@ function OtherChannel() {
             <div className="different-sections">
               {Section === "Home" ? <p className={theme ? "channel-home1" : "channel-home2"} onClick={() => {
             localStorage.setItem("Section", "Home");
-            window.location.reload();
+            reloadPage()
           }}>
                   HOME
                 </p> : <p className={theme ? "channel-home" : "channel-home text-light-mode2"} onClick={() => {
             localStorage.setItem("Section", "Home");
-            window.location.reload();
+            reloadPage()
           }}>
                   HOME
                 </p>}
@@ -382,7 +386,7 @@ function OtherChannel() {
             display: "block"
           }} onClick={() => {
             localStorage.setItem("Section", "Videos");
-            window.location.reload();
+            reloadPage()
           }}>
                   VIDEOS
                 </p> : <p className={theme ? "channel-videos" : "channel-videos text-light-mode2"} style={myVideos && myVideos.message === "USER DOESN'T EXIST" ? {
@@ -391,40 +395,40 @@ function OtherChannel() {
             display: "block"
           }} onClick={() => {
             localStorage.setItem("Section", "Videos");
-            window.location.reload();
+            reloadPage()
           }}>
                   VIDEOS
                 </p>}
               {Section === "Playlists" ? <p className={theme ? "channel-playlists1" : "channel-playlists2"} onClick={() => {
             localStorage.setItem("Section", "Playlists");
-            window.location.reload();
+            reloadPage()
           }}>
                   PLAYLISTS
                 </p> : <p className={theme ? "channel-playlists" : "channel-playlists text-light-mode2"} onClick={() => {
             localStorage.setItem("Section", "Playlists");
-            window.location.reload();
+            reloadPage()
           }}>
                   PLAYLISTS
                 </p>}
               {Section === "Subscriptions" ? <p className={theme ? "channel-subscriptions1" : "channel-subscriptions2"} onClick={() => {
             localStorage.setItem("Section", "Subscriptions");
-            window.location.reload();
+            reloadPage()
           }}>
                   CHANNELS
                 </p> : <p className={theme ? "channel-subscriptions" : "channel-subscriptions text-light-mode2"} onClick={() => {
             localStorage.setItem("Section", "Subscriptions");
-            window.location.reload();
+            reloadPage()
           }}>
                   CHANNELS
                 </p>}
               {Section === "About" ? <p className={theme ? "channel-about1" : "channel-about2"} onClick={() => {
             localStorage.setItem("Section", "About");
-            window.location.reload();
+            reloadPage()
           }}>
                   ABOUT
                 </p> : <p className={theme ? "channel-about" : "channel-about text-light-mode2"} onClick={() => {
             localStorage.setItem("Section", "About");
-            window.location.reload();
+            reloadPage()
           }}>
                   ABOUT
                 </p>}

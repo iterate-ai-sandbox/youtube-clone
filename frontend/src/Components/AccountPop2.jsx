@@ -12,9 +12,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../Css/accountPop.css";
 import avatar from "../img/avatar.png";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 function AccountPop() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [profile, setProfile] = useState("");
@@ -179,7 +183,7 @@ function AccountPop() {
           <div className="theme-list">
             <div className={theme ? "dark-theme" : "dark-theme preview-lightt"} onClick={() => {
             setTheme(true);
-            window.location.reload();
+            reloadPage()
           }}>
               <DoneOutlinedIcon className="dark-arrow" fontSize="medium" style={{
               opacity: theme ? "1" : "0"
@@ -188,7 +192,7 @@ function AccountPop() {
             </div>
             <div className={theme ? "light-theme" : "light-theme preview-lightt"} onClick={() => {
             setTheme(false);
-            window.location.reload();
+            reloadPage()
           }}>
               <DoneOutlinedIcon className="light-arrow" fontSize="medium" style={{
               opacity: !theme ? "1" : "0"

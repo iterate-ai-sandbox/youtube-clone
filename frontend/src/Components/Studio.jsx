@@ -30,8 +30,14 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LanguageIcon from "@mui/icons-material/Language";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Studio() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [isChannel, setisChannel] = useState();
@@ -435,7 +441,7 @@ function Studio() {
       const { message } = await response.json();
       if (message === "Channel saved successfully") {
         setisChannel(true);
-        window.location.reload();
+        reloadPage()
       }
     } catch (error) {
       // console.log(error.message);
@@ -577,7 +583,7 @@ function Studio() {
           setIsPublished(true);
           setLoading(false);
           setIsClicked(false);
-          window.location.reload();
+          reloadPage()
         } else {
           setLoading(true);
           setIsClicked(true);
@@ -974,12 +980,12 @@ function Studio() {
                   cancelVideoUpload();
                   CancelNotify();
                   setTimeout(() => {
-                    window.location.reload();
+                    reloadPage()
                   }, 1000);
                 } else if (Progress === 100 && isPublished === false) {
                   CancelNotify();
                   setTimeout(() => {
-                    window.location.reload();
+                    reloadPage()
                   }, 1000);
                 }
                 if (isClicked === true) {

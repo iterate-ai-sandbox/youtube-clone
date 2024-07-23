@@ -7,11 +7,15 @@ import ReactLoading from "react-loading";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import noImage from "../../img/no-video.jpg";
 import noImage2 from "../../img/novideo.png";
 function ChannelHome(prop) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app"
   const [myVideos, setMyVideos] = useState([]);
@@ -496,7 +500,7 @@ function ChannelHome(prop) {
               className="see-all2"
               onClick={() => {
                 localStorage.setItem("Section", "Videos");
-                window.location.reload();
+                reloadPage()
               }}
             >
               See all
@@ -739,7 +743,7 @@ function ChannelHome(prop) {
               className="see-all2"
               onClick={() => {
                 localStorage.setItem("Section", "Videos");
-                window.location.reload();
+                reloadPage()
               }}
             >
               See all
@@ -1382,7 +1386,7 @@ function ChannelHome(prop) {
                 className="see-all2"
                 onClick={() => {
                   localStorage.setItem("Section", "Videos");
-                  window.location.reload();
+                  reloadPage()
                 }}
               >
                 See all
@@ -1533,7 +1537,7 @@ function ChannelHome(prop) {
                 className="see-all2"
                 onClick={() => {
                   localStorage.setItem("Section", "Videos");
-                  window.location.reload();
+                  reloadPage()
                 }}
               >
                 See all

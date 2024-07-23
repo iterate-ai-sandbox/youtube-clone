@@ -23,7 +23,7 @@ import { LiaDownloadSolid } from "react-icons/lia";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Css/videoSection.css";
@@ -36,6 +36,10 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 function VideoSection() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
@@ -870,7 +874,7 @@ function VideoSection() {
         if (Data) {
           setLoading(false);
           playlistNotify();
-          window.location.reload();
+          reloadPage()
         }
       }
     } catch (error) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ChannelVideos(prop) {
   const backendURL = "https://youtube-iterate-ai.vercel.app";
@@ -18,6 +18,10 @@ function ChannelVideos(prop) {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -279,11 +283,11 @@ function ChannelVideos(prop) {
                       updateViews(element._id);
                       setTimeout(() => {
                         navigate(`/video/${element._id}`);
-                        window.location.reload();
+                        reloadPage()
                       }, 400);
                     } else {
                       navigate(`/video/${element._id}`);
-                      window.location.reload();
+                      reloadPage()
                     }
                   }}
                 >

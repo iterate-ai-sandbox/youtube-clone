@@ -4,7 +4,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Css/navbar.css";
 import Reset from "./Reset";
 import mixpanel from 'mixpanel-browser';
+import { useLocation, useNavigate } from "react-router-dom";
 function Signin(prop) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app"
   const [data, setData] = useState({});
@@ -106,7 +112,7 @@ function Signin(prop) {
       if (message === "LOGIN SUCCESSFUL") {
         LoginNotify();
         setTimeout(() => {
-          window.location.reload();
+          reloadPage()
           document.body.classList.remove("bg-class");
         }, 2000);
       } else if (message === "INVALID CREDENTIALS") {

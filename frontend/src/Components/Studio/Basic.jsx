@@ -7,10 +7,16 @@ import LanguageIcon from "@mui/icons-material/Language";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Basic() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const [channelName, setChannelName] = useState();
@@ -218,7 +224,7 @@ function Basic() {
           setLoading(false);
           setBasicChanges(false);
           setLinkChanges(false);
-          window.location.reload();
+          reloadPage()
         }, 3800);
       }
     };

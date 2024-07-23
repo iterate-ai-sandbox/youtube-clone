@@ -11,7 +11,7 @@ import WestIcon from "@mui/icons-material/West";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { GrUndo } from "react-icons/gr";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../Css/Studio/videodetails.css";
@@ -20,6 +20,10 @@ import LeftPanel3 from "../LeftPanel3";
 import Navbar2 from "../Navbar2";
 function VideoDetails() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
+  };
   const backendURL = "https://youtube-iterate-ai.vercel.app";
   // const backendURL = "https://youtube-iterate-ai.vercel.app";
   const { id } = useParams();
@@ -218,7 +222,7 @@ function VideoDetails() {
         "Changes you made may not be saved. Do you want to continue?"
       );
       if (userConfirmation) {
-        window.location.reload();
+        reloadPage()
       } else {
         // User clicked on "Cancel", do nothing
       }
@@ -282,7 +286,7 @@ function VideoDetails() {
       const Data = await response.json();
       if (Data) {
         setLoading(false);
-        window.location.reload();
+        reloadPage()
       }
     } catch (error) {
       // console.log(error);
