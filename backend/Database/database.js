@@ -1,8 +1,8 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-mongoose
-  .connect(
+const connectDB = async () =>
+  await mongoose.connect(
     `mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@youtube.s8lcajd.mongodb.net/${process.env.DB_name}?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
@@ -12,6 +12,5 @@ mongoose
       waitQueueTimeoutMS: 30000,
       serverSelectionTimeoutMS: 30000,
     }
-  )
-  .then(() => console.log(`MongoDB Connected`)) //If connected to DB
-  .catch((err) => console.log(`MongoDB Connection Error: ${err}`)); //If not connected to DB
+  );
+export default connectDB;

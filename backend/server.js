@@ -5,6 +5,7 @@ const path = require("path");
 const port = 3000;
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { default: connectDB } = require("./Database/database");
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -33,7 +34,13 @@ app.use(router);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+connectDB()
+  .then(() => {
+    console.log(`MongoDB Connected from server.js`);
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(`MongoDB Connection Error: ${error} from server.js`);
+  });
