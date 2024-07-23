@@ -156,7 +156,7 @@ Videos.get("/getvideos", async (req, res) => {
       videoData,
     });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred" });
+    res.status(500).json({ message: "An error occurred", error });
   }
 });
 
