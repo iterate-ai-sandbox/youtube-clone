@@ -100,6 +100,7 @@ Videos.post("/publish", async (req, res) => {
 
 Videos.get("/getvideos", async (req, res) => {
   try {
+    console.log("get");
     const videos = await videodata.find({});
     const videoURLs = videos.flatMap((video) =>
       video.VideoData.map((data) => data.videoURL)
