@@ -112,9 +112,9 @@ function Browse() {
    document.body.style.backgroundColor = '0f0f0f'
   }
  }, [theme])
- useEffect(() => {
-  mixpanel.track('user_feed_viewed')
- }, [])
+//  useEffect(() => {
+//   mixpanel.track('user_feed_viewed')
+//  }, [])
 
  //UPDATE VIEWS
 
@@ -260,7 +260,7 @@ function Browse() {
         <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
          <p
           onClick={() => {
-           mixpanel.track('tag_clicked', {list_of_video_titles: Titles, tag_name: element})
+          //  mixpanel.track('tag_clicked', {list_of_video_titles: Titles, tag_name: element})
            setTagsSelected(element)
           }}>
           {element}

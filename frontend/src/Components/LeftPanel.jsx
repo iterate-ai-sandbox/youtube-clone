@@ -707,10 +707,10 @@ function LeftPanel() {
        onClick={() => {
         if (user?.email) {
          localStorage.setItem('selected', 'library')
-        //  mixpanel.track('checked_library', {
-        //   Location: 'LeftPanel.jsx',
-        //   date: new Date().toISOString()
-        //  })
+         mixpanel.track('library_menu_clicked', {
+          Location: 'LeftPanel.jsx',
+          date: new Date().toISOString()
+         })
          navigate('/library')
         } else {
          setisbtnClicked(true)

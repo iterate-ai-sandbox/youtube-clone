@@ -70,7 +70,7 @@ function Signup() {
    ErrorNotify()
    return
   }
-  mixpanel.track('user_created_account', {
+  mixpanel.track('account_created', {
    Location: 'Signup.jsx',
    date: new Date().toISOString()
   })

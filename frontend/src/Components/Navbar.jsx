@@ -81,6 +81,7 @@ function Navbar() {
   }, 2500)
  }, [])
  const handleSearch = e => {
+  mixpanel.track('search_clicked')
   setSearchedData(e?.target?.value)
   setData(e?.target?.value)
  }
@@ -280,6 +281,7 @@ function Navbar() {
       <p>Already have an account?</p>
       <p
        onClick={() => {
+        mixpanel.track("sign_in_clicked")
         if (isSwitch === false) {
          setisSwitched(true)
         } else {

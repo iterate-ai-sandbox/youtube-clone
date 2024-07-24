@@ -307,6 +307,7 @@ function Library() {
           className="thiswatchlater-videoss"
           key={index}
           onClick={() => {
+           mixpanel.track('watch_later_video_clicked')
            navigate(`/video/${element.savedVideoID}`)
           }}>
           <img src={element.thumbnailURL} alt="thumbnail" className="thiswatch-thumbnail" />

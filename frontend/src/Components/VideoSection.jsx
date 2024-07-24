@@ -1108,6 +1108,7 @@ function VideoSection() {
        <div
         className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
         onClick={() => {
+         mixpanel.track('add_to_playlist_clicked')
          if (playlistClicked === false && user?.email) {
           setPlaylistClicked(true)
           document.body.classList.add('bg-css')
