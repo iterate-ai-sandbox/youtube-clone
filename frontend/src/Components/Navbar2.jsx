@@ -132,7 +132,7 @@ function Navbar2() {
       alt="logo"
       className="youtubeLogo2"
       onClick={() => {
-       window.location.href = '/studio'
+       window.location.href = '/'
       }}
      />
     </div>
