@@ -1,15 +1,417 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="src/img/icon.png" type="image/x-icon" />
-    <title>YouTube</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <!-- <script>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="src/img/icon.png" type="image/x-icon" />
+  <title>YouTube</title>
+ </head>
+ <body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx" defer></script>
+  <script>
+   const MessageType = {
+    REQUEST_INIT: 'request-init',
+    REQUEST_SELECTED: 'request-selected',
+    RESPONSE_INIT: 'response-init',
+    RESPONSE_SELECTED: 'response-selected',
+    RESPONSE_ROUTER: 'response-router',
+    ROUTER_BACK: 'router-back',
+    ROUTER_FORWARD: 'router-forward',
+    REMOVE_SELECTION: 'remove-selection',
+    SET_SELECTION: 'set-selection',
+    INVALID_SELECTION: 'invalid-selection',
+    END_SELECTION: 'end-selection',
+    REQUEST_CLEANED_HTML: 'request-cleaned-html',
+    RESPONSE_CLEANED_HTML: 'response-cleaned-html'
+   }
+   const createOverlay = () => {
+    const overlay = window.document.createElement('div')
+    overlay.classList.add('iterate-overlay')
+    overlay.style.position = 'absolute'
+    overlay.style.width = `0px`
+    overlay.style.height = `0px`
+    overlay.style.top = `0px`
+    overlay.style.left = `0px`
+    overlay.style.bottom = `0px`
+    overlay.style.right = `0px`
+    overlay.style.zIndex = '100000000000'
+    return overlay
+   }
+   const resetOverlay = () => {
+    document.querySelectorAll('.iterate-overlay').forEach(element => {
+     element.remove()
+    })
+   }
+   const config = {
+    subtree: true,
+    childList: true,
+    characterData: true,
+    attributes: false
+   }
+
+   /*
+      function findParentForLLM(e) {
+        let dataIterate = e.getAttribute("data-iterate");
+        if (!dataIterate) {
+          return findClosestElementThatContainsDataIterate(e);
+          // if element does not have data-iterate, find the closest parent that has data-iterate
+          // because most probably that element is coming from a library
+        }
+
+        const parent = e.parentElement;
+        let newDataIterate = parent.getAttribute("data-iterate");
+        if (!newDataIterate) return e;
+        // if there is no data-iterate attribute on parent, then return the current data-iterate
+        if (newDataIterate !== dataIterate) return parent;
+        // if the data-iterate attribute is different from the current data-iterate, return the new data-iterate
+        return e;
+      }
+        */
+
+   // Callback function to execute when mutations are observed
+   var callback = function (mutationsList) {
+    if (mutationsList[0]?.type === 'attributes' || mutationsList[0].addedNodes[0]?.className === 'iterate-overlay' || mutationsList[0].removedNodes[0]?.className === 'iterate-overlay') {
+     return
+    }
+    init()
+    notifyRouter()
+   }
+
+   const notifyRouter = () => {
+    window.parent.postMessage(
+     {
+      bearer: 'iterate',
+      type: MessageType.RESPONSE_ROUTER,
+      data: {
+       state: history.state,
+       location: window.location.href,
+       length: history.length,
+       title: document.title
+      }
+     },
+     '*'
+    )
+   }
+
+   ;(function () {
+    console.log('history')
+    // Save the original methods
+    const originalPushState = history.pushState
+    const originalReplaceState = history.replaceState
+
+    // Function to handle navigation events
+    function handleNavigation() {
+     console.log('Navigation occurred')
+     init()
+     notifyRouter()
+     resetOverlay()
+    }
+
+    // Override pushState
+    history.pushState = function () {
+     originalPushState.apply(history, arguments)
+     console.log('pushState')
+     handleNavigation()
+    }
+
+    // Override replaceState
+    history.replaceState = function () {
+     originalReplaceState.apply(history, arguments)
+     console.log('replaceState')
+     handleNavigation()
+    }
+
+    // Listen for popstate event (handles back and forward buttons)
+    window.addEventListener('popstate', function () {
+     console.log('popstate (back/forward button)')
+     handleNavigation()
+    })
+   })()
+
+   var observer = new MutationObserver(callback)
+   observer.observe(document.body, config)
+
+   const modifyOverlay = (overlay, rect) => {
+    const extra = 10
+
+    overlay.style.width = `${rect.width + extra}px`
+    overlay.style.height = `${rect.height + extra}px`
+    overlay.style.top = `${rect.y + window.scrollY - extra / 2}px`
+    overlay.style.left = `${rect.x + window.scrollX - extra / 2}px`
+    overlay.style.bottom = `${rect.y + extra / 2}px`
+    overlay.style.right = `${rect.x + extra / 2}px`
+    /*
+        overlay.style.width = `${rect.width + extra}px`;
+        overlay.style.height = `${rect.height + extra}px`;
+        overlay.style.top = `${rect.y}px`;
+        overlay.style.left = `${rect.x}px`;
+        overlay.style.bottom = `${rect.y + extra / 2}px`;
+        overlay.style.right = `${rect.x + extra / 2}px`;
+        */
+   }
+   function handleMouseOver(e) {
+    let hasOverlay = e.target.classList.contains('has-overlay')
+
+    if (!hasOverlay && (e.target.onclick || e.target.onClick || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A')) {
+     const overlay = createOverlay()
+     const rect = e.target.getBoundingClientRect()
+     document.body.appendChild(overlay)
+     modifyOverlay(overlay, rect)
+     e.target.classList.add('has-overlay')
+    }
+   }
+   function handleMouseOut(e) {
+    resetOverlay()
+    e.target.classList.remove('has-overlay')
+   }
+   function findClosestElementThatContainsDataIterate(element) {
+    let dataIterate = element.getAttribute('data-iterate')
+    while (dataIterate === null || dataIterate === undefined || dataIterate === '') {
+     element = element.parentElement
+     dataIterate = element.getAttribute('data-iterate')
+    }
+    return element
+   }
+
+   function decode(str, e) {
+    if (!str) return {}
+    try {
+     const data = JSON.parse(atob(str))
+     return {
+      ...data,
+      outerHTML: e.outerHTML,
+      iterateId: data.id,
+      path: window.location.pathname
+     }
+    } catch (e) {
+     return {}
+    }
+   }
+   function returnUniqueFiles(element) {
+    const events = new Set()
+    element.querySelectorAll('*').forEach(element => {
+     if (element.getAttribute('data-iterate')) {
+      events.add(decode(element.getAttribute('data-iterate'), element))
+     }
+    })
+    return Array.from(events)
+   }
+   function parseDOM(e) {
+    let self = e.getAttribute('injected-events')
+    let parent = e.getAttribute('injected_events')
+    if (self) {
+     self = decode(self, e)
+    }
+    if (parent) {
+     parent = decode(parent, e)
+    }
+    const events = []
+    if (self) {
+     events.push(self)
+    }
+    if (parent) {
+     events.push(parent)
+    }
+    return events
+   }
+   function handleClick(e) {
+    function clean_html(htmlCode) {
+     const parser = new DOMParser()
+     const doc = parser.parseFromString(htmlCode, 'text/html')
+     // Remove all script and style elements
+     const scripts = doc.querySelectorAll('script, style')
+     scripts.forEach(script => script.remove())
+     // Get the text content
+     let text = doc.body.textContent.trim().replace(/\s+/g, ', ')
+     // Break into lines and remove leading/trailing spaces
+     const lines = text.split('\n').map(line => line.trim())
+     // Break multi-headlines into separate lines
+     const chunks = lines.flatMap(line => line.split('  ').map(phrase => phrase.trim()))
+     // Drop blank lines
+     const cleanedText = chunks.filter(chunk => chunk.length > 0).join('\n')
+     return cleanedText
+    }
+    e.stopPropagation()
+    e.preventDefault()
+    if (!e.target.classList.contains('has-overlay')) {
+     e.target.classList.remove('has-overlay')
+     document.querySelectorAll('*').forEach(element => {
+      element.removeEventListener('mouseover', handleMouseOver)
+      element.removeEventListener('mouseout', handleMouseOut)
+      element.removeEventListener('click', handleClick)
+     })
+     window.parent.postMessage(
+      {
+       bearer: 'iterate',
+       type: MessageType.INVALID_SELECTION
+      },
+      '*'
+     )
+     return
+    }
+    const removed = findClosestElementThatContainsDataIterate(e.target).cloneNode(true)
+    if (e?.target?.getAttribute('data-iterate')) {
+     const decodedDataIterate = JSON.parse(atob(e?.target?.getAttribute('data-iterate')))
+     removed?.classList?.remove('has-overlay')
+     const iframeHTML = document.documentElement.outerHTML
+     const cleanedHTML = clean_html(iframeHTML)
+     window.parent.postMessage(
+      {
+       bearer: 'iterate',
+       type: MessageType.RESPONSE_SELECTED,
+       eventType: 'DEFAULT',
+       events: decodedDataIterate.events,
+       dataIterate: decodedDataIterate.filePath,
+       outerHTML: removed.outerHTML,
+       iterateId: decodedDataIterate.id,
+       cleanedHTML,
+       path: window.location.href
+      },
+      '*'
+     )
+    } else {
+    }
+    e.target.classList.remove('has-overlay')
+    document.querySelectorAll('*').forEach(element => {
+     element.removeEventListener('mouseover', handleMouseOver)
+     element.removeEventListener('mouseout', handleMouseOut)
+     element.removeEventListener('click', handleClick)
+    })
+   }
+
+   function init() {
+    // let parentDiv = document.querySelector("#temp-iterate")?.parentNode;
+
+    // if (parentDiv) {
+    //   // Replace the div with its child MyReactComponent
+    //   var reactComponent = parentDiv.firstChild;
+    //   parentDiv.parentNode.replaceChild(reactComponent, parentDiv);
+    // }
+
+    window.parent.postMessage(
+     {
+      bearer: 'iterate',
+      data: returnUniqueFiles(window.document.body),
+      type: MessageType.RESPONSE_INIT
+     },
+     '*'
+    )
+   }
+
+   // function to send cleaned html on demand for other stuff
+   const sendCleanedHTML = () => {
+    function clean_html(htmlCode) {
+     const parser = new DOMParser()
+     const doc = parser.parseFromString(htmlCode, 'text/html')
+     // Remove all script and style elements
+     const scripts = doc.querySelectorAll('script, style')
+     scripts.forEach(script => script.remove())
+     // Get the text content
+     let text = doc.body.textContent.trim().replace(/\s+/g, ', ')
+     // Break into lines and remove leading/trailing spaces
+     const lines = text.split('\n').map(line => line.trim())
+     // Break multi-headlines into separate lines
+     const chunks = lines.flatMap(line => line.split('  ').map(phrase => phrase.trim()))
+     // Drop blank lines
+     const cleanedText = chunks.filter(chunk => chunk.length > 0).join('\n')
+     return cleanedText
+    }
+    const iframeHTML = document.documentElement.outerHTML
+    const cleanedHTML = clean_html(iframeHTML)
+    window.parent.postMessage(
+     {
+      bearer: 'iterate',
+      cleanedHTML,
+      type: MessageType.RESPONSE_CLEANED_HTML
+     },
+     '*'
+    )
+   }
+
+   const removeSelection = () => {
+    resetOverlay()
+    const elements = document.body.querySelectorAll('.has-overlay')
+    elements.forEach(element => {
+     element.classList.remove('has-overlay')
+    })
+   }
+   window.addEventListener('message', e => {
+    if (e.data.bearer === 'iterate' && e.data && e.data.type) {
+     if (e.data.type === MessageType.REQUEST_INIT) {
+      init()
+     } else if (e.data.type === MessageType.REQUEST_SELECTED) {
+      resetOverlay()
+      document.querySelectorAll('*').forEach(element => {
+       element.addEventListener('mouseover', handleMouseOver)
+       element.addEventListener('mouseout', handleMouseOut)
+       element.addEventListener('click', handleClick)
+      })
+     } else if (e.data.type === MessageType.ROUTER_BACK) {
+      resetOverlay()
+      history.back()
+     } else if (e.data.type === MessageType.ROUTER_FORWARD) {
+      resetOverlay()
+      history.forward()
+     } else if (e.data.type === MessageType.REMOVE_SELECTION) {
+      removeSelection()
+     } else if (e.data.type === MessageType.END_SELECTION) {
+      console.log('end selection')
+      document.querySelectorAll('*').forEach(element => {
+       element.removeEventListener('mouseover', handleMouseOver)
+       element.removeEventListener('mouseout', handleMouseOut)
+       element.removeEventListener('click', handleClick)
+      })
+     } else if (e.data.type === MessageType.SET_SELECTION) {
+      resetOverlay()
+      const elements = document.querySelectorAll('*')
+      elements.forEach(element => {
+       const dataIterate = element.getAttribute('data-iterate')
+       if (dataIterate === null) return
+
+       let decodedData
+       try {
+        decodedData = JSON.parse(atob(dataIterate)).id
+       } catch (error) {
+        console.error('Failed to parse data-iterate attribute:', error)
+        return
+       }
+       // console.log(dataIterate);
+       console.log(decodedData, ' === ', e.data.data)
+       if (decodedData === e.data.data) {
+        window.scrollTo(0, 0)
+        const overlay = createOverlay()
+        element.after(overlay)
+        const rect = element.getBoundingClientRect()
+        modifyOverlay(overlay, rect)
+        overlay.scrollIntoView({
+         behavior: 'smooth',
+         block: 'center',
+         inline: 'center'
+        })
+        element.classList.add('has-overlay')
+       }
+      })
+     } else if (e.data.type === MessageType.REQUEST_CLEANED_HTML) {
+      sendCleanedHTML()
+     }
+    }
+   })
+  </script>
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    // Find the parent div containing MyReactComponent
+    var parentDiv = document.querySelector('#temp-iterate')
+
+    if (parentDiv) {
+     // Replace the div with its child MyReactComponent
+     var reactComponent = parentDiv.firstChild
+     parentDiv.parentNode.replaceChild(reactComponent, parentDiv)
+     alert('Replaced')
+    }
+   })
+  </script>
+  <!-- <script>
       const currentURL = window.location.href;
       const local = "http://localhost:5173";
 
@@ -29,5 +431,5 @@
         document.body.style.backgroundColor = "#0f0f0f";
       }
     </script> -->
-  </body>
+ </body>
 </html>
