@@ -997,6 +997,7 @@ function VideoSection() {
          className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
          onClick={() => {
           if (user?.email) {
+           mixpanel.track('like_video_clicked')
            likeVideo()
           } else {
            setisbtnClicked(true)
@@ -1049,6 +1050,7 @@ function VideoSection() {
        <div
         className={theme ? 'share' : 'share share-light text-light-mode'}
         onClick={() => {
+         mixpanel.track('share_button_clicked')
          if (shareClicked === false) {
           setShareClicked(true)
           document.body.classList.add('bg-css')

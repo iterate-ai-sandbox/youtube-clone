@@ -9,6 +9,7 @@ import {useState} from 'react'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {MdOutlineContentCopy} from 'react-icons/md'
+import mixpanel from 'mixpanel-browser'
 
 function Share() {
  const [copyText, setCopyText] = useState('Copy')
@@ -60,6 +61,7 @@ function Share() {
       <button
        className={theme ? 'copy-link-btn' : 'copy-link-btn copy-light'}
        onClick={() => {
+        mixpanel.track('video_link_copied')
         handleCopyLink()
         CopiedNotify()
        }}
