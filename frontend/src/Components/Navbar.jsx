@@ -170,9 +170,9 @@ function Navbar() {
        if (isbtnClicked === false) {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
-        mixpanel.track('signin_clicked', {
-         list_of_video_titles: 'NONE'
-        })
+        // mixpanel.track('signin_clicked', {
+        //  list_of_video_titles: 'NONE'
+        // })
        } else {
         setisbtnClicked(false)
         document.body.classList.remove('bg-css')

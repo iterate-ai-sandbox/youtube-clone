@@ -163,7 +163,7 @@ function VideoSection() {
 
  // USE EFFECTS
  useEffect(() => {
-  mixpanel.track(`video_${id}_page_viewed`)
+  mixpanel.track('video_page_viewed')
  }, [])
 
  useEffect(() => {

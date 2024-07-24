@@ -14,7 +14,7 @@ import WatchLaterIcon from '@mui/icons-material/WatchLater'
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined'
-import mixpanel from 'mixpanel-browser'
+// import mixpanel from 'mixpanel-browser'
 import {useEffect, useState} from 'react'
 import {GoHome, GoHomeFill} from 'react-icons/go'
 import {HiOutlineFire} from 'react-icons/hi'
@@ -190,10 +190,10 @@ function LeftPanel() {
       className={selected === 'home' ? `home sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'home sec-data'}
       onClick={() => {
        localStorage.setItem('selected', 'home')
-       mixpanel.track('checked_home', {
-        Location: 'LeftPanel.jsx',
-        date: new Date().toISOString()
-       })
+      //  mixpanel.track('checked_home', {
+      //   Location: 'LeftPanel.jsx',
+      //   date: new Date().toISOString()
+      //  })
        navigate('/')
       }}>
       {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -204,10 +204,10 @@ function LeftPanel() {
       className={selected === 'trending' ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending sec-data'}
       onClick={() => {
        localStorage.setItem('selected', 'trending')
-       mixpanel.track('checked_trending', {
-        Location: 'LeftPanel.jsx',
-        date: new Date().toISOString()
-       })
+      //  mixpanel.track('checked_trending', {
+      //   Location: 'LeftPanel.jsx',
+      //   date: new Date().toISOString()
+      //  })
        navigate('/trending')
       }}>
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -218,10 +218,10 @@ function LeftPanel() {
       onClick={() => {
        if (user?.email) {
         localStorage.setItem('selected', 'subscription')
-        mixpanel.track('checked_subscriptions', {
-         Location: 'LeftPanel.jsx',
-         date: new Date().toISOString()
-        })
+        // mixpanel.track('checked_subscriptions', {
+        //  Location: 'LeftPanel.jsx',
+        //  date: new Date().toISOString()
+        // })
         navigate('/subscriptions')
        } else {
         setisbtnClicked(true)
@@ -256,10 +256,10 @@ function LeftPanel() {
            className="mysubscriptions"
            key={index}
            onClick={() => {
-            mixpanel.track(`checked_channel_${element.channelID}`, {
-             Location: 'LeftPanel.jsx',
-             date: new Date().toISOString()
-            })
+            // mixpanel.track(`checked_channel_${element.channelID}`, {
+            //  Location: 'LeftPanel.jsx',
+            //  date: new Date().toISOString()
+            // })
             navigate(`/channel/${element.channelID}`)
            }}
            style={loading === false ? {display: 'flex'} : {display: 'none'}}>
@@ -279,10 +279,10 @@ function LeftPanel() {
       onClick={() => {
        if (user?.email) {
         localStorage.setItem('selected', 'library')
-        mixpanel.track('checked_library', {
-         Location: 'LeftPanel.jsx',
-         date: new Date().toISOString()
-        })
+        // mixpanel.track('checked_library', {
+        //  Location: 'LeftPanel.jsx',
+        //  date: new Date().toISOString()
+        // })
         navigate('/library')
        } else {
         setisbtnClicked(true)
@@ -298,10 +298,10 @@ function LeftPanel() {
       onClick={() => {
        if (user?.email) {
         localStorage.setItem('selected', 'watch-later')
-        mixpanel.track('checked_watch_later', {
-         Location: 'LeftPanel.jsx',
-         date: new Date().toISOString()
-        })
+        // mixpanel.track('checked_watch_later', {
+        //  Location: 'LeftPanel.jsx',
+        //  date: new Date().toISOString()
+        // })
         navigate('/watchlater')
        } else {
         setisbtnClicked(true)
@@ -316,10 +316,10 @@ function LeftPanel() {
       onClick={() => {
        if (user?.email) {
         localStorage.setItem('selected', 'liked-video')
-        mixpanel.track('checked_liked_videos', {
-         Location: 'LeftPanel.jsx',
-         date: new Date().toISOString()
-        })
+        // mixpanel.track('checked_liked_videos', {
+        //  Location: 'LeftPanel.jsx',
+        //  date: new Date().toISOString()
+        // })
         navigate('/likedVideos')
        } else {
         setisbtnClicked(true)
@@ -339,10 +339,10 @@ function LeftPanel() {
           className="my-playlist-data"
           key={index}
           onClick={() => {
-           mixpanel.track(`checked_playlist_${element._id}`, {
-            Location: 'LeftPanel.jsx',
-            date: new Date().toISOString()
-           })
+          //  mixpanel.track(`checked_playlist_${element._id}`, {
+          //   Location: 'LeftPanel.jsx',
+          //   date: new Date().toISOString()
+          //  })
            navigate(`/playlist/${element._id}`)
           }}>
           <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
@@ -359,10 +359,10 @@ function LeftPanel() {
           className="my-playlist-data"
           key={index}
           onClick={() => {
-           mixpanel.track(`checked_playlist_1_${element._id}`, {
-            Location: 'LeftPanel.jsx',
-            date: new Date().toISOString()
-           })
+          //  mixpanel.track(`checked_playlist_1_${element._id}`, {
+          //   Location: 'LeftPanel.jsx',
+          //   date: new Date().toISOString()
+          //  })
            navigate(`/playlist/${element._id}`)
           }}>
           <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
@@ -383,10 +383,10 @@ function LeftPanel() {
       className={selected === 'home' ? `home sec-data sec-data2 ${theme ? 'changeBG' : 'changeBG-light'}` : 'home sec-data sec-data2'}
       onClick={() => {
        localStorage.setItem('selected', 'home')
-       mixpanel.track('checked_home_page', {
-        Location: 'LeftPanel.jsx',
-        date: new Date().toISOString()
-       })
+      //  mixpanel.track('checked_home_page', {
+      //   Location: 'LeftPanel.jsx',
+      //   date: new Date().toISOString()
+      //  })
        navigate('/')
       }}>
       {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -395,10 +395,10 @@ function LeftPanel() {
       className={selected === 'trending' ? `trending trending2 sec-data sec-data2 ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending trending2 sec-data sec-data2'}
       onClick={() => {
        localStorage.setItem('selected', 'trending')
-       mixpanel.track('checked_trending_2', {
-        Location: 'LeftPanel.jsx',
-        date: new Date().toISOString()
-       })
+      //  mixpanel.track('checked_trending_2', {
+      //   Location: 'LeftPanel.jsx',
+      //   date: new Date().toISOString()
+      //  })
        navigate('/trending')
       }}>
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -478,10 +478,10 @@ function LeftPanel() {
       className={selected === 'trending' ? `trending trending2 sec-data sec-data2 ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending trending2 sec-data sec-data2'}
       onClick={() => {
        localStorage.setItem('selected', 'trending')
-       mixpanel.track('checked_trending_3', {
-        Location: 'LeftPanel.jsx',
-        date: new Date().toISOString()
-       })
+      //  mixpanel.track('checked_trending_3', {
+      //   Location: 'LeftPanel.jsx',
+      //   date: new Date().toISOString()
+      //  })
        navigate('/trending')
       }}>
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -640,10 +640,10 @@ function LeftPanel() {
        className={selected === 'trending' ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending sec-data'}
        onClick={() => {
         localStorage.setItem('selected', 'trending')
-        mixpanel.track('checked_trending_5', {
-         Location: 'LeftPanel.jsx',
-         date: new Date().toISOString()
-        })
+        // mixpanel.track('checked_trending_5', {
+        //  Location: 'LeftPanel.jsx',
+        //  date: new Date().toISOString()
+        // })
         navigate('/trending')
        }}>
        {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
@@ -707,10 +707,10 @@ function LeftPanel() {
        onClick={() => {
         if (user?.email) {
          localStorage.setItem('selected', 'library')
-         mixpanel.track('checked_library', {
-          Location: 'LeftPanel.jsx',
-          date: new Date().toISOString()
-         })
+        //  mixpanel.track('checked_library', {
+        //   Location: 'LeftPanel.jsx',
+        //   date: new Date().toISOString()
+        //  })
          navigate('/library')
         } else {
          setisbtnClicked(true)
@@ -726,10 +726,10 @@ function LeftPanel() {
        onClick={() => {
         if (user?.email) {
          localStorage.setItem('selected', 'watch-later')
-         mixpanel.track('checked_watchlater', {
-          Location: 'LeftPanel.jsx',
-          date: new Date().toISOString()
-         })
+        //  mixpanel.track('checked_watchlater', {
+        //   Location: 'LeftPanel.jsx',
+        //   date: new Date().toISOString()
+        //  })
          navigate('/watchlater')
         } else {
          setisbtnClicked(true)
