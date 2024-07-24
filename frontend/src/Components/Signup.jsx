@@ -1,9 +1,8 @@
 import {useState} from 'react'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/navbar.css'
-import mixpanel from 'mixpanel-browser'
-import {useLocation, useNavigate} from 'react-router-dom'
 
 function Signup() {
  const navigate = useNavigate()
@@ -70,10 +69,7 @@ function Signup() {
    ErrorNotify()
    return
   }
-  mixpanel.track('account_created', {
-   Location: 'Signup.jsx',
-   date: new Date().toISOString()
-  })
+
   try {
    const response = await fetch(`${backendURL}/signup`, {
     method: 'POST',

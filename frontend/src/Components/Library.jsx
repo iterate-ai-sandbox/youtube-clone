@@ -4,7 +4,6 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
 import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
-import mixpanel from 'mixpanel-browser'
 import {useEffect, useState} from 'react'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -149,9 +148,7 @@ function Library() {
    }
   }
  }, [])
- useEffect(() => {
-  mixpanel.track('library_page_viewed')
- }, [])
+ useEffect(() => {}, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
@@ -307,7 +304,6 @@ function Library() {
           className="thiswatchlater-videoss"
           key={index}
           onClick={() => {
-           mixpanel.track('watch_later_video_clicked')
            navigate(`/video/${element.savedVideoID}`)
           }}>
           <img src={element.thumbnailURL} alt="thumbnail" className="thiswatch-thumbnail" />

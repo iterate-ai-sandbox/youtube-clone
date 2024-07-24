@@ -8,7 +8,6 @@ import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOu
 import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
-import mixpanel from 'mixpanel-browser'
 import {useEffect, useRef, useState} from 'react'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -217,9 +216,7 @@ function Playlists() {
   return () => GetSavedPlaylistData()
  }, [id, user?.email])
 
- useEffect(() => {
-  mixpanel.track('playlist_page_viewed')
- }, [])
+ useEffect(() => {}, [])
  //POST REQUEST
 
  const saveEditData = async () => {

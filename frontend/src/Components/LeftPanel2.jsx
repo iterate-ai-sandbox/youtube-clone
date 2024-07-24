@@ -14,7 +14,6 @@ import avatar from '../img/avatar.png'
 
 import {BiCommentDetail} from 'react-icons/bi'
 import {MdDashboard, MdOutlineAutoFixHigh, MdOutlineVideoLibrary} from 'react-icons/md'
-import mixpanel from 'mixpanel-browser'
 function LeftPanel2() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -187,7 +186,6 @@ function LeftPanel2() {
      <div
       className={StudioSection === 'Dashboard' ? `${theme ? 'studio-active' : 'studio-active-light'} panel ${theme ? '' : 'panel-light'}` : `dashboard panel ${theme ? '' : 'panel-light'}`}
       onClick={() => {
-        mixpanel.track('dashboard_panel_clicked')
        localStorage.setItem('Studio-Section', 'Dashboard')
        navigate('/studio')
       }}>
@@ -204,7 +202,6 @@ function LeftPanel2() {
      <div
       className={StudioSection === 'Content' ? `${theme ? 'studio-active' : 'studio-active-light'} panel ${theme ? '' : 'panel-light'}` : `content panel ${theme ? '' : 'panel-light'}`}
       onClick={() => {
-        mixpanel.track('content_panel_clicked')
        localStorage.setItem('Studio-Section', 'Content')
        navigate('/studio/video')
       }}>

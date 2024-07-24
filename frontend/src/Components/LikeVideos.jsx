@@ -8,7 +8,6 @@ import '../Css/likevideos.css'
 import nothing from '../img/nothing.png'
 import LeftPanel from './LeftPanel'
 import Navbar from './Navbar'
-import mixpanel from 'mixpanel-browser'
 
 function LikeVideos() {
  const navigate = useNavigate()
@@ -84,9 +83,7 @@ function LikeVideos() {
    document.body.style.backgroundColor = '0f0f0f'
   }
  }, [theme])
- useEffect(() => {
-  mixpanel.track('watch_later_page_view')
- }, [])
+ useEffect(() => {}, [])
  const updateViews = async id => {
   try {
    const response = await fetch(`${backendURL}/updateview/${id}`, {
@@ -128,14 +125,12 @@ function LikeVideos() {
         : {
            left: '255px'
           }
-      }
-     >
+      }>
       <div
        className={theme ? 'like-left-section' : 'like-left-section-light'}
        style={{
         backgroundImage: `url(${videolike[0]?.thumbnailURL})`
-       }}
-      >
+       }}>
        <div className="page-cover">
         {videolike && (
          <div
@@ -149,8 +144,7 @@ function LikeVideos() {
            } else {
             navigate(`/video/${videolike[0].likedVideoID}`)
            }
-          }}
-         >
+          }}>
           <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
            <div
             className="thisimggg"
@@ -162,8 +156,7 @@ function LikeVideos() {
               : {
                  display: 'none'
                 }
-            }
-           >
+            }>
             <Skeleton
              count={1}
              width={310}
@@ -196,8 +189,7 @@ function LikeVideos() {
            className="sample-play"
            style={{
             pointerEvents: 'none'
-           }}
-          >
+           }}>
            &#9654; PLAY ALL
           </p>
          </div>
@@ -220,8 +212,7 @@ function LikeVideos() {
           } else {
            navigate(`/video/${videolike[0].likedVideoID}`)
           }
-         }}
-        >
+         }}>
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -243,8 +234,7 @@ function LikeVideos() {
           : {
              display: 'none'
             }
-        }
-       >
+        }>
         {videolike.length > 0
          ? videolike.map((element, index) => {
             return (
@@ -253,8 +243,7 @@ function LikeVideos() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}
-             >
+              }}>
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -271,8 +260,7 @@ function LikeVideos() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}
-               >
+                }}>
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -304,8 +292,7 @@ function LikeVideos() {
             visibility: 'visible',
             display: 'block'
            }
-       }
-      >
+       }>
        {videolike.length > 0
         ? videolike.map((element, index) => {
            return (
@@ -314,13 +301,11 @@ function LikeVideos() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}
-            >
+             }}>
              <p
               style={{
                color: '#aaa'
-              }}
-             >
+              }}>
               {index + 1}
              </p>
              <div
@@ -334,8 +319,7 @@ function LikeVideos() {
                } else {
                 navigate(`/video/${element.likedVideoID}`)
                }
-              }}
-             >
+              }}>
               <img src={element.thumbnailURL} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3' : 'durationn3 text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
               <div className="its-content">
@@ -356,8 +340,7 @@ function LikeVideos() {
        className="spin23"
        style={{
         top: '200px'
-       }}
-      >
+       }}>
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>
@@ -378,14 +361,12 @@ function LikeVideos() {
         : {
            left: '255px'
           }
-      }
-     >
+      }>
       <div
        className={theme ? 'like-left-section2' : 'like-left-section2-light'}
        style={{
         backgroundImage: `url(${videolike[0]?.thumbnailURL})`
-       }}
-      >
+       }}>
        <div className="page-cover2">
         <div className="inside-cover">
          {videolike && (
@@ -400,8 +381,7 @@ function LikeVideos() {
             } else {
              navigate(`/video/${videolike[0].likedVideoID}`)
             }
-           }}
-          >
+           }}>
            <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
             <div
              className="thisimggg"
@@ -413,8 +393,7 @@ function LikeVideos() {
                : {
                   display: 'none'
                  }
-             }
-            >
+             }>
              <Skeleton
               count={1}
               width={310}
@@ -447,8 +426,7 @@ function LikeVideos() {
             className="sample-play"
             style={{
              pointerEvents: 'none'
-            }}
-           >
+            }}>
             &#9654; PLAY ALL
            </p>
           </div>
@@ -472,8 +450,7 @@ function LikeVideos() {
           } else {
            navigate(`/video/${videolike[0].likedVideoID}`)
           }
-         }}
-        >
+         }}>
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -495,8 +472,7 @@ function LikeVideos() {
           : {
              display: 'none'
             }
-        }
-       >
+        }>
         {videolike.length > 0
          ? videolike.map((element, index) => {
             return (
@@ -505,8 +481,7 @@ function LikeVideos() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}
-             >
+              }}>
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -523,8 +498,7 @@ function LikeVideos() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}
-               >
+                }}>
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -556,8 +530,7 @@ function LikeVideos() {
             visibility: 'visible',
             display: 'block'
            }
-       }
-      >
+       }>
        {videolike.length > 0
         ? videolike.map((element, index) => {
            return (
@@ -566,13 +539,11 @@ function LikeVideos() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}
-            >
+             }}>
              <p
               style={{
                color: '#aaa'
-              }}
-             >
+              }}>
               {index + 1}
              </p>
              <div
@@ -586,8 +557,7 @@ function LikeVideos() {
                } else {
                 navigate(`/video/${element.likedVideoID}`)
                }
-              }}
-             >
+              }}>
               <img src={element.thumbnailURL} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3' : 'durationn3 text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
               <div className="its-content2">
@@ -608,8 +578,7 @@ function LikeVideos() {
        className="spin23"
        style={{
         top: '200px'
-       }}
-      >
+       }}>
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>

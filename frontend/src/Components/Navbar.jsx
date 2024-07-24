@@ -81,7 +81,6 @@ function Navbar() {
   }, 2500)
  }, [])
  const handleSearch = e => {
-  mixpanel.track('search_clicked')
   setSearchedData(e?.target?.value)
   setData(e?.target?.value)
  }
@@ -148,7 +147,17 @@ function Navbar() {
           paddingRight: '25px'
          }
      }>
-     <FiSearch fontSize="24px" color={theme ? '#aaa' : 'black'} className="second-search" onClick={() => setNewSearch(true)} />
+     <FiSearch
+      fontSize="24px"
+      color={theme ? '#aaa' : 'black'}
+      className="second-search"
+      onClick={() => {
+       mixpanel.track('search_clicked', {
+        user: user?.email
+       })
+       setNewSearch(true)
+      }}
+     />
 
      <AiOutlineVideoCameraAdd
       className={theme ? 'icon-btns videocreate' : 'video-light'}
@@ -157,6 +166,9 @@ function Navbar() {
        color: theme ? 'white' : 'black'
       }}
       onClick={() => {
+       mixpanel.track('studio_clicked', {
+        user: user?.email
+       })
        if (User.success) {
         navigate('/studio')
        } else {
@@ -171,9 +183,6 @@ function Navbar() {
        if (isbtnClicked === false) {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
-        // mixpanel.track('signin_clicked', {
-        //  list_of_video_titles: 'NONE'
-        // })
        } else {
         setisbtnClicked(false)
         document.body.classList.remove('bg-css')
@@ -281,7 +290,6 @@ function Navbar() {
       <p>Already have an account?</p>
       <p
        onClick={() => {
-        // mixpanel.track("sign_in_clicked")
         if (isSwitch === false) {
          setisSwitched(true)
         } else {

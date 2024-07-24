@@ -134,9 +134,7 @@ function Studio() {
    document.body.style.backgroundColor = 'rgb(31, 31, 31)'
   }
  }, [theme])
- useEffect(() => {
-  mixpanel.track('studio_page_viewed')
- }, [])
+ useEffect(() => {}, [])
 
  useEffect(() => {
   const getVideos = async () => {
@@ -312,7 +310,6 @@ function Studio() {
  // UPLOAD VIDEO
 
  const handleVideoChange = e => {
-  mixpanel.track('content_added_for_upload')
   const file = e.target.files[0]
   const fileSizeInMB = file.size / (1024 * 1024) // Convert file size to MB
 
@@ -543,7 +540,6 @@ function Studio() {
  //SAVE UPLOAD DATA TO DATABASE
 
  const PublishData = async () => {
-  mixpanel.track('publish_content_clicked')
   if (videoName === '' || videoDescription === '' || videoTags === '') {
    VideoErrorNotify()
   } else if (selectedThumbnail === null) {
@@ -601,7 +597,15 @@ function Studio() {
    <Navbar2 />
    <LeftPanel2 />
    <div className={theme ? 'studio' : 'studio studio-light'}>
-    <div className={theme ? 'create-btn' : 'create-btn create-btn-light'} onClick={() => { mixpanel.track('create_content_clicked'); setIsClicked(true)}} style={isChannel === true ? {display: 'flex'} : {display: 'none'}}>
+    <div
+     className={theme ? 'create-btn' : 'create-btn create-btn-light'}
+     onClick={() => {
+      mixpanel.track('create_button_clicked', {
+       location: location.pathname
+      })
+      setIsClicked(true)
+     }}
+     style={isChannel === true ? {display: 'flex'} : {display: 'none'}}>
      <VideoCallOutlinedIcon className="" fontSize="large" style={{color: '#FF4E45'}} />
      <p className={theme ? '' : 'text-light-mode'}>CREATE</p>
     </div>

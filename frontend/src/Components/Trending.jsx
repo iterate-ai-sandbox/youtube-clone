@@ -1,5 +1,4 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import mixpanel from 'mixpanel-browser'
 import {useEffect, useState} from 'react'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -87,9 +86,7 @@ function Trending() {
    }
   }
  }, [])
- useEffect(() => {
-  mixpanel.track('trending_page_viewed')
- }, [])
+ useEffect(() => {}, [])
  //Update Views
 
  const updateViews = async id => {

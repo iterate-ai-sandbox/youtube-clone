@@ -1,15 +1,14 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import fb from '../img/social/fb.jpg'
-import whatsapp from '../img/social/whatsapp.jpg'
-import linkedin from '../img/social/linkedin.jpg'
-import twitter from '../img/social/twitter.jpg'
-import mail from '../img/social/mail.jpg'
-import '../Css/share.css'
 import {useState} from 'react'
+import {MdOutlineContentCopy} from 'react-icons/md'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {MdOutlineContentCopy} from 'react-icons/md'
-import mixpanel from 'mixpanel-browser'
+import '../Css/share.css'
+import fb from '../img/social/fb.jpg'
+import linkedin from '../img/social/linkedin.jpg'
+import mail from '../img/social/mail.jpg'
+import twitter from '../img/social/twitter.jpg'
+import whatsapp from '../img/social/whatsapp.jpg'
 
 function Share() {
  const [copyText, setCopyText] = useState('Copy')
@@ -61,11 +60,9 @@ function Share() {
       <button
        className={theme ? 'copy-link-btn' : 'copy-link-btn copy-light'}
        onClick={() => {
-        mixpanel.track('video_link_copied')
         handleCopyLink()
         CopiedNotify()
-       }}
-      >
+       }}>
        {copyText}
       </button>
      </div>

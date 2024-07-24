@@ -14,7 +14,6 @@ import ReplyIcon from '@mui/icons-material/Reply'
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
-import mixpanel from 'mixpanel-browser'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 import {useEffect, useRef, useState} from 'react'
@@ -162,9 +161,7 @@ function VideoSection() {
   })
 
  // USE EFFECTS
- useEffect(() => {
-  mixpanel.track('video_page_viewed')
- }, [])
+ useEffect(() => {}, [])
 
  useEffect(() => {
   function handleResize() {
@@ -997,7 +994,6 @@ function VideoSection() {
          className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
          onClick={() => {
           if (user?.email) {
-           mixpanel.track('like_video_clicked')
            likeVideo()
           } else {
            setisbtnClicked(true)
@@ -1050,7 +1046,6 @@ function VideoSection() {
        <div
         className={theme ? 'share' : 'share share-light text-light-mode'}
         onClick={() => {
-        //  mixpanel.track('share_button_clicked')
          if (shareClicked === false) {
           setShareClicked(true)
           document.body.classList.add('bg-css')
@@ -1110,7 +1105,6 @@ function VideoSection() {
        <div
         className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
         onClick={() => {
-         mixpanel.track('add_to_playlist_clicked')
          if (playlistClicked === false && user?.email) {
           setPlaylistClicked(true)
           document.body.classList.add('bg-css')

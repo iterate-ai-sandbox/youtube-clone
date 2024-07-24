@@ -1,10 +1,9 @@
 import {useEffect, useState} from 'react'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/navbar.css'
 import Reset from './Reset'
-import mixpanel from 'mixpanel-browser'
-import {useLocation, useNavigate} from 'react-router-dom'
 function Signin(prop) {
  const navigate = useNavigate()
  const location = useLocation()
@@ -95,10 +94,7 @@ function Signin(prop) {
    ErrorNotify()
    return
   }
-  mixpanel.track('user_logged_in', {
-   Location: 'Signin.jsx',
-   date: new Date().toISOString()
-  })
+
   try {
    const response = await fetch(`${backendURL}/login`, {
     method: 'POST',

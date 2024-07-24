@@ -1,29 +1,30 @@
+import mixpanel from 'mixpanel-browser'
+import React, {useEffect} from 'react'
+import {__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED} from 'react-dom'
+import {Helmet} from 'react-helmet'
+import {useDispatch, useSelector} from 'react-redux'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Browse from './Components/Browse'
-import Studio from './Components/Studio'
-import Error from './Components/Error'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import VideoSection from './Components/VideoSection'
-import LikeVideos from './Components/LikeVideos'
-import WatchLater from './Components/WatchLater'
 import OtherChannel from './Components/Channel/OtherChannel'
+import Error from './Components/Error'
+import Library from './Components/Library'
+import LikeVideos from './Components/LikeVideos'
+import Playlists from './Components/Playlists'
+import SearchResults from './Components/SearchResults'
+import Studio from './Components/Studio'
+import Comments from './Components/Studio/Comments'
+import Content from './Components/Studio/Content'
+import Customization from './Components/Studio/Customization'
+import VideoComments from './Components/Studio/VideoComments'
+import VideoDetails from './Components/Studio/VideoDetails'
 import Subscriptions from './Components/Subscriptions'
 import Trending from './Components/Trending'
-import SearchResults from './Components/SearchResults'
-import Playlists from './Components/Playlists'
-import Library from './Components/Library'
-import Customization from './Components/Studio/Customization'
-import Content from './Components/Studio/Content'
-import VideoDetails from './Components/Studio/VideoDetails'
-import Comments from './Components/Studio/Comments'
-import VideoComments from './Components/Studio/VideoComments'
-import {ToastContainer} from 'react-toastify'
-import {Helmet} from 'react-helmet'
+import VideoSection from './Components/VideoSection'
+import WatchLater from './Components/WatchLater'
 import ytLogo from './img/icon.png'
-import {useSelector, useDispatch} from 'react-redux'
 import {fetchUserData} from './reducer/user'
-import 'react-toastify/dist/ReactToastify.css'
-import {useEffect} from 'react'
-import mixpanel from 'mixpanel-browser'
 
 function App() {
  const User = useSelector(state => state.user.user)
@@ -34,6 +35,7 @@ function App() {
  useEffect(() => {
   dispatch(fetchUserData())
  }, [dispatch])
+ console.log(__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED)
 
  return (
   <>
