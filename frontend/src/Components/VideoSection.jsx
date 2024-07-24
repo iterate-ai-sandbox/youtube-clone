@@ -14,6 +14,7 @@ import ReplyIcon from '@mui/icons-material/Reply'
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
+import mixpanel from 'mixpanel-browser'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 import {useEffect, useRef, useState} from 'react'
@@ -946,6 +947,9 @@ function VideoSection() {
          disabled={user?.email === usermail ? true : false}
          onClick={() => {
           if (user?.email) {
+           mixpanel.track('subscribe_clicked', {
+            email: user?.email
+           })
            SubscribeChannel()
           } else {
            setisbtnClicked(true)
