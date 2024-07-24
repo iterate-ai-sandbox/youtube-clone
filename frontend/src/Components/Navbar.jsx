@@ -281,7 +281,7 @@ function Navbar() {
       <p>Already have an account?</p>
       <p
        onClick={() => {
-        mixpanel.track("sign_in_clicked")
+        // mixpanel.track("sign_in_clicked")
         if (isSwitch === false) {
          setisSwitched(true)
         } else {
