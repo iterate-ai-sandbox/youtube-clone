@@ -147,17 +147,7 @@ function Navbar() {
           paddingRight: '25px'
          }
      }>
-     <FiSearch
-      fontSize="24px"
-      color={theme ? '#aaa' : 'black'}
-      className="second-search"
-      onClick={() => {
-       mixpanel.track('search_clicked', {
-        user: user?.email
-       })
-       setNewSearch(true)
-      }}
-     />
+     <FiSearch fontSize="24px" color={theme ? '#aaa' : 'black'} className="second-search" />
 
      <AiOutlineVideoCameraAdd
       className={theme ? 'icon-btns videocreate' : 'video-light'}
@@ -352,7 +342,16 @@ function Navbar() {
      style={{
       display: newSearch && window.innerWidth <= 940 ? 'flex' : 'none'
      }}>
-     <FiSearch fontSize="28px" color="#aaa" />
+     <FiSearch
+      fontSize="28px"
+      color="#aaa"
+      onClick={() => {
+       mixpanel.track('search_clicked', {
+        user: user?.email
+       })
+       setNewSearch(true)
+      }}
+     />
      <input
       type="text"
       name="search-content"
