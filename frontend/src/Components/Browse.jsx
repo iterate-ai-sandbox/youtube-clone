@@ -307,7 +307,8 @@ function Browse() {
             navigate(`/video/${VideoID[index]}`);
             mixpanel.track('video_clicked', { video_name: Titles[index] });
           }}
-        >
+        >   
+           <img
             style={{
              width: '330px',
              borderRadius: '10px'
