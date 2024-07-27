@@ -595,7 +595,8 @@ function VideoSection() {
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
- document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTubeconst likeVideo = async () => {
+ document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
+  const likeVideo = async () => {
   try {
     setLikeLoading(true);
     const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
@@ -1057,7 +1058,7 @@ function VideoSection() {
         </div>
        </div>
 
-       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video_share_initiated'); if (shareClicked === false) { setShareClicked(true) document.body.classList.add('bg-css') } else { setShareClicked(false) document.body.classList.remove('bg-css') } }} >
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video_share_initiated'); if (shareClicked === false) { setShareClicked(true); document.body.classList.add('bg-css') } else { setShareClicked(false); document.body.classList.remove('bg-css') } }} >
         <ReplyIcon
          fontSize="medium"
          style={{
