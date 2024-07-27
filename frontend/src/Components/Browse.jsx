@@ -293,8 +293,21 @@ function Browse() {
         thumbnails.length > 0 &&
         thumbnails.map((element, index) => {
          return (
-          <div className="video-data" key={index} style={ Visibility[index] === 'Public' ? { display: 'block' } : { display: 'none' } } onClick={() => { if (user?.success) { updateViews(VideoID[index]) setTimeout(() => { navigate(`/video/${VideoID[index]}`) }, 400) } navigate(`/video/${VideoID[index]}`); mixpanel.track('video_clicked', { video_name: Titles[index] }); }}>
-           <img
+          <div
+          className="video-data"
+          key={index}
+          style={Visibility[index] === 'Public' ? { display: 'block' } : { display: 'none' }}
+          onClick={() => {
+            if (user?.success) {
+              updateViews(VideoID[index]);
+              setTimeout(() => {
+                navigate(`/video/${VideoID[index]}`);
+              }, 400);
+            }
+            navigate(`/video/${VideoID[index]}`);
+            mixpanel.track('video_clicked', { video_name: Titles[index] });
+          }}
+        >
             style={{
              width: '330px',
              borderRadius: '10px'
