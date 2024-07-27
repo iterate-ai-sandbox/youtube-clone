@@ -162,7 +162,9 @@ function VideoSection() {
   })
 
  // USE EFFECTS
- useEffect(() => {}, [])
+ useEffect(() => {
+   mixpanel.track('video_page_opened', { video_name: Title });
+ }, [])
 
  useEffect(() => {
   function handleResize() {
@@ -1047,17 +1049,7 @@ function VideoSection() {
         </div>
        </div>
 
-       <div
-        className={theme ? 'share' : 'share share-light text-light-mode'}
-        onClick={() => {
-         if (shareClicked === false) {
-          setShareClicked(true)
-          document.body.classList.add('bg-css')
-         } else {
-          setShareClicked(false)
-          document.body.classList.remove('bg-css')
-         }
-        }}>
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video_share_initiated'); if (shareClicked === false) { setShareClicked(true) document.body.classList.add('bg-css') } else { setShareClicked(false) { setShareClicked(false) document.body.classList.remove('bg-css') } }}>
         <ReplyIcon
          fontSize="medium"
          style={{
