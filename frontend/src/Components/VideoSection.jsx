@@ -14,7 +14,9 @@ import ReplyIcon from '@mui/icons-material/Reply'
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
-import mixpanel from 'mixpanel-browser'
+import mixpanel from 'mixpanel-browser';
+import mixpanel from 'mixpanel-browser';
+import { useEffect } from 'react';
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 import {useEffect, useRef, useState} from 'react'
@@ -162,7 +164,10 @@ function VideoSection() {
   })
 
  // USE EFFECTS
- useEffect(() => {}, [])
+ useEffect(() => {
+   mixpanel.track('video_page_opened', { video_name: Title });
+   mixpanel.track('video_page_opened', { video_name: Title });
+ }, [])
 
  useEffect(() => {
   function handleResize() {
@@ -594,6 +599,7 @@ function VideoSection() {
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
  document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
  const likeVideo = async () => {
+   mixpanel.track('video_liked', { 'Video Title': Title, 'User Email': user?.email, 'Video ID': id });
   try {
    setLikeLoading(true)
    const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
@@ -899,7 +905,8 @@ function VideoSection() {
       className={theme ? 'trending-tag' : 'trending-tag-light'}
       onClick={() => {
        navigate('/trending')
-      }}>
+      }}
+     >
       {checkTrending === true ? '#TRENDING' : ''}
      </p>
      <p className={theme ? 'vid-title' : 'vid-title text-light-mode'}>{Title}</p>
@@ -927,7 +934,8 @@ function VideoSection() {
            if (channelID !== undefined) {
             navigate(`/channel/${channelID}`)
            }
-          }}>
+          }}
+         >
           {uploader}
          </p>
 
@@ -942,10 +950,14 @@ function VideoSection() {
         <p className={theme ? 'channel-subs' : 'channel-subs text-light-mode2'}>{Subscribers} subscribers</p>
        </div>
        {isSubscribed === false || !user?.email ? (
-        <button
-         className={theme ? 'subscribe' : `subscribe-light ${user?.email === usermail ? 'dull-subs' : ''}`}
-         disabled={user?.email === usermail ? true : false}
-         onClick={() => {
+        <button className={theme ? 'subscribe' : `subscribe-light ${user?.email === usermail ? 'dull-subs' : ''}`} disabled={user?.email === usermail ? true : false} onClick={() => {
+          mixpanel.track('subscribe_clicked', { email: user?.email });
+          if (user?.email) {
+            SubscribeChannel()
+          } else {
+            setisbtnClicked(true)
+            document.body.classList.add('bg-css')
+          }
           if (user?.email) {
            mixpanel.track('subscribe_clicked', {
             email: user?.email
@@ -964,7 +976,8 @@ function VideoSection() {
            : {
               cursor: 'pointer'
              }
-         }>
+         }
+        >
          Subscribe
         </button>
        ) : (
@@ -973,7 +986,8 @@ function VideoSection() {
          disabled={user?.email === usermail ? true : false}
          onClick={() => {
           SubscribeChannel()
-         }}>
+         }}
+        >
          Subscribed
         </button>
        )}
@@ -993,7 +1007,8 @@ function VideoSection() {
              cursor: 'pointer',
              pointerEvents: 'auto'
             }
-        }>
+        }
+       >
         <div
          className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
          onClick={() => {
@@ -1003,7 +1018,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          {isLiked === true && user?.email ? (
           <ThumbUpIcon
            fontSize="medium"
@@ -1036,7 +1052,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          <ThumbDownOutlinedIcon
           fontSize="medium"
           style={{
@@ -1047,17 +1064,7 @@ function VideoSection() {
         </div>
        </div>
 
-       <div
-        className={theme ? 'share' : 'share share-light text-light-mode'}
-        onClick={() => {
-         if (shareClicked === false) {
-          setShareClicked(true)
-          document.body.classList.add('bg-css')
-         } else {
-          setShareClicked(false)
-          document.body.classList.remove('bg-css')
-         }
-        }}>
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video_share_initiated'); if (shareClicked === false) { setShareClicked(true) document.body.classList.add('bg-css') } else { setShareClicked(false) document.body.classList.remove('bg-css') } }} >
         <ReplyIcon
          fontSize="medium"
          style={{
@@ -1085,7 +1092,8 @@ function VideoSection() {
           setisbtnClicked(true)
           document.body.classList.add('bg-css')
          }
-        }}>
+        }}
+       >
         {isSaved === true ? (
          <BookmarkAddedIcon
           fontSize="medium"
@@ -1116,7 +1124,8 @@ function VideoSection() {
           setisbtnClicked(true)
           document.body.classList.add('bg-css')
          }
-        }}>
+        }}
+       >
         <PlaylistAddIcon
          fontSize="medium"
          style={{
@@ -1144,7 +1153,8 @@ function VideoSection() {
               cursor: 'pointer',
               pointerEvents: 'auto'
              }
-         }>
+         }
+        >
          <div
           className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
           onClick={() => {
@@ -1154,7 +1164,8 @@ function VideoSection() {
             setisbtnClicked(true)
             document.body.classList.add('bg-css')
            }
-          }}>
+          }}
+         >
           {isLiked === true && user?.email ? (
            <ThumbUpIcon
             fontSize="medium"
@@ -1187,7 +1198,8 @@ function VideoSection() {
             setisbtnClicked(true)
             document.body.classList.add('bg-css')
            }
-          }}>
+          }}
+         >
           <ThumbDownOutlinedIcon
            fontSize="medium"
            style={{
@@ -1208,7 +1220,8 @@ function VideoSection() {
            setShareClicked(false)
            document.body.classList.remove('bg-css')
           }
-         }}>
+         }}
+        >
          <ReplyIcon
           fontSize="medium"
           style={{
@@ -1236,7 +1249,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          {isSaved === true ? (
           <BookmarkAddedIcon
            fontSize="medium"
@@ -1272,7 +1286,8 @@ function VideoSection() {
               cursor: 'pointer',
               pointerEvents: 'auto'
              }
-         }>
+         }
+        >
          <div
           className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
           onClick={() => {
@@ -1282,7 +1297,8 @@ function VideoSection() {
             setisbtnClicked(true)
             document.body.classList.add('bg-css')
            }
-          }}>
+          }}
+         >
           {isLiked === true && user?.email ? (
            <ThumbUpIcon
             fontSize="medium"
@@ -1315,7 +1331,8 @@ function VideoSection() {
             setisbtnClicked(true)
             document.body.classList.add('bg-css')
            }
-          }}>
+          }}
+         >
           <ThumbDownOutlinedIcon
            fontSize="medium"
            style={{
@@ -1336,7 +1353,8 @@ function VideoSection() {
            setShareClicked(false)
            document.body.classList.remove('bg-css')
           }
-         }}>
+         }}
+        >
          <ReplyIcon
           fontSize="medium"
           style={{
@@ -1366,7 +1384,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          <PlaylistAddIcon
           fontSize="medium"
           style={{
@@ -1387,7 +1406,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          {isSaved === true ? (
           <BookmarkAddedIcon
            fontSize="medium"
@@ -1418,7 +1438,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          <PlaylistAddIcon
           fontSize="medium"
           style={{
@@ -1436,12 +1457,14 @@ function VideoSection() {
        className="views-date"
        style={{
         fontSize: '15.5px'
-       }}>
+       }}
+      >
        <p>{views >= 1e9 ? `${(views / 1e9).toFixed(1)}B` : views >= 1e6 ? `${(views / 1e6).toFixed(1)}M` : views >= 1e3 ? `${(views / 1e3).toFixed(1)}K` : views} views</p>
        <p
         style={{
          marginLeft: '10px'
-        }}>
+        }}
+       >
         {(() => {
          const timeDifference = new Date() - new Date(uploaded_date)
          const minutes = Math.floor(timeDifference / 60000)
@@ -1509,7 +1532,8 @@ function VideoSection() {
            : {
               display: 'none'
              }
-         }>
+         }
+        >
          See more...
         </p>
        ) : null}
@@ -1526,7 +1550,8 @@ function VideoSection() {
            : {
               display: 'none'
              }
-         }>
+         }
+        >
          See less...
         </p>
        ) : null}
@@ -1561,13 +1586,15 @@ function VideoSection() {
         style={{
          width: '-webkit-fill-available',
          justifyContent: 'center'
-        }}>
+        }}
+       >
         <div
          className="spin22"
          style={{
           position: 'relative',
           top: '20px'
-         }}>
+         }}
+        >
          <div className={theme ? 'loader2' : 'loader2-light'}></div>
         </div>
        </div>
@@ -1577,12 +1604,14 @@ function VideoSection() {
         className="comment-btns"
         style={{
          display: Display
-        }}>
+        }}
+       >
         <button
          className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
          onClick={() => {
           setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
-         }}>
+         }}
+        >
          Cancel
         </button>
         <button
@@ -1599,7 +1628,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          Comment
         </button>
        </div>
@@ -1617,7 +1647,8 @@ function VideoSection() {
            style={{
             transition: 'all 0.15s ease',
             opacity: commentOpacity
-           }}>
+           }}
+          >
            <div className="comment-left-data">
             <img
              src={element.user_profile}
@@ -1641,7 +1672,8 @@ function VideoSection() {
               }}
               style={{
                cursor: 'pointer'
-              }}>
+              }}
+             >
               {element.username}
              </p>
              <p className="comment-time">
@@ -1690,7 +1722,8 @@ function VideoSection() {
              <p
               style={{
                marginLeft: '16px'
-              }}>
+              }}
+             >
               {commentLikes && commentLikes[index] && commentLikes[index].likes}
              </p>
 
@@ -1725,7 +1758,8 @@ function VideoSection() {
                 if (user?.email === usermail) {
                  HeartComment(element._id)
                 }
-               }}>
+               }}
+              >
                <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
                <FavoriteIcon
                 fontSize="100px"
@@ -1743,7 +1777,8 @@ function VideoSection() {
                style={{
                 marginLeft: '17px'
                }}
-               onClick={() => DeleteComment(element._id)}>
+               onClick={() => DeleteComment(element._id)}
+              >
                Delete
               </button>
              ) : (
@@ -1769,7 +1804,8 @@ function VideoSection() {
          className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
          style={{
           marginLeft: '10px'
-         }}>
+         }}
+        >
          <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
         </div>
        </div>
@@ -1782,7 +1818,8 @@ function VideoSection() {
            className="video-data123"
            style={{
             marginTop: '10px'
-           }}>
+           }}
+          >
            <div className="video-left-side">
             <Skeleton
              count={1}
@@ -1798,7 +1835,8 @@ function VideoSection() {
             className="video-right-side sk-right"
             style={{
              marginTop: '5px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={250} height={32} className="sk-recommend-title" />
             <Skeleton
              count={1}
@@ -1838,7 +1876,8 @@ function VideoSection() {
        : {
           visibility: 'visible'
          }
-     }>
+     }
+    >
      <div className="recommend-tags">
       <div className={TagSelected === 'All' ? `top-tags tag-one ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-one ${theme ? '' : 'tagcolor-newlight'}`}>
        <p onClick={() => setTagSelected('All')}>All</p>
@@ -1847,7 +1886,8 @@ function VideoSection() {
        className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
        style={{
         marginLeft: '10px'
-       }}>
+       }}
+      >
        <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
       </div>
      </div>
@@ -1861,7 +1901,8 @@ function VideoSection() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       {thumbnails &&
        !rec &&
        thumbnails.map((element, index) => {
@@ -1887,7 +1928,8 @@ function VideoSection() {
            } else {
             navigate(`/video/${VideoID[index]}`)
            }
-          }}>
+          }}
+         >
           <div className="video-left-side">
            <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
            <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
@@ -1911,7 +1953,8 @@ function VideoSection() {
              className="upload-time"
              style={{
               marginLeft: '4px'
-             }}>
+             }}
+            >
              &#x2022;{' '}
              {(() => {
               const timeDifference = new Date() - new Date(publishdate[index])
@@ -1965,7 +2008,8 @@ function VideoSection() {
            } else {
             navigate(`/video/${VideoID[index]}`)
            }
-          }}>
+          }}
+         >
           <div className="video-left-side">
            <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
            <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
@@ -1989,7 +2033,8 @@ function VideoSection() {
              className="upload-time"
              style={{
               marginLeft: '4px'
-             }}>
+             }}
+            >
              &#x2022;{' '}
              {(() => {
               const timeDifference = new Date() - new Date(publishdate[index])
@@ -2029,7 +2074,8 @@ function VideoSection() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       {userVideos &&
        !rec &&
        userVideos.length > 0 &&
@@ -2056,7 +2102,8 @@ function VideoSection() {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <div className="video-left-side">
            <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
            <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
@@ -2080,7 +2127,8 @@ function VideoSection() {
              className="upload-time"
              style={{
               marginLeft: '4px'
-             }}>
+             }}
+            >
              &#x2022;{' '}
              {(() => {
               const timeDifference = new Date() - new Date(element.uploaded_date)
@@ -2135,7 +2183,8 @@ function VideoSection() {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <div className="video-left-side">
            <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
            <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
@@ -2159,7 +2208,8 @@ function VideoSection() {
              className="upload-time"
              style={{
               marginLeft: '4px'
-             }}>
+             }}
+            >
              &#x2022;{' '}
              {(() => {
               const timeDifference = new Date() - new Date(element.uploaded_date)
@@ -2221,13 +2271,15 @@ function VideoSection() {
         style={{
          width: '-webkit-fill-available',
          justifyContent: 'center'
-        }}>
+        }}
+       >
         <div
          className="spin22"
          style={{
           position: 'relative',
           top: '20px'
-         }}>
+         }}
+        >
          <div className={theme ? 'loader2' : 'loader2-light'}></div>
         </div>
        </div>
@@ -2237,12 +2289,14 @@ function VideoSection() {
         className="comment-btns"
         style={{
          display: Display
-        }}>
+        }}
+       >
         <button
          className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
          onClick={() => {
           setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
-         }}>
+         }}
+        >
          Cancel
         </button>
         <button
@@ -2259,7 +2313,8 @@ function VideoSection() {
            setisbtnClicked(true)
            document.body.classList.add('bg-css')
           }
-         }}>
+         }}
+        >
          Comment
         </button>
        </div>
@@ -2277,7 +2332,8 @@ function VideoSection() {
            style={{
             transition: 'all 0.15s ease',
             opacity: commentOpacity
-           }}>
+           }}
+          >
            <div className="comment-left-data">
             <img
              src={element.user_profile}
@@ -2301,7 +2357,8 @@ function VideoSection() {
               }}
               style={{
                cursor: 'pointer'
-              }}>
+              }}
+             >
               {element.username}
              </p>
              <p className="comment-time">
@@ -2350,7 +2407,8 @@ function VideoSection() {
              <p
               style={{
                marginLeft: '16px'
-              }}>
+              }}
+             >
               {commentLikes && commentLikes[index] && commentLikes[index].likes}
              </p>
 
@@ -2385,7 +2443,8 @@ function VideoSection() {
                 if (user?.email === usermail) {
                  HeartComment(element._id)
                 }
-               }}>
+               }}
+              >
                <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
                <FavoriteIcon
                 fontSize="100px"
@@ -2403,7 +2462,8 @@ function VideoSection() {
                style={{
                 marginLeft: '17px'
                }}
-               onClick={() => DeleteComment(element._id)}>
+               onClick={() => DeleteComment(element._id)}
+              >
                Delete
               </button>
              ) : (
@@ -2429,7 +2489,8 @@ function VideoSection() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <Share />
    </div>
 
@@ -2445,7 +2506,8 @@ function VideoSection() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <ClearRoundedIcon
      onClick={() => {
       if (isbtnClicked === false) {
@@ -2471,7 +2533,8 @@ function VideoSection() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signup />
      <div className="already">
       <p>Already have an account?</p>
@@ -2482,7 +2545,8 @@ function VideoSection() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signin
       </p>
      </div>
@@ -2497,7 +2561,8 @@ function VideoSection() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signin />
      <div className="already">
       <p>Don&apos;t have an account?</p>
@@ -2508,7 +2573,8 @@ function VideoSection() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signup
       </p>
      </div>
@@ -2523,7 +2589,8 @@ function VideoSection() {
      minHeight: createPlaylistClicked === false ? '262px' : '420px',
      display: playlistClicked === true ? 'block' : 'none',
      width: UserPlaylist && !UserPlaylist.includes('No playlists available...') ? '270px' : '270px'
-    }}>
+    }}
+   >
     <div className="this-top-section">
      <p>Save video to...</p>
      <ClearRoundedIcon
@@ -2550,7 +2617,8 @@ function VideoSection() {
        : {
           top: '50%'
          }
-     }>
+     }
+    >
      {!UserPlaylist || UserPlaylist.includes('No playlists available...') ? <p>No Playlists available...</p> : ''}
     </div>
     <div className="this-middle-section2">
@@ -2624,7 +2692,8 @@ function VideoSection() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <AddToPhotosOutlinedIcon
       fontSize="medium"
       style={{
@@ -2634,7 +2703,8 @@ function VideoSection() {
      <p
       style={{
        marginLeft: '12px'
-      }}>
+      }}
+     >
       Create new playlist
      </p>
     </div>
@@ -2648,7 +2718,8 @@ function VideoSection() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <div className="first-que">
       <p>Name</p>
       <input
@@ -2670,7 +2741,8 @@ function VideoSection() {
         if (privacyClicked === false) {
          setprivacyClicked(true)
         }
-       }}>
+       }}
+      >
        <p>{privacy}</p>
        <hr className="bottom-line" />
       </div>
@@ -2685,13 +2757,15 @@ function VideoSection() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <div
        className={theme ? 'first-privacy' : 'first-privacy feature-light'}
        onClick={() => {
         setPrivacy('Public')
         setprivacyClicked(false)
-       }}>
+       }}
+      >
        <PublicOutlinedIcon
         fontSize="medium"
         style={{
@@ -2708,7 +2782,8 @@ function VideoSection() {
        onClick={() => {
         setPrivacy('Private')
         setprivacyClicked(false)
-       }}>
+       }}
+      >
        <LockOutlinedIcon
         fontSize="medium"
         style={{
@@ -2738,7 +2813,8 @@ function VideoSection() {
        } else {
         alert("Input fileds can't be empty")
        }
-      }}>
+      }}
+     >
       {loading === true ? <p>Loading...</p> : <p>Create</p>}
      </div>
     </div>
