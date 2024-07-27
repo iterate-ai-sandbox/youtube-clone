@@ -15,7 +15,6 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
 import mixpanel from 'mixpanel-browser';
-import { useEffect } from 'react';
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 import {useEffect, useRef, useState} from 'react'
