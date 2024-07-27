@@ -1,5 +1,6 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import {useEffect, useState} from 'react'
+import mixpanel from 'mixpanel-browser';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import {useSelector} from 'react-redux'
@@ -35,7 +36,8 @@ function Browse() {
  })
  const user = useSelector(state => state.user.user)
  useEffect(() => {
-  window.scrollTo(0, 0)
+   window.scrollTo(0, 0)
+   mixpanel.track('home_page_opened');
  }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
@@ -282,27 +284,7 @@ function Browse() {
         thumbnails.length > 0 &&
         thumbnails.map((element, index) => {
          return (
-          <div
-           className="video-data"
-           key={index}
-           style={
-            Visibility[index] === 'Public'
-             ? {
-                display: 'block'
-               }
-             : {
-                display: 'none'
-               }
-           }
-           onClick={() => {
-            if (user?.success) {
-             updateViews(VideoID[index])
-             setTimeout(() => {
-              navigate(`/video/${VideoID[index]}`)
-             }, 400)
-            }
-            navigate(`/video/${VideoID[index]}`)
-           }}>
+          <div className="video-data" key={index} style={ Visibility[index] === 'Public' ? { display: 'block' } : { display: 'none' } } onClick={() => { if (user?.success) { updateViews(VideoID[index]) setTimeout(() => { navigate(`/video/${VideoID[index]}`) }, 400) } navigate(`/video/${VideoID[index]}`); mixpanel.track('video_clicked', { video_name: Titles[index] }); }}>
            <img
             style={{
              width: '330px',

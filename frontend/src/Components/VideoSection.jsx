@@ -162,7 +162,9 @@ function VideoSection() {
   })
 
  // USE EFFECTS
- useEffect(() => {}, [])
+ useEffect(() => {
+   mixpanel.track('video_page_opened', { video_name: Title });
+ }, [])
 
  useEffect(() => {
   function handleResize() {
@@ -512,96 +514,34 @@ function VideoSection() {
     body: JSON.stringify(data),
     headers: {
      'Content-Type': 'application/json'
-    }
-   })
-   const {message, commentData} = await response.json()
-   if (message === 'Uploaded') {
-    setComments([...comments, commentData])
-    setCommentLoading(false)
-   } else {
-    setCommentLoading(true)
-   }
-  } catch (error) {
-   //console.log(error.message);
-  }
- }
- if (!videoData) {
-  return (
-   <>
-    <div className={theme ? 'main-video-section2' : 'main-video-section2 light-mode'}>
-     <div className="spin23">
-      <span className={theme ? 'loader2' : 'loader2-light'}></span>
-     </div>
-    </div>
-   </>
-  )
- }
-
- // if (!videoData) {
- //   return (
- //     <>
- //       <div className="main-video-section2">
- //         <div className="spin2">
- //           <ReactLoading
- //             type={"spin"}
- //             color={"white"}
- //             height={50}
- //             width={50}
- //           />
- //           <p style={{ marginTop: "15px" }}>
- //             Fetching the data, Hang tight...{" "}
- //           </p>{" "}
- //         </div>
- //       </div>
- //     </>
- //   );
- // }
-
- const {VideoData} = videoData
- const matchedVideo = VideoData && VideoData.find(item => item._id === id)
- if (!matchedVideo) {
-  return (
-   <>
-    <div className={theme ? 'main-video-section2' : 'main-video-section2 light-mode'}>
-     <div className="spin23">
-      <span className={theme ? 'loader2' : 'loader2-light'}></span>
-     </div>
-    </div>
-   </>
-  )
- }
-
- // if (!matchedVideo) {
- //   return (
- //     <>
- //       <div className="main-video-section2">
- //         <div className="spin2">
- //           <ReactLoading
- //             type={"spin"}
- //             color={"white"}
- //             height={50}
- //             width={50}
- //           />
- //           <p style={{ marginTop: "15px" }}>
- //             Fetching the data, Hang tight...{" "}
- //           </p>
- //         </div>
- //       </div>
- //     </>
- //   );
- // }
-
- const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
- document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
- const likeVideo = async () => {
-  try {
-   setLikeLoading(true)
-   const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-     'Content-Type': 'application/json'
-    }
+const likeVideo = async () => { 
+  try { 
+    setLikeLoading(true) 
+    const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, { 
+      method: 'POST', 
+      credentials: 'include', 
+      headers: { 
+        'Content-Type': 'application/json' 
+      } 
+    }) 
+    const {message, likes} = await response.json() 
+    // console.log(data); 
+    if (message === 'Liked') { 
+      LikedNotify() 
+      setLikeLoading(false) 
+      setIsLiked(true) 
+      setVideoLikes(likes) 
+      mixpanel.track('video_liked'); 
+    } else { 
+      setLikeLoading(false) 
+      setIsLiked(false) 
+      setVideoLikes(likes) 
+    } 
+  } catch (error) { 
+    setLikeLoading(false) 
+    //console.log(error.message); 
+  } 
+}
    })
    const {message, likes} = await response.json()
    // console.log(data);
@@ -1047,17 +987,7 @@ function VideoSection() {
         </div>
        </div>
 
-       <div
-        className={theme ? 'share' : 'share share-light text-light-mode'}
-        onClick={() => {
-         if (shareClicked === false) {
-          setShareClicked(true)
-          document.body.classList.add('bg-css')
-         } else {
-          setShareClicked(false)
-          document.body.classList.remove('bg-css')
-         }
-        }}>
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video_share_initiated'); if (shareClicked === false) { setShareClicked(true) document.body.classList.add('bg-css') } else { setShareClicked(false) document.body.classList.remove('bg-css') } }}>
         <ReplyIcon
          fontSize="medium"
          style={{
