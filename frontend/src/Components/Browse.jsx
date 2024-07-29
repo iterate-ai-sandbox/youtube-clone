@@ -1,8 +1,8 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useEffect, useState } from 'react';
 import mixpanel from 'mixpanel-browser';
-import useSelector from 'react-redux';
-import useNavigate from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import LeftPanel from './LeftPanel';
 import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
