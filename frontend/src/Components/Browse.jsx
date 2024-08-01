@@ -1,13 +1,14 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import {useEffect, useState} from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useEffect, useState } from 'react';
+import mixpanel from 'mixpanel-browser';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/browse.css'
 import '../Css/theme.css'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function Browse() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -36,6 +37,7 @@ function Browse() {
  const user = useSelector(state => state.user.user)
  useEffect(() => {
   window.scrollTo(0, 0)
+  mixpanel.track('home_page_opened')
  }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
@@ -141,7 +143,8 @@ function Browse() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <div
       className={menuClicked === true ? `browse-data ${theme ? '' : 'light-mode'}` : `browse-data2 ${theme ? '' : 'light-mode'}`}
       style={
@@ -152,7 +155,8 @@ function Browse() {
         : {
            left: '250px'
           }
-      }>
+      }
+     >
       <div className={theme ? 'popular-categories' : 'popular-categories light-mode'}>
        {Tags.map((element, index) => {
         return (
@@ -160,7 +164,8 @@ function Browse() {
           <p
            onClick={() => {
             setTagsSelected(`${element}`)
-           }}>
+           }}
+          >
            {element}
           </p>
          </div>
@@ -171,7 +176,8 @@ function Browse() {
        className="video-section"
        style={{
         marginLeft: menuClicked ? '40px' : '40px'
-       }}>
+       }}
+      >
        <div className="uploaded-videos">
         {Array.from({
          length: 16
@@ -233,7 +239,8 @@ function Browse() {
          visibility: 'visible',
          display: 'flex'
         }
-    }>
+    }
+   >
     <div
      className={menuClicked === true ? `browse-data ${theme ? '' : 'light-mode'}` : `browse-data2 ${theme ? '' : 'light-mode'}`}
      style={
@@ -244,7 +251,8 @@ function Browse() {
        : {
           left: '250px '
          }
-     }>
+     }
+    >
      <div className={theme ? 'popular-categories' : 'popular-categories light-mode'}>
       {Tags.map((element, index) => {
        return (
@@ -252,7 +260,8 @@ function Browse() {
          <p
           onClick={() => {
            setTagsSelected(element)
-          }}>
+          }}
+         >
           {element}
          </p>
         </div>
@@ -264,7 +273,8 @@ function Browse() {
       className="video-section"
       style={{
        marginLeft: menuClicked ? '40px' : '40px'
-      }}>
+      }}
+     >
       <div
        className="uploaded-videos"
        style={
@@ -277,7 +287,8 @@ function Browse() {
             paddingRight: '0px',
             display: TagsSelected === 'All' ? 'grid' : 'none'
            }
-       }>
+       }
+      >
        {thumbnails &&
         thumbnails.length > 0 &&
         thumbnails.map((element, index) => {
@@ -302,7 +313,8 @@ function Browse() {
              }, 400)
             }
             navigate(`/video/${VideoID[index]}`)
-           }}>
+           }}
+          >
            <img
             style={{
              width: '330px',
@@ -323,7 +335,8 @@ function Browse() {
               className="title"
               style={{
                marginTop: '10px'
-              }}>
+              }}
+             >
               {Titles[index] && Titles[index].length <= 60 ? Titles[index] : `${Titles[index].slice(0, 55)}..`}
              </p>
              <div className="video-uploader">
@@ -331,7 +344,8 @@ function Browse() {
                className={theme ? 'uploader' : 'uploader text-light-mode2'}
                style={{
                 marginTop: '10px'
-               }}>
+               }}
+              >
                {uploader[index]}
               </p>
 
@@ -350,7 +364,8 @@ function Browse() {
                className="upload-time"
                style={{
                 marginLeft: '4px'
-               }}>
+               }}
+              >
                &#x2022;{' '}
                {(() => {
                 const timeDifference = new Date() - new Date(publishDate[index])
@@ -393,7 +408,8 @@ function Browse() {
             paddingRight: '0px',
             display: TagsSelected !== 'All' ? 'grid' : 'none'
            }
-       }>
+       }
+      >
        {FilteredVideos &&
         FilteredVideos.map((element, index) => {
          return (
@@ -417,7 +433,8 @@ function Browse() {
              }, 400)
             }
             navigate(`/video/${element._id}`)
-           }}>
+           }}
+          >
            <img
             style={{
              width: '330px',
@@ -438,7 +455,8 @@ function Browse() {
               className="title"
               style={{
                marginTop: '10px'
-              }}>
+              }}
+             >
               {element.Title}
              </p>
              <div className="video-uploader">
@@ -446,7 +464,8 @@ function Browse() {
                className={theme ? 'uploader' : 'uploader text-light-mode2'}
                style={{
                 marginTop: '10px'
-               }}>
+               }}
+              >
                {element.uploader}
               </p>
 
@@ -465,7 +484,8 @@ function Browse() {
                className="upload-time"
                style={{
                 marginLeft: '4px'
-               }}>
+               }}
+              >
                &#x2022;{' '}
                {(() => {
                 const timeDifference = new Date() - new Date(element.uploaded_date)
