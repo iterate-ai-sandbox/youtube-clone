@@ -1,24 +1,24 @@
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import mixpanel from 'mixpanel-browser';
+import { useEffect, useRef, useState } from 'react';
+import { AiOutlineVideoCameraAdd } from 'react-icons/ai';
+import { FiSearch } from 'react-icons/fi';
+import { IoIosSearch } from 'react-icons/io';
+import { RxCross1 } from 'react-icons/rx';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import avatar from '../img/avatar.png';
+import Logo from '../img/logo1.png';
+import Logo2 from '../img/logo2.png';
+import AccountPop from './AccountPop';
+import Signin from './Signin';
+import Signup from './Signup';
 //MUI Icons
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import mixpanel from 'mixpanel-browser'
-import {useEffect, useRef, useState} from 'react'
-import {AiOutlineVideoCameraAdd} from 'react-icons/ai'
-import {FiSearch} from 'react-icons/fi'
-import {IoIosSearch} from 'react-icons/io'
-import {RxCross1} from 'react-icons/rx'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate, useParams} from 'react-router-dom'
 import '../Css/navbar.css'
-import avatar from '../img/avatar.png'
-import Logo from '../img/logo1.png'
-import Logo2 from '../img/logo2.png'
-import AccountPop from './AccountPop'
-import Signin from './Signin'
-import Signup from './Signup'
 function Navbar() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -83,6 +83,7 @@ function Navbar() {
  const handleSearch = e => {
   setSearchedData(e?.target?.value)
   setData(e?.target?.value)
+  mixpanel.track('searched', {'search string': searchedData})
  }
  const handleKeyPress = e => {
   if (e.key === 'Enter' && searchedData) {

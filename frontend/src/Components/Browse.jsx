@@ -37,6 +37,7 @@ function Browse() {
  const user = useSelector(state => state.user.user)
  useEffect(() => {
   window.scrollTo(0, 0)
+  mixpanel.track('home_page_opened')
  }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
@@ -162,10 +163,12 @@ function Browse() {
          <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
           <p
            onClick={() => {
-            setTagsSelected(`${element}`)
+            setTagsSelected(element)
+            mixpanel.track('category_selected', {'category name': element})
            }}
           >
-           {element}
+           {' '}
+           {element}{' '}
           </p>
          </div>
         )
