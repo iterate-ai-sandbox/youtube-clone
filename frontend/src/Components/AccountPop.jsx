@@ -94,7 +94,8 @@ function AccountPop() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <div className="user-section">
      <div className="left-part">
       <img src={profile ? profile : avatar} alt="channelIMG" className="channelIMG" />
@@ -118,7 +119,8 @@ function AccountPop() {
        } else {
         navigate(`/studio`)
        }
-      }}>
+      }}
+     >
       <AccountBoxOutlinedIcon
        fontSize="medium"
        style={{
@@ -131,7 +133,8 @@ function AccountPop() {
       className={theme ? 'yourstudio c-sec' : 'yourstudio c-sec2'}
       onClick={() => {
        navigate('/studio')
-      }}>
+      }}
+     >
       <SiYoutubestudio
        fontSize="21px"
        style={{
@@ -148,7 +151,8 @@ function AccountPop() {
        } else {
         setIsBtnClicked(false)
        }
-      }}>
+      }}
+     >
       <DarkModeOutlinedIcon
        fontSize="medium"
        style={{
@@ -199,7 +203,8 @@ function AccountPop() {
          display: 'none',
          paddingTop: '20px'
         }
-    }>
+    }
+   >
     <div className="appearance-title">
      <ArrowBackOutlinedIcon
       className={theme ? 'back-arrow' : 'back-arroww2'}
@@ -237,7 +242,8 @@ function AccountPop() {
        onClick={() => {
         setTheme(true)
         reloadPage()
-       }}>
+       }}
+      >
        <DoneOutlinedIcon
         className="dark-arrow"
         fontSize="medium"
@@ -259,7 +265,8 @@ function AccountPop() {
        onClick={() => {
         setTheme(false)
         reloadPage()
-       }}>
+       }}
+      >
        <DoneOutlinedIcon
         className="light-arrow"
         fontSize="medium"

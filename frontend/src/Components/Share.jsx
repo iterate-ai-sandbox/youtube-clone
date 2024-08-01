@@ -62,7 +62,8 @@ function Share() {
        onClick={() => {
         handleCopyLink()
         CopiedNotify()
-       }}>
+       }}
+      >
        {copyText}
       </button>
      </div>

@@ -1,16 +1,12 @@
 # MERN YouTube Clone
 
-
 A feature-rich YouTube clone built using the MERN stack, JWT for authentication, and Firebase Storage for video and file storage. This project aims to replicate the core functionalities of YouTube, allowing users to upload, view, like, comment, and interact with videos.
 
-
 ## Demo
-
 
 https://github.com/shubho0908/YouTube-clone-MERN/assets/81776711/72a75a7e-e20b-4639-ac14-13c490329dbf
 
 Or watch the demo [here.](https://youtu.be/CJEoNpLgRRw?si=8F2vfGwuBO03jRsH)
-
 
 ## Features
 
@@ -35,8 +31,8 @@ Or watch the demo [here.](https://youtu.be/CJEoNpLgRRw?si=8F2vfGwuBO03jRsH)
 - **JSON Web Tokens (JWT)**: For user authentication.
 - **React Icons & MUI**: For icons.
 
-
 ## Configuration
+
 1. Create a `.env` file in the root directory of your project.
 2. Add necessary environment variables to the `.env` file, such as database connection URLs, API keys, or other sensitive data.
 3. Add your own MongoDB Atlas URI in the datbase file inside the backend folder.
@@ -48,23 +44,25 @@ PASSWORD=google-app-password
 ```
 
 ## Running the Application
+
 ### Server
+
 Install server dependencies:
 
-``npm install``
+`npm install`
 
 Start the server:
 
-``npm start``
-
+`npm start`
 
 ### Client
+
 Install client dependencies:
 
-``npm install``
+`npm install`
 
 Start the client application:
 
-``npm run dev``
+`npm run dev`
 
 Open your web browser and visit `http://localhost:5173` to access the application.

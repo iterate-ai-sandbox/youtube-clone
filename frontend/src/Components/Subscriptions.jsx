@@ -154,7 +154,8 @@ function Subscriptions() {
           left: '300px',
           width: '76%'
          }
-     }>
+     }
+    >
      <div className="subscribed-channels">
       <p className={theme ? 'main-txxt' : 'main-txxt text-light-mode'}>Channels</p>
       <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
@@ -168,7 +169,8 @@ function Subscriptions() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         {subscriptions.length > 0 &&
          subscriptions.map((element, index) => {
           return (
@@ -208,7 +210,8 @@ function Subscriptions() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         <p className={theme ? 'main-txxt' : 'main-txxt text-light-mode'}>Videos</p>
 
         <div className="subs-videos-all">
@@ -226,7 +229,8 @@ function Subscriptions() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <Skeleton
              count={1}
              width={300}
@@ -277,7 +281,8 @@ function Subscriptions() {
             visibility: 'visible',
             display: 'flex'
            }
-       }>
+       }
+      >
        {subscriptions.length > 0 &&
         subscriptions.map((element, index) => {
          return (
@@ -286,7 +291,8 @@ function Subscriptions() {
            key={index}
            onClick={() => {
             navigate(`/channel/${element.channelID}`)
-           }}>
+           }}
+          >
            <img src={element.channelProfile} alt="channelDP" className="sub-channelDP" />
            <p className={theme ? 'sub-channelname' : 'sub-channelname text-light-mode'}>{element.channelname}</p>
           </div>
@@ -306,7 +312,8 @@ function Subscriptions() {
            visibility: 'visible',
            display: 'block'
           }
-      }>
+      }
+     >
       <p className={theme ? 'main-txxt' : 'main-txxt text-light-mode'}>Videos</p>
 
       <div className="subs-videos-all">
@@ -330,7 +337,8 @@ function Subscriptions() {
             style={{
              visibility: loading ? 'hidden' : 'visible',
              display: element.visibility === 'Public' ? 'block' : 'none'
-            }}>
+            }}
+           >
             <img src={element.thumbnailURL} alt="thumbnail" className="sub-thumbnail" />
             <p className="durationn2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
 
@@ -344,7 +352,8 @@ function Subscriptions() {
                style={{
                 marginTop: '10px',
                 width: '88%'
-               }}>
+               }}
+              >
                {element.Title.length <= 50 ? element.Title : `${element.Title.slice(0, 50)}..`}
               </p>
               <div className="video-uploader2">
@@ -352,7 +361,8 @@ function Subscriptions() {
                 className={theme ? 'uploader2' : 'uploader2 text-light-mode2'}
                 style={{
                  marginTop: '10px'
-                }}>
+                }}
+               >
                 {element.uploader}
                </p>
 
@@ -371,7 +381,8 @@ function Subscriptions() {
                 className="upload-time2"
                 style={{
                  marginLeft: '5px'
-                }}>
+                }}
+               >
                 &#x2022;{' '}
                 {(() => {
                  const timeDifference = new Date() - new Date(element.uploaded_date)

@@ -194,7 +194,8 @@ function SearchResults() {
       style={{
        top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
        display: loading === true ? 'block' : 'none'
-      }}>
+      }}
+     >
       <div className="searched-channels-section">
        {searchedChannelData &&
         searchedChannelData.length > 0 &&
@@ -271,7 +272,8 @@ function SearchResults() {
               position: 'relative',
               left: '20px',
               top: '4px'
-             }}>
+             }}
+            >
              <Skeleton count={1} width={420} height={18} className="sk-search-title" />
 
              <div className={theme ? 'thisvideo-onliner' : 'thisvideo-onliner text-light-mode2'}>
@@ -324,7 +326,8 @@ function SearchResults() {
       top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
       display: loading === true ? 'none' : 'block',
       visibility: loading === true ? 'hidden' : 'visible'
-     }}>
+     }}
+    >
      <div className="searched-channels-section">
       {searchedChannelData &&
        searchedChannelData.length > 0 &&
@@ -377,7 +380,8 @@ function SearchResults() {
                  setisbtnClicked(true)
                  document.body.classList.add('bg-css')
                 }
-               }}>
+               }}
+              >
                Subscribe
               </button>
               <button
@@ -398,7 +402,8 @@ function SearchResults() {
                  setisbtnClicked(true)
                  document.body.classList.add('bg-css')
                 }
-               }}>
+               }}
+              >
                Subscribed
               </button>
              </>
@@ -423,7 +428,8 @@ function SearchResults() {
             position: 'relative',
             bottom: '20px'
            }
-       }>
+       }
+      >
        Latest from {searchedChannelData && searchedChannelData[0].channelName}
       </p>
       {searchedChannelData &&
@@ -445,7 +451,8 @@ function SearchResults() {
             } else {
              navigate(`/video/${element._id}`)
             }
-           }}>
+           }}
+          >
            <img src={element.thumbnailURL} alt="thumbnail" className="thischannel-thumbnail search-ka-thumbnail" />
            <p className="thisvideo-duration">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
            <div className="thischannel-video-data">
@@ -560,7 +567,8 @@ function SearchResults() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <ClearRoundedIcon
       onClick={() => {
        if (isbtnClicked === false) {
@@ -586,7 +594,8 @@ function SearchResults() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <Signup />
       <div className="already">
        <p>Already have an account?</p>
@@ -597,7 +606,8 @@ function SearchResults() {
          } else {
           setisSwitched(false)
          }
-        }}>
+        }}
+       >
         Signin
        </p>
       </div>
@@ -612,7 +622,8 @@ function SearchResults() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <Signin />
       <div className="already">
        <p>Don&apos;t have an account?</p>
@@ -623,7 +634,8 @@ function SearchResults() {
          } else {
           setisSwitched(false)
          }
-        }}>
+        }}
+       >
         Signup
        </p>
       </div>
@@ -642,7 +654,8 @@ function SearchResults() {
       style={{
        top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
        display: loading === true ? 'block' : 'none'
-      }}>
+      }}
+     >
       <div className="searched-videos-section">
        {searchedVideoData &&
         searchedVideoData.length > 0 &&
@@ -654,7 +667,8 @@ function SearchResults() {
             style={{
              display: element.visibility === 'Public' ? 'flex' : 'none'
             }}
-            key={index}>
+            key={index}
+           >
             <Skeleton
              count={1}
              width={350}
@@ -671,7 +685,8 @@ function SearchResults() {
               position: 'relative',
               left: '20px',
               top: '4px'
-             }}>
+             }}
+            >
              <Skeleton count={1} width={420} height={18} className="sk-search-title" />
 
              <div className={theme ? 'thisvideo-onliner' : 'thisvideo-onliner text-light-mode2'}>
@@ -723,7 +738,8 @@ function SearchResults() {
       top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
       display: loading === true ? 'none' : 'block',
       visibility: loading === true ? 'hidden' : 'visible'
-     }}>
+     }}
+    >
      <div className="searched-videos-section">
       {searchedVideoData &&
        searchedVideoData.length > 0 &&
@@ -745,7 +761,8 @@ function SearchResults() {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnail" className="thischannel-thumbnail search-ka-thumbnail" />
           <p className="thisvideo-duration">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className="thischannel-video-data">
@@ -862,7 +879,8 @@ function SearchResults() {
       style={{
        top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
        display: loading === true ? 'block' : 'none'
-      }}>
+      }}
+     >
       <div className="searched-channels-section">
        {searchedChannelData &&
         searchedChannelData.length > 0 &&
@@ -925,7 +943,8 @@ function SearchResults() {
            key={index}
            style={{
             display: element.visibility === 'Public' ? 'flex' : 'none'
-           }}>
+           }}
+          >
            <Skeleton
             count={1}
             width={350}
@@ -942,7 +961,8 @@ function SearchResults() {
              position: 'relative',
              left: '20px',
              top: '4px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={420} height={18} className="sk-search-title" />
 
             <div className={theme ? 'thisvideo-onliner' : 'thisvideo-onliner text-light-mode2'}>
@@ -995,7 +1015,8 @@ function SearchResults() {
       top: searchedChannelData && searchedChannelData.length > 0 ? '200px' : '130px',
       visibility: loading === true ? 'hidden' : 'visible',
       display: loading === true ? 'none' : 'block'
-     }}>
+     }}
+    >
      <div className="searched-channels-section">
       {searchedChannelData &&
        searchedChannelData.length > 0 &&
@@ -1048,7 +1069,8 @@ function SearchResults() {
                  setisbtnClicked(true)
                  document.body.classList.add('bg-css')
                 }
-               }}>
+               }}
+              >
                Subscribe
               </button>
               <button
@@ -1069,7 +1091,8 @@ function SearchResults() {
                  setisbtnClicked(true)
                  document.body.classList.add('bg-css')
                 }
-               }}>
+               }}
+              >
                Subscribed
               </button>
              </>
@@ -1102,7 +1125,8 @@ function SearchResults() {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnail" className="thischannel-thumbnail search-ka-thumbnail" />
           <p className="thisvideo-duration">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className="thischannel-video-data">
@@ -1227,7 +1251,8 @@ function SearchResults() {
      className="spin23"
      style={{
       top: '200px'
-     }}>
+     }}
+    >
      <span className={theme ? 'loader2' : 'loader2-light'}></span>
     </div>
    </div>

@@ -204,7 +204,8 @@ function Library() {
       className="spin23"
       style={{
        top: '200px'
-      }}>
+      }}
+     >
       <span className={theme ? 'loader2' : 'loader2-light'}></span>
      </div>
     </div>
@@ -220,7 +221,8 @@ function Library() {
     className="library-section"
     style={{
      left: menuClicked === false ? '150px' : '320px'
-    }}>
+    }}
+   >
     {/* SKELETON WATCH LATER  */}
     <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
      <div
@@ -228,7 +230,8 @@ function Library() {
       style={{
        display: LibraryLoading && watchlater && watchlater.savedData !== 'NO DATA' ? 'block' : 'none',
        marginBottom: '20px'
-      }}>
+      }}
+     >
       <div className="top-watchlater-library">
        <Skeleton count={1} width={160} height={22} />
       </div>
@@ -251,7 +254,8 @@ function Library() {
             style={{
              position: 'relative',
              top: '14px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={220} height={22} />
             <div className="thisvideo-extra-daataa">
              <div className={theme ? 'thisvide-oneliner-1' : 'thisvide-oneliner-1 text-light-mode2'}>
@@ -272,7 +276,8 @@ function Library() {
      style={{
       visibility: LibraryLoading ? 'hidden' : 'visible',
       display: !LibraryLoading && watchlater && watchlater.savedData !== 'NO DATA' ? 'block' : 'none'
-     }}>
+     }}
+    >
      <div className="top-watchlater-library">
       <div className={theme ? 'top-watch-left' : 'top-watch-left text-light-mode light-mode'}>
        <WatchLaterOutlinedIcon
@@ -289,7 +294,8 @@ function Library() {
         className="see-all"
         onClick={() => {
          navigate(`/watchlater`)
-        }}>
+        }}
+       >
         See all
        </p>
       ) : (
@@ -305,7 +311,8 @@ function Library() {
           key={index}
           onClick={() => {
            navigate(`/video/${element.savedVideoID}`)
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnail" className="thiswatch-thumbnail" />
           <p className={theme ? 'thislibrary-duration' : 'thislibrary-duration text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className="thislibrary-video-details">
@@ -375,7 +382,8 @@ function Library() {
       style={{
        display: LibraryLoading ? 'block' : 'none',
        marginBottom: '50px'
-      }}>
+      }}
+     >
       <div className="topplaylist-section">
        <Skeleton count={1} width={160} height={22} />
       </div>
@@ -399,14 +407,16 @@ function Library() {
             style={{
              position: 'relative',
              top: '12px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={220} height={22} />
             <div
              className="extra-playlists-data"
              style={{
               position: 'relative',
               top: '5px'
-             }}>
+             }}
+            >
              <Skeleton count={1} width={180} height={16} />
             </div>
            </div>
@@ -432,14 +442,16 @@ function Library() {
             style={{
              position: 'relative',
              top: '12px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={220} height={22} />
             <div
              className="extra-playlists-data"
              style={{
               position: 'relative',
               top: '5px'
-             }}>
+             }}
+            >
              <Skeleton count={1} width={180} height={16} />
             </div>
            </div>
@@ -454,7 +466,8 @@ function Library() {
      style={{
       display: (!LibraryLoading && PlaylistData && PlaylistData !== 'No playlists available...') || (savedPlaylist && savedPlaylist.length > 0) ? 'block' : 'none',
       visibility: LibraryLoading ? 'hidden' : 'visible'
-     }}>
+     }}
+    >
      <div className="topplaylist-section">
       <div className={theme ? 'playlistt-left' : 'playlistt-left text-light-mode light-mode'}>
        <PlaylistPlayOutlinedIcon
@@ -473,7 +486,8 @@ function Library() {
         onClick={() => {
          localStorage.setItem('Section', 'Playlists')
          navigate(`/channel/${channelID}`)
-        }}>
+        }}
+       >
         See all
        </p>
       )}
@@ -504,7 +518,8 @@ function Library() {
            }}
            onClick={() => {
             navigate(`/video/${element.playlist_videos[0].videoID}`)
-           }}>
+           }}
+          >
            <PlaylistPlayIcon
             fontSize="medium"
             style={{
@@ -540,7 +555,8 @@ function Library() {
                : {
                   display: 'none'
                  }
-             }>
+             }
+            >
              <LockOutlinedIcon
               fontSize="small"
               style={{
@@ -575,7 +591,8 @@ function Library() {
             : {
                display: 'block'
               }
-          }>
+          }
+         >
           <div className="playlist-main-img">
            <img
             src={thumbnailURL}
@@ -594,7 +611,8 @@ function Library() {
            }}
            onClick={() => {
             navigate(`/video/${element.playlist_videos[0].videoID}`)
-           }}>
+           }}
+          >
            <PlaylistPlayIcon
             fontSize="medium"
             style={{
@@ -630,7 +648,8 @@ function Library() {
                : {
                   display: 'none'
                  }
-             }>
+             }
+            >
              <LockOutlinedIcon
               fontSize="small"
               style={{
@@ -668,7 +687,8 @@ function Library() {
       className="likedvideos-library"
       style={{
        display: LibraryLoading && videolike && videolike !== 'NO DATA' ? 'block' : 'none'
-      }}>
+      }}
+     >
       <div className="top-watchlater-library">
        <Skeleton count={1} width={160} height={22} />
       </div>
@@ -690,7 +710,8 @@ function Library() {
             style={{
              position: 'relative',
              top: '12px'
-            }}>
+            }}
+           >
             <Skeleton count={1} width={210} height={22} />
 
             <div className="thisvideo-extra-daataa">
@@ -712,7 +733,8 @@ function Library() {
      style={{
       visibility: LibraryLoading ? 'hidden' : 'visible',
       display: LibraryLoading || (videolike && videolike === 'NO DATA') ? 'none' : 'block'
-     }}>
+     }}
+    >
      <div className="top-watchlater-library">
       <div className={theme ? 'top-like-lefttt' : 'top-like-lefttt text-light-mode'}>
        <ThumbUpOutlinedIcon
@@ -729,7 +751,8 @@ function Library() {
         className="see-all"
         onClick={() => {
          navigate(`/likedVideos`)
-        }}>
+        }}
+       >
         See all
        </p>
       ) : (
@@ -745,7 +768,8 @@ function Library() {
           key={index}
           onClick={() => {
            navigate(`/video/${element.likedVideoID}`)
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnail" className="thiswatch-thumbnail" />
           <p className={theme ? 'thislibrary-duration' : 'thislibrary-duration text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className={theme ? 'thislibrary-video-details' : 'thislibrary-video-details light-mode'}>

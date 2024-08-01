@@ -125,7 +125,8 @@ function Trending() {
       <p
        style={{
         color: theme ? 'white' : 'black'
-       }}>
+       }}
+      >
        Trending
       </p>
      </div>
@@ -147,7 +148,8 @@ function Trending() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <Skeleton
              count={1}
              width={250}
@@ -217,7 +219,8 @@ function Trending() {
                 visibility: 'hidden',
                 display: 'none'
                }
-           }>
+           }
+          >
            <img src={element.thumbnailURL} alt="trending-thumbnail" className="trending-thumbnail" />
            <p className="trending-duration">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
            <div className="trending-video-texts">
@@ -277,7 +280,8 @@ function Trending() {
       className="spin23"
       style={{
        top: '200px'
-      }}>
+      }}
+     >
       <span className={theme ? 'loader2' : 'loader2-light'}></span>
      </div>
     </div>

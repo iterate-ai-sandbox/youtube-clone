@@ -184,14 +184,16 @@ function Comments() {
      className="channel-comments-top"
      style={{
       left: menu ? '125px' : '310px'
-     }}>
+     }}
+    >
      <p className={theme ? '' : 'text-light-mode'}>Channel comments</p>
     </div>
     <div
      className="channel-comments-mid"
      style={{
       left: menu ? '128px' : '312px'
-     }}>
+     }}
+    >
      <p className={theme ? '' : 'blue-txt'}>Comments</p>
     </div>
     <hr
@@ -204,7 +206,8 @@ function Comments() {
      className="filter-comments"
      style={{
       left: menu ? '90px' : '270px'
-     }}>
+     }}
+    >
      <FilterListOutlinedIcon
       fontSize="medium"
       style={{
@@ -219,7 +222,8 @@ function Comments() {
      className="channel-comments-list"
      style={{
       left: menu ? '90px' : '270px'
-     }}>
+     }}
+    >
      <div className="overall-comments">
       {AllComments &&
        AllComments.length > 0 &&
@@ -240,7 +244,8 @@ function Comments() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <div className="leftside-viddata">
              <Skeleton
               count={1}
@@ -318,7 +323,8 @@ function Comments() {
              key={index}
              style={{
               marginRight: '60px'
-             }}>
+             }}
+            >
              <Skeleton
               count={1}
               width={145}
@@ -365,7 +371,8 @@ function Comments() {
                 visibility: 'hidden',
                 display: 'none'
                }
-           }>
+           }
+          >
            <div className="leftside-viddata">
             <img src={element.user_profile} alt="profile" className="user-channelprofileee" />
             <div className="comment-rightt-data">
@@ -407,7 +414,8 @@ function Comments() {
               className={theme ? '' : 'text-light-mode'}
               style={{
                marginTop: '8px'
-              }}>
+              }}
+             >
               {element.comment}
              </p>
              <div className="comment-all-btns">
@@ -427,7 +435,8 @@ function Comments() {
                 className={theme ? '' : 'text-light-mode'}
                 style={{
                  marginLeft: '10px'
-                }}>
+                }}
+               >
                 {element.likes}
                </p>
               </div>
@@ -436,7 +445,8 @@ function Comments() {
                 className="hearted-thiscomment"
                 onClick={() => {
                  HeartComment(element.videoid, element._id)
-                }}>
+                }}
+               >
                 <img src={Profile && Profile} alt="profile" className="channelp" />
 
                 <FavoriteIcon
@@ -480,7 +490,8 @@ function Comments() {
              if (element.videoData._id !== undefined) {
               navigate(`/studio/video/comments/${element.videoData._id}`)
              }
-            }}>
+            }}
+           >
             <img src={element.videoData && element.videoData.thumbnailURL} alt="thumbnail" className="commentvideo-thumbnail" />
             <div className={theme ? 'thiscomment-rightone' : 'thiscomment-rightone text-light-mode'}>
              <p>{element.videoData && element.videoData.Title.length <= 40 ? element.videoData.Title : `${element.videoData.Title.slice(0, 40)}...`}</p>
@@ -538,7 +549,8 @@ function Comments() {
              className={theme ? '' : 'text-light-mode'}
              style={{
               marginTop: '8px'
-             }}>
+             }}
+            >
              {element.comment}
             </p>
             <div className="comment-all-btns">
@@ -558,7 +570,8 @@ function Comments() {
                className={theme ? '' : 'text-light-mode'}
                style={{
                 marginLeft: '10px'
-               }}>
+               }}
+              >
                {element.likes}
               </p>
              </div>
@@ -567,7 +580,8 @@ function Comments() {
                className="hearted-thiscomment"
                onClick={() => {
                 HeartComment(element.videoid, element._id)
-               }}>
+               }}
+              >
                <img src={Profile && Profile} alt="profile" className="channelp" />
 
                <FavoriteIcon
@@ -611,7 +625,8 @@ function Comments() {
             if (element.videoData._id !== undefined) {
              navigate(`/studio/video/comments/${element.videoData._id}`)
             }
-           }}>
+           }}
+          >
            <img src={element.videoData && element.videoData.thumbnailURL} alt="thumbnail" className="commentvideo-thumbnail" />
            <div className={theme ? 'thiscomment-rightone' : 'thiscomment-rightone text-light-mode'}>
             <p>{element.videoData && element.videoData.Title.length <= 40 ? element.videoData.Title : `${element.videoData.Title.slice(0, 40)}...`}</p>
@@ -643,7 +658,8 @@ function Comments() {
         className="user-comment-data2"
         style={{
          top: '60px'
-        }}>
+        }}
+       >
         <div className="no-comment-found">
          <div className="spin23">
           <span className="loader2"></span>

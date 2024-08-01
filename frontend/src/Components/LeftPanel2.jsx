@@ -118,7 +118,8 @@ function LeftPanel2() {
          display: 'flex',
          width: '270px'
         }
-    }>
+    }
+   >
     <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
      <div
       className="first-panel"
@@ -130,7 +131,8 @@ function LeftPanel2() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <Skeleton
        count={1}
        width={110}
@@ -164,7 +166,8 @@ function LeftPanel2() {
           visibility: 'hidden',
           display: 'none'
          }
-     }>
+     }
+    >
      <img
       src={profileIMG ? profileIMG : avatar}
       alt=""
@@ -188,7 +191,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Dashboard')
        navigate('/studio')
-      }}>
+      }}
+     >
       <DashboardIcon
        className={StudioSection === 'Dashboard' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -204,7 +208,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Content')
        navigate('/studio/video')
-      }}>
+      }}
+     >
       <VideoLibraryOutlinedIcon
        className={StudioSection === 'Content' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -219,7 +224,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Comments')
        navigate('/studio/comments')
-      }}>
+      }}
+     >
       <ChatOutlinedIcon
        className={StudioSection === 'Comments' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -234,7 +240,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Customization')
        navigate('/studio/customize')
-      }}>
+      }}
+     >
       <AutoFixHighOutlinedIcon
        className={StudioSection === 'Customization' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -260,7 +267,8 @@ function LeftPanel2() {
          display: 'flex',
          width: '90px'
         }
-    }>
+    }
+   >
     <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
      <div
       className="first-panel"
@@ -272,7 +280,8 @@ function LeftPanel2() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <Skeleton
        count={1}
        width={50}
@@ -295,7 +304,8 @@ function LeftPanel2() {
           visibility: 'hidden',
           display: 'none'
          }
-     }>
+     }
+    >
      <img
       src={profileIMG ? profileIMG : avatar}
       alt=""
@@ -319,7 +329,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Dashboard')
        navigate('/studio')
-      }}>
+      }}
+     >
       <DashboardIcon
        className={StudioSection === 'Dashboard' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -336,7 +347,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Content')
        navigate('/studio/video')
-      }}>
+      }}
+     >
       <VideoLibraryOutlinedIcon
        className={StudioSection === 'Content' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -352,7 +364,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Comments')
        navigate('/studio/comments')
-      }}>
+      }}
+     >
       <ChatOutlinedIcon
        className={StudioSection === 'Comments' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -368,7 +381,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Customization')
        navigate('/studio/customize')
-      }}>
+      }}
+     >
       <AutoFixHighOutlinedIcon
        className={StudioSection === 'Customization' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -396,7 +410,8 @@ function LeftPanel2() {
         : {
            display: 'none'
           }
-      }>
+      }
+     >
       <Skeleton
        count={1}
        width={50}
@@ -419,7 +434,8 @@ function LeftPanel2() {
           visibility: 'hidden',
           display: 'none'
          }
-     }>
+     }
+    >
      <img
       src={profileIMG ? profileIMG : avatar}
       alt=""
@@ -443,7 +459,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Dashboard')
        navigate('/studio')
-      }}>
+      }}
+     >
       <DashboardIcon
        className={StudioSection === 'Dashboard' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -460,7 +477,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Content')
        navigate('/studio/video')
-      }}>
+      }}
+     >
       <VideoLibraryOutlinedIcon
        className={StudioSection === 'Content' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -476,7 +494,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Comments')
        navigate('/studio/comments')
-      }}>
+      }}
+     >
       <ChatOutlinedIcon
        className={StudioSection === 'Comments' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -492,7 +511,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Studio-Section', 'Customization')
        navigate('/studio/customize')
-      }}>
+      }}
+     >
       <AutoFixHighOutlinedIcon
        className={StudioSection === 'Customization' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -514,7 +534,8 @@ function LeftPanel2() {
      onClick={() => {
       localStorage.setItem('Studio-Section', 'Dashboard')
       navigate('/studio')
-     }}>
+     }}
+    >
      <MdDashboard
       className={StudioSection === 'Dashboard' ? 'studio-icon3' : 'studio-icon-new'}
       fontSize="26px"
@@ -528,7 +549,8 @@ function LeftPanel2() {
      onClick={() => {
       localStorage.setItem('Studio-Section', 'Content')
       navigate('/studio/video')
-     }}>
+     }}
+    >
      <MdOutlineVideoLibrary
       className={StudioSection === 'Content' ? 'studio-icon3' : 'studio-icon-new'}
       fontSize="26px"
@@ -542,7 +564,8 @@ function LeftPanel2() {
      onClick={() => {
       localStorage.setItem('Studio-Section', 'Comments')
       navigate('/studio/comments')
-     }}>
+     }}
+    >
      <BiCommentDetail
       className={StudioSection === 'Comments' ? 'studio-icon3' : 'studio-icon-new'}
       fontSize="26px"
@@ -556,7 +579,8 @@ function LeftPanel2() {
      onClick={() => {
       localStorage.setItem('Studio-Section', 'Customization')
       navigate('/studio/customize')
-     }}>
+     }}
+    >
      <MdOutlineAutoFixHigh
       className={StudioSection === 'Customization' ? 'studio-icon3' : 'studio-icon-new'}
       fontSize="26px"

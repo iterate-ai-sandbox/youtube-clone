@@ -104,7 +104,8 @@ function LeftPanel2() {
       } else {
        window.location.href = '/studio/comments'
       }
-     }}>
+     }}
+    >
      <div className="about-video">
       <WestIcon fontSize="medium" style={{color: '#aaa'}} />
       {window.location.href.includes(`/studio/video/edit/${id}`) ? <p>Channel content</p> : <p>Channel comments</p>}
@@ -130,7 +131,8 @@ function LeftPanel2() {
        if (videodata) {
         window.location.href = `/video/${videodata._id}`
        }
-      }}>
+      }}
+     >
       <img src={videodata && videodata.thumbnailURL} alt="thumbnail" className="current-video-thumbnail" />
       <p className="current-video-duraation">{Math.floor(videodata && videodata.videoLength / 60) + ':' + (Math.round(videodata && videodata.videoLength % 60) < 10 ? '0' + Math.round(videodata && videodata.videoLength % 60) : Math.round(videodata && videodata.videoLength % 60))}</p>
 
@@ -148,7 +150,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Details')
        window.location.href = `/studio/video/edit/${id}`
-      }}>
+      }}
+     >
       <ModeEditOutlineOutlinedIcon className={VideoEditSection === 'Details' ? 'studio-icon2' : 'studio-icon'} fontSize="medium" style={{color: '#A9A9A9', paddingLeft: '25px !important'}} />
       <p>Details</p>
      </div>
@@ -157,7 +160,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Video-Comments')
        window.location.href = `/studio/video/comments/${id}`
-      }}>
+      }}
+     >
       <ChatOutlinedIcon className={VideoEditSection === 'Video-Comments' ? 'studio-icon2' : 'studio-icon'} fontSize="medium" style={{color: '#A9A9A9', paddingLeft: '25px !important'}} />
       <p>Comments</p>
      </div>
@@ -175,7 +179,8 @@ function LeftPanel2() {
       } else {
        window.location.href = '/studio/comments'
       }
-     }}>
+     }}
+    >
      <div className="about-video" style={{right: studioMenuClicked ? '0px' : '15px'}}>
       <WestIcon fontSize="medium" style={{color: '#aaa'}} />
      </div>
@@ -196,7 +201,8 @@ function LeftPanel2() {
        if (videodata) {
         window.location.href = `/video/${videodata._id}`
        }
-      }}>
+      }}
+     >
       <img src={videodata && videodata.thumbnailURL} alt="thumbnail" className="current-video-thumbnail" style={{width: studioMenuClicked ? '70px' : '220px'}} />
 
       <YouTubeIcon className="watch-video2" fontSize="medium" style={{color: 'white'}} />
@@ -208,7 +214,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Details')
        window.location.href = `/studio/video/edit/${id}`
-      }}>
+      }}
+     >
       <ModeEditOutlineOutlinedIcon
        className={VideoEditSection === 'Details' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -225,7 +232,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Video-Comments')
        window.location.href = `/studio/video/comments/${id}`
-      }}>
+      }}
+     >
       <ChatOutlinedIcon
        className={VideoEditSection === 'Video-Comments' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -251,7 +259,8 @@ function LeftPanel2() {
       } else {
        window.location.href = '/studio/comments'
       }
-     }}>
+     }}
+    >
      <div className="about-video" style={{right: '0px'}}>
       <WestIcon fontSize="medium" style={{color: '#aaa'}} />
      </div>
@@ -272,7 +281,8 @@ function LeftPanel2() {
        if (videodata) {
         window.location.href = `/video/${videodata._id}`
        }
-      }}>
+      }}
+     >
       <img src={videodata && videodata.thumbnailURL} alt="thumbnail" className="current-video-thumbnail" style={{width: '70px'}} />
 
       <YouTubeIcon className="watch-video2" fontSize="medium" style={{color: 'white'}} />
@@ -284,7 +294,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Details')
        window.location.href = `/studio/video/edit/${id}`
-      }}>
+      }}
+     >
       <ModeEditOutlineOutlinedIcon
        className={VideoEditSection === 'Details' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"
@@ -301,7 +312,8 @@ function LeftPanel2() {
       onClick={() => {
        localStorage.setItem('Video-Edit Section', 'Video-Comments')
        window.location.href = `/studio/video/comments/${id}`
-      }}>
+      }}
+     >
       <ChatOutlinedIcon
        className={VideoEditSection === 'Video-Comments' ? 'studio-icon2' : 'studio-icon'}
        fontSize="medium"

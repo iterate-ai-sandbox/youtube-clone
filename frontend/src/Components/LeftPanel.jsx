@@ -191,7 +191,8 @@ function LeftPanel() {
       onClick={() => {
        localStorage.setItem('selected', 'home')
        navigate('/')
-      }}>
+      }}
+     >
       {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
 
       <p>Home</p>
@@ -202,7 +203,8 @@ function LeftPanel() {
        localStorage.setItem('selected', 'trending')
 
        navigate('/trending')
-      }}>
+      }}
+     >
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
       <p>Trending</p>
      </div>
@@ -217,7 +219,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'subscription' ? <SubscriptionsIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <SubscriptionsOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
       <p>Subscriptions</p>
      </div>
@@ -248,7 +251,8 @@ function LeftPanel() {
            onClick={() => {
             navigate(`/channel/${element.channelID}`)
            }}
-           style={loading === false ? {display: 'flex'} : {display: 'none'}}>
+           style={loading === false ? {display: 'flex'} : {display: 'none'}}
+          >
            <img src={element.channelProfile} alt="channel profile" className="channel-profilee" />
 
            <p className="sub-channelnamee">{element.channelname.length <= 7 ? element.channelname : `${element.channelname.slice(0, 7)}..`}</p>
@@ -271,7 +275,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'library' ? <VideoLibraryIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <VideoLibraryOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
       <p>Library</p>
      </div>
@@ -287,7 +292,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'watch-later' ? <WatchLaterIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WatchLaterOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
       <p>Watch later</p>
      </div>
@@ -302,7 +308,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'liked-video' ? <ThumbUpIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <ThumbUpOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
       <p>Liked videos</p>
      </div>
@@ -317,7 +324,8 @@ function LeftPanel() {
           key={index}
           onClick={() => {
            navigate(`/playlist/${element._id}`)
-          }}>
+          }}
+         >
           <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
 
           <p>{element.playlist_name.length <= 8 ? element.playlist_name : `${element.playlist_name.slice(0, 8)}..`}</p>
@@ -333,7 +341,8 @@ function LeftPanel() {
           key={index}
           onClick={() => {
            navigate(`/playlist/${element._id}`)
-          }}>
+          }}
+         >
           <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
 
           <p>{element.playlist_name.length <= 8 ? element.playlist_name : `${element.playlist_name.slice(0, 8)}..`}</p>
@@ -354,7 +363,8 @@ function LeftPanel() {
        localStorage.setItem('selected', 'home')
 
        navigate('/')
-      }}>
+      }}
+     >
       {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -363,7 +373,8 @@ function LeftPanel() {
        localStorage.setItem('selected', 'trending')
 
        navigate('/trending')
-      }}>
+      }}
+     >
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -376,7 +387,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'subscription' ? <SubscriptionsIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <SubscriptionsOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
     </div>
@@ -392,7 +404,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'library' ? <VideoLibraryIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <VideoLibraryOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -405,7 +418,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'watch-later' ? <WatchLaterIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WatchLaterOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -419,7 +433,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'liked-video' ? <ThumbUpIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <ThumbUpOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
     </div>
@@ -434,7 +449,8 @@ function LeftPanel() {
        localStorage.setItem('selected', 'home')
 
        navigate('/')
-      }}>
+      }}
+     >
       {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -443,7 +459,8 @@ function LeftPanel() {
        localStorage.setItem('selected', 'trending')
 
        navigate('/trending')
-      }}>
+      }}
+     >
       {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -456,7 +473,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'subscription' ? <SubscriptionsIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <SubscriptionsOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
     </div>
@@ -472,7 +490,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'library' ? <VideoLibraryIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <VideoLibraryOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -485,7 +504,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'watch-later' ? <WatchLaterIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WatchLaterOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
      <div
@@ -499,7 +519,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'liked-video' ? <ThumbUpIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <ThumbUpOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
      </div>
     </div>
@@ -532,7 +553,8 @@ function LeftPanel() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signin
       </p>
      </div>
@@ -548,7 +570,8 @@ function LeftPanel() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signup
       </p>
      </div>
@@ -592,7 +615,8 @@ function LeftPanel() {
        onClick={() => {
         localStorage.setItem('selected', 'home')
         navigate('/')
-       }}>
+       }}
+      >
        {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Home</p>
       </div>
@@ -602,7 +626,8 @@ function LeftPanel() {
         localStorage.setItem('selected', 'trending')
 
         navigate('/trending')
-       }}>
+       }}
+      >
        {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Trending</p>
       </div>
@@ -616,7 +641,8 @@ function LeftPanel() {
          setisbtnClicked(true)
          document.body.classList.add('bg-css')
         }
-       }}>
+       }}
+      >
        {selected === 'subscription' ? <SubscriptionsIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <SubscriptionsOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Subscriptions</p>
       </div>
@@ -647,7 +673,8 @@ function LeftPanel() {
             onClick={() => {
              navigate(`/channel/${element.channelID}`)
             }}
-            style={loading === false ? {display: 'flex'} : {display: 'none'}}>
+            style={loading === false ? {display: 'flex'} : {display: 'none'}}
+           >
             <img src={element.channelProfile} alt="channel profile" className="channel-profilee" />
 
             <p className="sub-channelnamee">{element.channelname.length <= 7 ? element.channelname : `${element.channelname.slice(0, 7)}..`}</p>
@@ -670,7 +697,8 @@ function LeftPanel() {
          setisbtnClicked(true)
          document.body.classList.add('bg-css')
         }
-       }}>
+       }}
+      >
        {selected === 'library' ? <VideoLibraryIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <VideoLibraryOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Library</p>
       </div>
@@ -686,7 +714,8 @@ function LeftPanel() {
          setisbtnClicked(true)
          document.body.classList.add('bg-css')
         }
-       }}>
+       }}
+      >
        {selected === 'watch-later' ? <WatchLaterIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WatchLaterOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Watch later</p>
       </div>
@@ -701,7 +730,8 @@ function LeftPanel() {
          setisbtnClicked(true)
          document.body.classList.add('bg-css')
         }
-       }}>
+       }}
+      >
        {selected === 'liked-video' ? <ThumbUpIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <ThumbUpOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
        <p>Liked videos</p>
       </div>
@@ -716,7 +746,8 @@ function LeftPanel() {
            key={index}
            onClick={() => {
             navigate(`/playlist/${element._id}`)
-           }}>
+           }}
+          >
            <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
 
            <p>{element.playlist_name.length <= 8 ? element.playlist_name : `${element.playlist_name.slice(0, 8)}..`}</p>
@@ -732,7 +763,8 @@ function LeftPanel() {
            key={index}
            onClick={() => {
             navigate(`/playlist/${element._id}`)
-           }}>
+           }}
+          >
            <PlaylistPlayOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
 
            <p>{element.playlist_name.length <= 8 ? element.playlist_name : `${element.playlist_name.slice(0, 8)}..`}</p>
@@ -761,7 +793,8 @@ function LeftPanel() {
       onClick={() => {
        localStorage.setItem('selected', 'home')
        navigate('/')
-      }}>
+      }}
+     >
       {selected === 'home' ? <GoHomeFill fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" /> : <GoHome fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" />}
 
       <p>Home</p>
@@ -771,7 +804,8 @@ function LeftPanel() {
       onClick={() => {
        localStorage.setItem('selected', 'trending')
        navigate('/trending')
-      }}>
+      }}
+     >
       {selected === 'trending' ? <HiMiniFire fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" /> : <HiOutlineFire fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" />}
       <p>Trending</p>
      </div>
@@ -798,7 +832,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'subscription' ? <MdSubscriptions fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" /> : <MdOutlineSubscriptions fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" />}
       <p>Subscriptions</p>
      </div>
@@ -812,7 +847,8 @@ function LeftPanel() {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
-      }}>
+      }}
+     >
       {selected === 'library' ? <MdVideoLibrary fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" /> : <MdOutlineVideoLibrary fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" />}
       <p>Library</p>
      </div>

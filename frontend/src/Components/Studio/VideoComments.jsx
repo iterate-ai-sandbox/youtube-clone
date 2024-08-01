@@ -355,7 +355,8 @@ function VideoComments() {
                 className="hearted-thiscomment"
                 onClick={() => {
                  HeartComment(element.videoid, element._id)
-                }}>
+                }}
+               >
                 <img src={Profile && Profile} alt="profile" className="channelp" />
 
                 <FavoriteIcon className="heartlike-this" fontSize="100px" style={{color: 'red'}} />
@@ -452,7 +453,8 @@ function VideoComments() {
                className="hearted-thiscomment"
                onClick={() => {
                 HeartComment(element.videoid, element._id)
-               }}>
+               }}
+              >
                <img src={Profile && Profile} alt="profile" className="channelp" />
 
                <FavoriteIcon className="heartlike-this" fontSize="100px" style={{color: 'red'}} />

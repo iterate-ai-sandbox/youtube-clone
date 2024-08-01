@@ -126,12 +126,14 @@ function WatchLater() {
         : {
            left: '255px'
           }
-      }>
+      }
+     >
       <div
        className={theme ? 'like-left-section' : 'like-left-section-light'}
        style={{
         backgroundImage: `url(${watchlater[0]?.thumbnailURL})`
-       }}>
+       }}
+      >
        <div className="page-cover">
         {watchlater && (
          <div
@@ -145,7 +147,8 @@ function WatchLater() {
            } else {
             navigate(`/video/${watchlater[0].savedVideoID}`)
            }
-          }}>
+          }}
+         >
           <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
            <div
             className="thisimggg"
@@ -157,7 +160,8 @@ function WatchLater() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <Skeleton
              count={1}
              width={310}
@@ -190,7 +194,8 @@ function WatchLater() {
            className="sample-play"
            style={{
             pointerEvents: 'none'
-           }}>
+           }}
+          >
            &#9654; PLAY ALL
           </p>
          </div>
@@ -213,7 +218,8 @@ function WatchLater() {
           } else {
            navigate(`/video/${watchlater[0].savedVideoID}`)
           }
-         }}>
+         }}
+        >
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -235,7 +241,8 @@ function WatchLater() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         {watchlater.length > 0
          ? watchlater.map((element, index) => {
             return (
@@ -244,7 +251,8 @@ function WatchLater() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}>
+              }}
+             >
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -261,7 +269,8 @@ function WatchLater() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}>
+                }}
+               >
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -293,7 +302,8 @@ function WatchLater() {
             visibility: 'visible',
             display: 'block'
            }
-       }>
+       }
+      >
        {watchlater.length > 0
         ? watchlater.map((element, index) => {
            return (
@@ -302,11 +312,13 @@ function WatchLater() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}>
+             }}
+            >
              <p
               style={{
                color: '#aaa'
-              }}>
+              }}
+             >
               {index + 1}
              </p>
              <div
@@ -320,7 +332,8 @@ function WatchLater() {
                } else {
                 navigate(`/video/${element.savedVideoID}`)
                }
-              }}>
+              }}
+             >
               <img src={element.thumbnailURL} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3' : 'durationn3 text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
               <div className="its-content">
@@ -341,7 +354,8 @@ function WatchLater() {
        className="spin23"
        style={{
         top: '200px'
-       }}>
+       }}
+      >
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>
@@ -362,12 +376,14 @@ function WatchLater() {
         : {
            left: '255px'
           }
-      }>
+      }
+     >
       <div
        className={theme ? 'like-left-section2' : 'like-left-section2-light'}
        style={{
         backgroundImage: `url(${watchlater[0]?.thumbnailURL})`
-       }}>
+       }}
+      >
        <div className="page-cover2">
         <div className="inside-cover">
          {watchlater && (
@@ -382,7 +398,8 @@ function WatchLater() {
             } else {
              navigate(`/video/${watchlater[0].savedVideoID}`)
             }
-           }}>
+           }}
+          >
            <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
             <div
              className="thisimggg"
@@ -394,7 +411,8 @@ function WatchLater() {
                : {
                   display: 'none'
                  }
-             }>
+             }
+            >
              <Skeleton
               count={1}
               width={310}
@@ -427,7 +445,8 @@ function WatchLater() {
             className="sample-play"
             style={{
              pointerEvents: 'none'
-            }}>
+            }}
+           >
             &#9654; PLAY ALL
            </p>
           </div>
@@ -451,7 +470,8 @@ function WatchLater() {
           } else {
            navigate(`/video/${watchlater[0].savedVideoID}`)
           }
-         }}>
+         }}
+        >
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -473,7 +493,8 @@ function WatchLater() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         {watchlater.length > 0
          ? watchlater.map((element, index) => {
             return (
@@ -482,7 +503,8 @@ function WatchLater() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}>
+              }}
+             >
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -499,7 +521,8 @@ function WatchLater() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}>
+                }}
+               >
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -531,7 +554,8 @@ function WatchLater() {
             visibility: 'visible',
             display: 'block'
            }
-       }>
+       }
+      >
        {watchlater.length > 0
         ? watchlater.map((element, index) => {
            return (
@@ -540,11 +564,13 @@ function WatchLater() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}>
+             }}
+            >
              <p
               style={{
                color: '#aaa'
-              }}>
+              }}
+             >
               {index + 1}
              </p>
              <div
@@ -558,7 +584,8 @@ function WatchLater() {
                } else {
                 navigate(`/video/${element.savedVideoID}`)
                }
-              }}>
+              }}
+             >
               <img src={element.thumbnailURL} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3' : 'durationn3 text-dark-mode'}>{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
               <div className="its-content2">
@@ -579,7 +606,8 @@ function WatchLater() {
        className="spin23"
        style={{
         top: '200px'
-       }}>
+       }}
+      >
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>

@@ -178,7 +178,8 @@ function Navbar2() {
       style={{
        display: (showResults === true && searchInput === '') || (showResults === true && searchInput === undefined) ? 'block' : 'none',
        height: userVideos && userVideos.length >= 4 ? '450px' : 'auto'
-      }}>
+      }}
+     >
       <div className="just-abovetxt">
        <p className="top-search-head">Your recent videos</p>
        {userVideos && userVideos.length >= 4 ? (
@@ -186,7 +187,8 @@ function Navbar2() {
          className="show-all"
          onClick={() => {
           window.location.href = '/studio/video'
-         }}>
+         }}
+        >
          Show all
         </p>
        ) : (
@@ -215,7 +217,8 @@ function Navbar2() {
              <p
               onClick={() => {
                window.location.href = `/studio/video/edit/${element._id}`
-              }}>
+              }}
+             >
               {element.Title.length <= 30 ? element.Title : `${element.Title.slice(0, 30)}...`}
              </p>
              {searchDesc ? <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 30)}...`}</p> : <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 75)}...`}</p>}
@@ -269,7 +272,8 @@ function Navbar2() {
       style={{
        display: showResults === true && filteredVideos && filteredVideos.length > 0 ? 'block' : 'none',
        height: filteredVideos && filteredVideos.length >= 4 ? '450px' : 'auto'
-      }}>
+      }}
+     >
       <div className="just-abovetxt">
        <p className="top-search-head">Videos ({filteredVideos && filteredVideos.length})</p>
        {filteredVideos && filteredVideos.length >= 4 ? (
@@ -277,7 +281,8 @@ function Navbar2() {
          className="show-all"
          onClick={() => {
           window.location.href = '/studio/video'
-         }}>
+         }}
+        >
          Show all
         </p>
        ) : (
@@ -306,7 +311,8 @@ function Navbar2() {
              <p
               onClick={() => {
                window.location.href = `/studio/video/edit/${element._id}`
-              }}>
+              }}
+             >
               {element.Title.length <= 30 ? element.Title : `${element.Title.slice(0, 30)}...`}
              </p>
              {searchDesc ? <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 30)}...`}</p> : <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 75)}...`}</p>}
@@ -359,7 +365,8 @@ function Navbar2() {
       className={theme ? 'nav-search-results2' : 'nav-search-results2 light-mode text-light-mode'}
       style={{
        display: showResults === true && searchInput !== undefined && searchInput.length !== 0 && filteredVideos && filteredVideos.length === 0 ? 'block' : 'none'
-      }}>
+      }}
+     >
       <div className="just-abovetxt">
        <p className="top-search-head">Videos ({filteredVideos && filteredVideos.length})</p>
       </div>
@@ -416,7 +423,8 @@ function Navbar2() {
       style={{
        display: (showResults2 === true && searchInput2 === '') || (showResults2 === true && searchInput2 === undefined) ? 'block' : 'none',
        height: userVideos && userVideos.length >= 4 ? '400px' : 'auto'
-      }}>
+      }}
+     >
       <div className="just-abovetxt">
        <p className="top-search-head">Your recent videos</p>
        {userVideos && userVideos.length >= 4 ? (
@@ -424,7 +432,8 @@ function Navbar2() {
          className="show-all"
          onClick={() => {
           window.location.href = '/studio/video'
-         }}>
+         }}
+        >
          Show all
         </p>
        ) : (
@@ -453,7 +462,8 @@ function Navbar2() {
              <p
               onClick={() => {
                window.location.href = `/studio/video/edit/${element._id}`
-              }}>
+              }}
+             >
               {element.Title.length <= 30 ? element.Title : `${element.Title.slice(0, 30)}...`}
              </p>
              {searchDesc ? <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 30)}...`}</p> : <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 75)}...`}</p>}
@@ -507,7 +517,8 @@ function Navbar2() {
       style={{
        display: showResults2 === true && filteredVideos2 && filteredVideos2.length > 0 ? 'block' : 'none',
        height: filteredVideos2 && filteredVideos2.length >= 2 ? '400px' : 'auto'
-      }}>
+      }}
+     >
       <div className="just-abovetxt">
        <p className="top-search-head">Videos ({filteredVideos2 && filteredVideos2.length})</p>
        {filteredVideos2 && filteredVideos2.length >= 4 ? (
@@ -515,7 +526,8 @@ function Navbar2() {
          className="show-all"
          onClick={() => {
           window.location.href = '/studio/video'
-         }}>
+         }}
+        >
          Show all
         </p>
        ) : (
@@ -544,7 +556,8 @@ function Navbar2() {
              <p
               onClick={() => {
                window.location.href = `/studio/video/edit/${element._id}`
-              }}>
+              }}
+             >
               {element.Title.length <= 30 ? element.Title : `${element.Title.slice(0, 30)}...`}
              </p>
              {searchDesc ? <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 30)}...`}</p> : <p className={theme ? '' : 'text-light-mode2'}>{element.Description.length <= 75 ? element.Description : `${element.Description.slice(0, 75)}...`}</p>}

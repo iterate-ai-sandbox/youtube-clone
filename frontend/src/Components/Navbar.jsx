@@ -146,7 +146,8 @@ function Navbar() {
           justifyContent: 'space-evenly',
           paddingRight: '25px'
          }
-     }>
+     }
+    >
      <FiSearch fontSize="24px" color={theme ? '#aaa' : 'black'} className="second-search" />
 
      <AiOutlineVideoCameraAdd
@@ -179,7 +180,8 @@ function Navbar() {
        }
       }}
       className={theme ? 'signin' : 'signin signin-light'}
-      style={User.success ? {display: 'none'} : {display: 'flex'}}>
+      style={User.success ? {display: 'none'} : {display: 'flex'}}
+     >
       <AccountCircleOutlinedIcon
        fontSize="medium"
        style={{
@@ -201,7 +203,8 @@ function Navbar() {
             visibility: 'hidden',
             display: 'none'
            }
-       }>
+       }
+      >
        <Skeleton
         count={1}
         width={42}
@@ -247,7 +250,8 @@ function Navbar() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <ClearRoundedIcon
      onClick={() => {
       if (isbtnClicked === false) {
@@ -274,7 +278,8 @@ function Navbar() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signup />
      <div className="already">
       <p>Already have an account?</p>
@@ -285,7 +290,8 @@ function Navbar() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signin
       </p>
      </div>
@@ -300,7 +306,8 @@ function Navbar() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signin setisbtnClicked={setisbtnClicked} close={isbtnClicked} switch={isSwitch} />
      <div className="already">
       <p>Don&apos;t have an account?</p>
@@ -311,7 +318,8 @@ function Navbar() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signup
       </p>
      </div>
@@ -328,20 +336,23 @@ function Navbar() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <AccountPop />
    </div>
    <div
     className={theme ? 'new-searchbar' : 'new-searchbar2'}
     style={{
      display: newSearch && window.innerWidth <= 940 ? 'flex' : 'none'
-    }}>
+    }}
+   >
     <div
      className="new-searchbar-component"
      ref={searchRef}
      style={{
       display: newSearch && window.innerWidth <= 940 ? 'flex' : 'none'
-     }}>
+     }}
+    >
      <FiSearch
       fontSize="28px"
       color="#aaa"

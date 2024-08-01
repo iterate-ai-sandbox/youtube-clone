@@ -213,7 +213,8 @@ function Content() {
      className="channel-content-top"
      style={{
       left: menu ? '125px' : '310px'
-     }}>
+     }}
+    >
      <p className={theme ? '' : 'text-light-mode'}>Channel content</p>
      <p className={theme ? 'channel-videosss' : 'channel-videosss blue-txt'}>Videos</p>
     </div>
@@ -227,7 +228,8 @@ function Content() {
      className="channels-uploaded-videos-section"
      style={{
       left: menu ? '90px' : '270px'
-     }}>
+     }}
+    >
      {sortedUserVideos && sortedUserVideos.length > 0 && (
       <table className="videos-table">
        <thead>
@@ -235,13 +237,15 @@ function Content() {
          style={{
           color: theme ? '#aaa' : 'black',
           fontSize: '14px'
-         }}>
+         }}
+        >
          <th
           style={{
            textAlign: 'left',
            paddingLeft: '40px',
            width: '45%'
-          }}>
+          }}
+         >
           Video
          </th>
          <th>Visibility</th>
@@ -287,7 +291,8 @@ function Content() {
              : {
                 pointerEvents: 'auto'
                }
-           }>
+           }
+          >
            <td className="video-cell">
             <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
              <div
@@ -300,7 +305,8 @@ function Content() {
                 : {
                    display: 'none'
                   }
-              }>
+              }
+             >
               <Skeleton
                count={1}
                width={150}
@@ -323,7 +329,8 @@ function Content() {
                   visibility: 'visible',
                   display: 'flex'
                  }
-             }>
+             }
+            >
              <img
               src={element.thumbnailURL}
               alt="thumbnail"
@@ -346,7 +353,8 @@ function Content() {
                  : {
                     display: 'none'
                    }
-               }>
+               }
+              >
                <Skeleton
                 count={1}
                 width={250}
@@ -393,12 +401,14 @@ function Content() {
                    visibility: 'visible',
                    display: 'flex'
                   }
-              }>
+              }
+             >
               <p
                className={theme ? 'studio-video-title' : 'studio-video-title text-light-mode'}
                onClick={() => {
                 navigate(`/studio/video/edit/${element._id}`)
-               }}>
+               }}
+              >
                {element.Title.length <= 40 ? element.Title : `${element.Title.slice(0, 40)}...`}
               </p>
               {element.Description ? <p className={theme ? 'studio-video-desc' : 'studio-video-desc text-light-mode2'}>{element.Description.length <= 85 ? element.Description : `${element.Description.slice(0, 85)}...`}</p> : <p>Add description</p>}
@@ -456,12 +466,14 @@ function Content() {
                  : {
                     display: 'none'
                    }
-               }>
+               }
+              >
                <div
                 className={theme ? 'edit-video-data-row option-row' : 'edit-video-data-row option-row preview-lightt'}
                 onClick={() => {
                  navigate(`/studio/video/edit/${element._id}`)
-                }}>
+                }}
+               >
                 <ModeEditOutlineOutlinedIcon
                  className={theme ? 'video-edit-icons' : 'video-edit-icons-light'}
                  fontSize="medium"
@@ -477,7 +489,8 @@ function Content() {
                  onClick={() => {
                   handleCopyLink(element._id)
                   setShowOptions(false)
-                 }}>
+                 }}
+                >
                  <ShareOutlinedIcon
                   className={theme ? 'video-edit-icons' : 'video-edit-icons-light'}
                   fontSize="medium"
@@ -493,7 +506,8 @@ function Content() {
                 onClick={() => {
                  downloadVideo(element.videoURL)
                  setShowOptions(false)
-                }}>
+                }}
+               >
                 <KeyboardTabOutlinedIcon
                  className={theme ? 'video-edit-icons' : 'video-edit-icons-light'}
                  fontSize="medium"
@@ -513,7 +527,8 @@ function Content() {
                   setIsDeleteClicked(true)
                   document.body.classList.add('bg-css2')
                  }
-                }}>
+                }}
+               >
                 <DeleteOutlineOutlinedIcon
                  className={theme ? 'video-edit-icons' : 'video-edit-icons-light'}
                  fontSize="medium"
@@ -548,7 +563,8 @@ function Content() {
               className={theme ? '' : 'text-light-mode2'}
               style={{
                marginLeft: '8px'
-              }}>
+              }}
+             >
               {element.visibility}
              </p>
             </div>
@@ -588,7 +604,8 @@ function Content() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <img src={noImage} alt="no-video" className="no-content-img" />
      <p>No content available</p>
     </div>
@@ -603,7 +620,8 @@ function Content() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <div className="delete-question">
      <p>Permanently delete this video?</p>
     </div>
@@ -667,7 +685,8 @@ function Content() {
        if (DeleteVideoData) {
         downloadVideo(DeleteVideoData.videoURL)
        }
-      }}>
+      }}
+     >
       DOWNLOAD VIDEO
      </button>
      <div className="extra-two-delete-btns">
@@ -677,7 +696,8 @@ function Content() {
         setIsDeleteClicked(false)
         document.body.classList.remove('bg-css2')
         reloadPage()
-       }}>
+       }}
+      >
        CANCEL
       </button>
       <button
@@ -695,7 +715,8 @@ function Content() {
         opacity: boxclicked === false ? 0.7 : 1,
         color: boxclicked === false ? '#aaa' : '#3eaffe',
         cursor: boxclicked === false ? 'not-allowed' : 'pointer'
-       }}>
+       }}
+      >
        DELETE VIDEO
       </button>
      </div>

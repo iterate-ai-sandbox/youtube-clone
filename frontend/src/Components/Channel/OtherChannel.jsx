@@ -227,7 +227,8 @@ function OtherChannel() {
      className={Top === '2%' ? 'channel-main-content-nocover' : 'channel-main-content'}
      style={{
       top: Top
-     }}>
+     }}
+    >
      <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
       <div
        className="channel-top-content"
@@ -239,7 +240,8 @@ function OtherChannel() {
          : {
             display: 'none'
            }
-       }>
+       }
+      >
        <div className="channel-left-content">
         <Skeleton
          count={1}
@@ -338,7 +340,8 @@ function OtherChannel() {
            visibility: 'visible',
            display: 'flex'
           }
-      }>
+      }
+     >
       <div className={theme ? 'channel-left-content' : 'channel-left-content text-light-mode'}>
        <img src={ChannelProfile} alt="channelDP" className="channel_profile" />
        <div className="channel-topleft-data">
@@ -364,7 +367,8 @@ function OtherChannel() {
           onClick={() => {
            localStorage.setItem('Section', 'About')
            reloadPage()
-          }}>
+          }}
+         >
           <p className="more-text">More about this channel</p>
           <ArrowForwardIosIcon
            fontSize="15px"
@@ -381,21 +385,24 @@ function OtherChannel() {
            className={theme ? 'customize-channel' : 'customize-channel btn-light-mode'}
            onClick={() => {
             navigate('/studio/customize')
-           }}>
+           }}
+          >
            Customize channel
           </button>
           <button
            className={theme ? 'manage-videos' : 'manage-videos btn-light-mode'}
            onClick={() => {
             navigate('/studio/video')
-           }}>
+           }}
+          >
            Manage videos
           </button>
           <div
            className="setting-btn"
            onClick={() => {
             navigate('/studio/video')
-           }}>
+           }}
+          >
            <RiUserSettingsLine fontSize="28px" color={theme ? 'white' : 'black'} className={theme ? 'channel-settings' : 'channel-settings channel-settings-light'} />
           </div>
          </div>
@@ -419,7 +426,8 @@ function OtherChannel() {
              setisbtnClicked(true)
              document.body.classList.add('bg-css')
             }
-           }}>
+           }}
+          >
            Subscribe
           </button>
           <button
@@ -440,7 +448,8 @@ function OtherChannel() {
              setisbtnClicked(true)
              document.body.classList.add('bg-css')
             }
-           }}>
+           }}
+          >
            Subscribed
           </button>
          </div>
@@ -456,7 +465,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Home')
           reloadPage()
-         }}>
+         }}
+        >
          HOME
         </p>
        ) : (
@@ -465,7 +475,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Home')
           reloadPage()
-         }}>
+         }}
+        >
          HOME
         </p>
        )}
@@ -484,7 +495,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Videos')
           reloadPage()
-         }}>
+         }}
+        >
          VIDEOS
         </p>
        ) : (
@@ -502,7 +514,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Videos')
           reloadPage()
-         }}>
+         }}
+        >
          VIDEOS
         </p>
        )}
@@ -512,7 +525,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Playlists')
           reloadPage()
-         }}>
+         }}
+        >
          PLAYLISTS
         </p>
        ) : (
@@ -521,7 +535,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Playlists')
           reloadPage()
-         }}>
+         }}
+        >
          PLAYLISTS
         </p>
        )}
@@ -531,7 +546,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Subscriptions')
           reloadPage()
-         }}>
+         }}
+        >
          CHANNELS
         </p>
        ) : (
@@ -540,7 +556,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'Subscriptions')
           reloadPage()
-         }}>
+         }}
+        >
          CHANNELS
         </p>
        )}
@@ -550,7 +567,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'About')
           reloadPage()
-         }}>
+         }}
+        >
          ABOUT
         </p>
        ) : (
@@ -559,7 +577,8 @@ function OtherChannel() {
          onClick={() => {
           localStorage.setItem('Section', 'About')
           reloadPage()
-         }}>
+         }}
+        >
          ABOUT
         </p>
        )}
@@ -580,7 +599,8 @@ function OtherChannel() {
       className="spin23"
       style={{
        top: '200px'
-      }}>
+      }}
+     >
       <span className={theme ? 'loader2' : 'loader2-light'}></span>
      </div>
     </div>
@@ -598,7 +618,8 @@ function OtherChannel() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <ClearRoundedIcon
      onClick={() => {
       if (isbtnClicked === false) {
@@ -624,7 +645,8 @@ function OtherChannel() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signup />
      <div className="already">
       <p>Already have an account?</p>
@@ -635,7 +657,8 @@ function OtherChannel() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signin
       </p>
      </div>
@@ -650,7 +673,8 @@ function OtherChannel() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signin />
      <div className="already">
       <p>Don&apos;t have an account?</p>
@@ -661,7 +685,8 @@ function OtherChannel() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signup
       </p>
      </div>

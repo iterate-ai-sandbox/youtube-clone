@@ -88,7 +88,8 @@ function ChannelHome(prop) {
     className="spinner"
     style={{
      height: '100vh'
-    }}>
+    }}
+   >
     <ReactLoading type={'spin'} color={'white'} height={50} width={50} />
    </div>
   )
@@ -100,7 +101,8 @@ function ChannelHome(prop) {
      className="myvideos-section sk-myvideos"
      style={{
       display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || (myVideos.length > 0 && myVideos[0].visibility === 'Private') || loading === false ? 'none' : 'block'
-     }}>
+     }}
+    >
      {myVideos.length > 0 && myVideos[0].visibility === 'Public' ? (
       <div className="user-video">
        <Skeleton
@@ -118,7 +120,8 @@ function ChannelHome(prop) {
         style={{
          position: 'relative',
          top: '4px'
-        }}>
+        }}
+       >
         <Skeleton
          count={1}
          width={500}
@@ -191,7 +194,8 @@ function ChannelHome(prop) {
     style={{
      visibility: loading === true ? 'hidden' : 'visible',
      display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || (myVideos.length > 0 && myVideos[0].visibility === 'Private') ? 'none' : 'block'
-    }}>
+    }}
+   >
     {myVideos.length > 0 && myVideos[0].visibility === 'Public' ? (
      <div
       className={theme ? 'user-video' : 'user-video text-light-mode'}
@@ -201,7 +205,8 @@ function ChannelHome(prop) {
         navigate(`/video/${myVideos[0]._id}`)
        }
        navigate(`/video/${myVideos[0]._id}`)
-      }}>
+      }}
+     >
       <img src={myVideos[0].thumbnailURL} alt="user-videos" className="myvideos-thumbnail" loading="lazy" />
       <p className={theme ? 'myvideo-duration' : 'myvideo-duration text-dark-mode'}>{Math.floor(myVideos[0].videoLength / 60) + ':' + (Math.round(myVideos[0].videoLength % 60) < 10 ? '0' + Math.round(myVideos[0].videoLength % 60) : Math.round(myVideos[0].videoLength % 60))}</p>
       <div className="video-metadata user-ka-video">
@@ -262,7 +267,8 @@ function ChannelHome(prop) {
       display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || loading === false ? 'none' : 'block',
       marginTop: '8px',
       top: myVideos.length > 0 && myVideos[0].visibility === 'Private' ? '290px' : '500px'
-     }}>
+     }}
+    >
      <div className="section-headtxt">
       <Skeleton
        count={1}
@@ -284,7 +290,8 @@ function ChannelHome(prop) {
           key={index}
           style={{
            display: element.visibility === 'Public' ? 'block' : 'none'
-          }}>
+          }}
+         >
           <Skeleton
            count={1}
            width={220}
@@ -343,7 +350,8 @@ function ChannelHome(prop) {
      visibility: loading === true ? 'hidden' : 'visible',
      display: myVideos && myVideos.message === "USER DOESN'T EXIST" ? 'none' : 'block',
      top: myVideos.length > 0 && myVideos[0].visibility === 'Private' ? '300px' : '500px'
-    }}>
+    }}
+   >
     <div className={theme ? 'section-headtxt' : 'section-headtxt text-light-mode'}>
      <div className="inside-headtxt">
       <p className="section-title">Videos</p>
@@ -355,7 +363,8 @@ function ChannelHome(prop) {
          navigate(`/video/${AllVideos.sort(sortByViews2)[0]._id}`)
         }
         navigate(`/video/${AllVideos.sort(sortByViews2)[0]._id}`)
-       }}>
+       }}
+      >
        <PlayArrowIcon
         fontSize="medium"
         style={{
@@ -371,7 +380,8 @@ function ChannelHome(prop) {
        onClick={() => {
         localStorage.setItem('Section', 'Videos')
         reloadPage()
-       }}>
+       }}
+      >
        See all
       </p>
      ) : (
@@ -398,7 +408,8 @@ function ChannelHome(prop) {
           } else {
            navigate(`/video/${element._id}`)
           }
-         }}>
+         }}
+        >
          <img src={element.thumbnailURL} alt="thumbnails" className="myvideos-thumbnail myvideos-thumbnail2" loading="lazy" />
          <p className="myvideo-duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
          <div className="video-metadata2">
@@ -444,7 +455,8 @@ function ChannelHome(prop) {
       display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || loading === false ? 'none' : 'block',
       marginTop: '16px',
       top: myVideos.length > 0 && myVideos[0].visibility === 'Private' ? '605px' : '810px'
-     }}>
+     }}
+    >
      <div className="section-headtxt">
       <Skeleton
        count={1}
@@ -465,7 +477,8 @@ function ChannelHome(prop) {
           style={{
            display: element.visibility === 'Public' ? 'block' : 'none'
           }}
-          key={index}>
+          key={index}
+         >
           <Skeleton
            count={1}
            width={220}
@@ -480,7 +493,8 @@ function ChannelHome(prop) {
            style={{
             position: 'relative',
             top: '20px'
-           }}>
+           }}
+          >
            <Skeleton
             count={2}
             width={160}
@@ -515,7 +529,8 @@ function ChannelHome(prop) {
      visibility: loading === true ? 'hidden' : 'visible',
      display: myVideos && myVideos.message === "USER DOESN'T EXIST" ? 'none' : 'block',
      top: myVideos.length > 0 && myVideos[0].visibility === 'Private' ? '620px' : '816px'
-    }}>
+    }}
+   >
     <div className={theme ? 'section-headtxt' : 'section-headtxt text-light-mode'}>
      <div className="inside-headtxt">
       <p className="section-title">Popular videos</p>
@@ -527,7 +542,8 @@ function ChannelHome(prop) {
          navigate(`/video/${AllVideos.sort(sortByViews)[0]._id}`)
         }
         navigate(`/video/${AllVideos.sort(sortByViews)[0]._id}`)
-       }}>
+       }}
+      >
        <PlayArrowIcon
         fontSize="medium"
         style={{
@@ -543,7 +559,8 @@ function ChannelHome(prop) {
        onClick={() => {
         localStorage.setItem('Section', 'Videos')
         reloadPage()
-       }}>
+       }}
+      >
        See all
       </p>
      ) : (
@@ -570,7 +587,8 @@ function ChannelHome(prop) {
           } else {
            navigate(`/video/${element._id}`)
           }
-         }}>
+         }}
+        >
          <img src={element.thumbnailURL} alt="thumbnails" className="myvideos-thumbnail myvideos-thumbnail2" loading="lazy" />
          <p className="myvideo-duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
          <div className="video-metadata2">
@@ -618,7 +636,8 @@ function ChannelHome(prop) {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <p>This channel doesn&apos;t have any content.</p>
    </div>
    <div
@@ -631,7 +650,8 @@ function ChannelHome(prop) {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <img src={theme ? noImage : noImage2} alt="upload" className="novideo" />
     <p>Upload a video to get started</p>
     <p className={theme ? '' : 'text-light-mode2'}>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
@@ -639,7 +659,8 @@ function ChannelHome(prop) {
      className="upload-videoo"
      onClick={() => {
       navigate('/studio')
-     }}>
+     }}
+    >
      Upload video
     </button>
    </div>
@@ -652,7 +673,8 @@ function ChannelHome(prop) {
       className="myvideos-section sk-myvideos2"
       style={{
        display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || (myVideos.length > 0 && myVideos[0].visibility === 'Private') || loading === false ? 'none' : 'block'
-      }}>
+      }}
+     >
       {myVideos.length > 0 ? (
        <div className="user-video">
         <Skeleton
@@ -670,7 +692,8 @@ function ChannelHome(prop) {
          style={{
           position: 'relative',
           top: '4px'
-         }}>
+         }}
+        >
          <Skeleton
           count={1}
           width={500}
@@ -742,7 +765,8 @@ function ChannelHome(prop) {
       style={{
        display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || loading === false ? 'none' : 'block',
        marginTop: '8px'
-      }}>
+      }}
+     >
       <div className="section-headtxt">
        <Skeleton
         count={1}
@@ -764,7 +788,8 @@ function ChannelHome(prop) {
            style={{
             display: element.visibility === 'Public' ? 'block' : 'none'
            }}
-           key={index}>
+           key={index}
+          >
            <Skeleton
             count={1}
             width={220}
@@ -821,7 +846,8 @@ function ChannelHome(prop) {
       style={{
        display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || loading === false ? 'none' : 'block',
        marginTop: '16px'
-      }}>
+      }}
+     >
       <div className="section-headtxt">
        <Skeleton
         count={1}
@@ -842,7 +868,8 @@ function ChannelHome(prop) {
            style={{
             display: element.visibility === 'Public' ? 'block' : 'none'
            }}
-           key={index}>
+           key={index}
+          >
            <Skeleton
             count={1}
             width={220}
@@ -857,7 +884,8 @@ function ChannelHome(prop) {
             style={{
              position: 'relative',
              top: '20px'
-            }}>
+            }}
+           >
             <Skeleton
              count={2}
              width={160}
@@ -898,13 +926,15 @@ function ChannelHome(prop) {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <div
      className="myvideos-section"
      style={{
       visibility: loading === true ? 'hidden' : 'visible',
       display: (myVideos && myVideos.message === "USER DOESN'T EXIST") || (myVideos.length > 0 && myVideos[0].visibility === 'Private') ? 'none' : 'block'
-     }}>
+     }}
+    >
      {myVideos.length > 0 ? (
       <div
        className={theme ? 'user-video' : 'user-video text-light-mode'}
@@ -914,7 +944,8 @@ function ChannelHome(prop) {
          navigate(`/video/${myVideos[0]._id}`)
         }
         navigate(`/video/${myVideos[0]._id}`)
-       }}>
+       }}
+      >
        <img src={myVideos[0].thumbnailURL} alt="user-videos" className="myvideos-thumbnail" loading="lazy" />
        <p className={theme ? 'myvideo-duration' : 'myvideo-duration text-dark-mode'}>{Math.floor(myVideos[0].videoLength / 60) + ':' + (Math.round(myVideos[0].videoLength % 60) < 10 ? '0' + Math.round(myVideos[0].videoLength % 60) : Math.round(myVideos[0].videoLength % 60))}</p>
        <div className="video-metadata user-ka-video">
@@ -973,7 +1004,8 @@ function ChannelHome(prop) {
       visibility: loading === true ? 'hidden' : 'visible',
       display: myVideos && myVideos.message === "USER DOESN'T EXIST" ? 'none' : 'block',
       top: myVideos.length > 0 && myVideos[0].visibility === 'Private' ? '0px' : '20px'
-     }}>
+     }}
+    >
      <div className={theme ? 'section-headtxt' : 'section-headtxt text-light-mode'}>
       <div className="inside-headtxt">
        <p className="section-title">Videos</p>
@@ -985,7 +1017,8 @@ function ChannelHome(prop) {
           navigate(`/video/${AllVideos.sort(sortByViews2)[0]._id}`)
          }
          navigate(`/video/${AllVideos.sort(sortByViews2)[0]._id}`)
-        }}>
+        }}
+       >
         <PlayArrowIcon
          fontSize="medium"
          style={{
@@ -1001,7 +1034,8 @@ function ChannelHome(prop) {
         onClick={() => {
          localStorage.setItem('Section', 'Videos')
          reloadPage()
-        }}>
+        }}
+       >
         See all
        </p>
       ) : (
@@ -1028,7 +1062,8 @@ function ChannelHome(prop) {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnails" className="myvideos-thumbnail myvideos-thumbnail2" loading="lazy" />
           <p className="myvideo-duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className="video-metadata2">
@@ -1071,7 +1106,8 @@ function ChannelHome(prop) {
      style={{
       visibility: loading === true ? 'hidden' : 'visible',
       display: myVideos && myVideos.message === "USER DOESN'T EXIST" ? 'none' : 'block'
-     }}>
+     }}
+    >
      <div className={theme ? 'section-headtxt' : 'section-headtxt text-light-mode'}>
       <div className="inside-headtxt">
        <p className="section-title">Popular videos</p>
@@ -1083,7 +1119,8 @@ function ChannelHome(prop) {
           navigate(`/video/${AllVideos.sort(sortByViews)[0]._id}`)
          }
          navigate(`/video/${AllVideos.sort(sortByViews)[0]._id}`)
-        }}>
+        }}
+       >
         <PlayArrowIcon
          fontSize="medium"
          style={{
@@ -1099,7 +1136,8 @@ function ChannelHome(prop) {
         onClick={() => {
          localStorage.setItem('Section', 'Videos')
          reloadPage()
-        }}>
+        }}
+       >
         See all
        </p>
       ) : (
@@ -1126,7 +1164,8 @@ function ChannelHome(prop) {
            } else {
             navigate(`/video/${element._id}`)
            }
-          }}>
+          }}
+         >
           <img src={element.thumbnailURL} alt="thumbnails" className="myvideos-thumbnail myvideos-thumbnail2" loading="lazy" />
           <p className="myvideo-duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
           <div className="video-metadata2">

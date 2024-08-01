@@ -605,7 +605,8 @@ function Studio() {
       })
       setIsClicked(true)
      }}
-     style={isChannel === true ? {display: 'flex'} : {display: 'none'}}>
+     style={isChannel === true ? {display: 'flex'} : {display: 'none'}}
+    >
      <VideoCallOutlinedIcon className="" fontSize="large" style={{color: '#FF4E45'}} />
      <p className={theme ? '' : 'text-light-mode'}>CREATE</p>
     </div>
@@ -646,7 +647,8 @@ function Studio() {
          } else {
           setLinksClicked(false)
          }
-        }}>
+        }}
+       >
         <LinkIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />
        </div>
 
@@ -836,7 +838,8 @@ function Studio() {
           } else {
            setisVisibilityClicked(false)
           }
-         }}>
+         }}
+        >
          <p>{visibility}</p>
          <ArrowDropDownRoundedIcon fontSize="large" style={{color: theme ? 'white' : 'black'}} />
         </div>
@@ -848,7 +851,8 @@ function Studio() {
            onClick={() => {
             setVisibility('Public')
             setisVisibilityClicked(false)
-           }}>
+           }}
+          >
            Public
           </p>
           <hr className="seperatee" />
@@ -858,7 +862,8 @@ function Studio() {
            onClick={() => {
             setVisibility('Private')
             setisVisibilityClicked(false)
-           }}>
+           }}
+          >
            Private
           </p>
          </div>

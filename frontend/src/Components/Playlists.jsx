@@ -315,7 +315,8 @@ function Playlists() {
       className={theme ? 'no-results text-dark-mode' : 'no-results text-light-mode'}
       style={{
        fontSize: '16.8px'
-      }}>
+      }}
+     >
       This playlist is set to private by the user!
      </p>
     </div>
@@ -338,12 +339,14 @@ function Playlists() {
         : {
            left: '255px'
           }
-      }>
+      }
+     >
       <div
        className={theme ? 'like-left-section' : 'like-left-section-light'}
        style={{
         backgroundImage: `url(${playlistsVideos[0]?.thumbnail})`
-       }}>
+       }}
+      >
        <div className="page-cover">
         {playlistsVideos && (
          <div
@@ -357,7 +360,8 @@ function Playlists() {
            } else {
             navigate(`/video/${playlistsVideos[0].videoID}`)
            }
-          }}>
+          }}
+         >
           <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
            <div
             className="thisimggg"
@@ -369,7 +373,8 @@ function Playlists() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <Skeleton
              count={1}
              width={310}
@@ -412,7 +417,8 @@ function Playlists() {
             : {
                display: 'none'
               }
-          }>
+          }
+         >
           <p className="like-head playlist-name-edit">
            {/* {playlistDetails.playlist_name.length <= 15
                           ? playlistDetails.playlist_name
@@ -449,7 +455,8 @@ function Playlists() {
             : {
                display: 'none'
               }
-          }>
+          }
+         >
           <input type="text" name="playlist-name" className="like-head like-head2 playlist-name-edit" value={PlaylistName} maxLength={50} onChange={e => setPlaylistName(e.target.value)} />
           <div className="two-main-btns">
            <button className="cancel-edit" onClick={() => setIsEditmode(false)}>
@@ -462,7 +469,8 @@ function Playlists() {
              setTimeout(() => {
               reloadPage()
              }, 300)
-            }}>
+            }}
+           >
             Save
            </button>
           </div>
@@ -477,7 +485,8 @@ function Playlists() {
             : {
                marginTop: '15px'
               }
-          }>
+          }
+         >
           <p className="like-username" onClick={() => navigate(`/channel/${channelID}`)}>
            {playlistDetails.playlist_owner}
           </p>
@@ -492,7 +501,8 @@ function Playlists() {
              : {
                 display: 'none'
                }
-           }>
+           }
+          >
            <div
             className="updateit-one"
             onClick={() => {
@@ -501,7 +511,8 @@ function Playlists() {
              } else {
               setprivacyClicked(false)
              }
-            }}>
+            }}
+           >
             <p>{playlistDetails.playlist_privacy}</p>
             <KeyboardArrowDownIcon
              fontSize="medium"
@@ -527,7 +538,8 @@ function Playlists() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <div
              className={theme ? 'first-privacy' : 'first-privacy feature-light text-light-mode'}
              onClick={() => {
@@ -536,7 +548,8 @@ function Playlists() {
               setTimeout(() => {
                reloadPage()
               }, 200)
-             }}>
+             }}
+            >
              <PublicOutlinedIcon
               fontSize="medium"
               style={{
@@ -556,7 +569,8 @@ function Playlists() {
               setTimeout(() => {
                reloadPage()
               }, 200)
-             }}>
+             }}
+            >
              <LockOutlinedIcon
               fontSize="medium"
               style={{
@@ -662,7 +676,8 @@ function Playlists() {
           } else {
            navigate(`/video/${playlistsVideos[0].videoID}`)
           }
-         }}>
+         }}
+        >
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -684,7 +699,8 @@ function Playlists() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         {playlistsVideos.length > 0
          ? playlistsVideos.map((element, index) => {
             return (
@@ -693,7 +709,8 @@ function Playlists() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}>
+              }}
+             >
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -710,7 +727,8 @@ function Playlists() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}>
+                }}
+               >
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -742,7 +760,8 @@ function Playlists() {
             visibility: 'visible',
             display: 'block'
            }
-       }>
+       }
+      >
        {playlistsVideos.length > 0
         ? playlistsVideos.map((element, index) => {
            return (
@@ -751,11 +770,13 @@ function Playlists() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}>
+             }}
+            >
              <p
               style={{
                color: '#aaa'
-              }}>
+              }}
+             >
               {index + 1}
              </p>
              <div
@@ -769,7 +790,8 @@ function Playlists() {
                } else {
                 navigate(`/video/${element.videoID}`)
                }
-              }}>
+              }}
+             >
               <img src={element.thumbnail} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3 playlist-duration' : 'durationn3 playlist-duration text-dark-mode'}>{Math.floor(element.videolength / 60) + ':' + (Math.round(element.videolength % 60) < 10 ? '0' + Math.round(element.videolength % 60) : Math.round(element.videolength % 60))}</p>
               <div className="its-content playlist-contentt">
@@ -790,7 +812,8 @@ function Playlists() {
        className="spin23"
        style={{
         top: '200px'
-       }}>
+       }}
+      >
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>
@@ -811,12 +834,14 @@ function Playlists() {
         : {
            left: '255px'
           }
-      }>
+      }
+     >
       <div
        className={theme ? 'like-left-section2' : 'like-left-section2-light'}
        style={{
         backgroundImage: `url(${playlistsVideos[0]?.thumbnail})`
-       }}>
+       }}
+      >
        <div className="page-cover2">
         <div className="playlist-tools">
          {playlistsVideos && (
@@ -831,7 +856,8 @@ function Playlists() {
             } else {
              navigate(`/video/${playlistsVideos[0].videoID}`)
             }
-           }}>
+           }}
+          >
            <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
             <div
              className="thisimggg"
@@ -843,7 +869,8 @@ function Playlists() {
                : {
                   display: 'none'
                  }
-             }>
+             }
+            >
              <Skeleton
               count={1}
               width={310}
@@ -886,7 +913,8 @@ function Playlists() {
              : {
                 display: 'none'
                }
-           }>
+           }
+          >
            <p className="like-head playlist-name-edit">
             {/* {playlistDetails.playlist_name.length <= 15
                           ? playlistDetails.playlist_name
@@ -923,7 +951,8 @@ function Playlists() {
              : {
                 display: 'none'
                }
-           }>
+           }
+          >
            <input type="text" name="playlist-name" className="like-head like-head2 playlist-name-edit" value={PlaylistName} maxLength={50} onChange={e => setPlaylistName(e.target.value)} />
            <div className="two-main-btns">
             <button className="cancel-edit" onClick={() => setIsEditmode(false)}>
@@ -936,7 +965,8 @@ function Playlists() {
               setTimeout(() => {
                reloadPage()
               }, 300)
-             }}>
+             }}
+            >
              Save
             </button>
            </div>
@@ -951,7 +981,8 @@ function Playlists() {
              : {
                 marginTop: '15px'
                }
-           }>
+           }
+          >
            <p className="like-username" onClick={() => navigate(`/channel/${channelID}`)}>
             {playlistDetails.playlist_owner}
            </p>
@@ -966,7 +997,8 @@ function Playlists() {
               : {
                  display: 'none'
                 }
-            }>
+            }
+           >
             <div
              className="updateit-one"
              onClick={() => {
@@ -975,7 +1007,8 @@ function Playlists() {
               } else {
                setprivacyClicked(false)
               }
-             }}>
+             }}
+            >
              <p>{playlistDetails.playlist_privacy}</p>
              <KeyboardArrowDownIcon
               fontSize="medium"
@@ -1001,7 +1034,8 @@ function Playlists() {
                : {
                   display: 'none'
                  }
-             }>
+             }
+            >
              <div
               className={theme ? 'first-privacy' : 'first-privacy feature-light text-light-mode'}
               onClick={() => {
@@ -1010,7 +1044,8 @@ function Playlists() {
                setTimeout(() => {
                 reloadPage()
                }, 200)
-              }}>
+              }}
+             >
               <PublicOutlinedIcon
                fontSize="medium"
                style={{
@@ -1030,7 +1065,8 @@ function Playlists() {
                setTimeout(() => {
                 reloadPage()
                }, 200)
-              }}>
+              }}
+             >
               <LockOutlinedIcon
                fontSize="medium"
                style={{
@@ -1137,7 +1173,8 @@ function Playlists() {
           } else {
            navigate(`/video/${playlistsVideos[0].videoID}`)
           }
-         }}>
+         }}
+        >
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -1159,7 +1196,8 @@ function Playlists() {
           : {
              display: 'none'
             }
-        }>
+        }
+       >
         {playlistsVideos.length > 0
          ? playlistsVideos.map((element, index) => {
             return (
@@ -1168,7 +1206,8 @@ function Playlists() {
               key={index}
               style={{
                display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-              }}>
+              }}
+             >
               <div className="liked-videos-all-data">
                <Skeleton
                 count={1}
@@ -1185,7 +1224,8 @@ function Playlists() {
                  position: 'relative',
                  left: '10px',
                  top: '6px'
-                }}>
+                }}
+               >
                 <Skeleton count={1} width={450} height={20} className="sk-watch-title" />
                 <Skeleton
                  count={1}
@@ -1217,7 +1257,8 @@ function Playlists() {
             visibility: 'visible',
             display: 'block'
            }
-       }>
+       }
+      >
        {playlistsVideos.length > 0
         ? playlistsVideos.map((element, index) => {
            return (
@@ -1226,11 +1267,13 @@ function Playlists() {
              key={index}
              style={{
               display: element.videoprivacy === 'Public' ? 'flex' : 'none'
-             }}>
+             }}
+            >
              <p
               style={{
                color: '#aaa'
-              }}>
+              }}
+             >
               {index + 1}
              </p>
              <div
@@ -1244,7 +1287,8 @@ function Playlists() {
                } else {
                 navigate(`/video/${element.videoID}`)
                }
-              }}>
+              }}
+             >
               <img src={element.thumbnail} alt="first-like-thumbnail" loading="lazy" />
               <p className={theme ? 'durationn3 playlist-duration' : 'durationn3 playlist-duration text-dark-mode'}>{Math.floor(element.videolength / 60) + ':' + (Math.round(element.videolength % 60) < 10 ? '0' + Math.round(element.videolength % 60) : Math.round(element.videolength % 60))}</p>
               <div className="its-content playlist-contentt">
@@ -1265,7 +1309,8 @@ function Playlists() {
        className="spin23"
        style={{
         top: '200px'
-       }}>
+       }}
+      >
        <span className={theme ? 'loader2' : 'loader2-light'}></span>
       </div>
      </div>
@@ -1284,7 +1329,8 @@ function Playlists() {
       : {
          display: 'none'
         }
-    }>
+    }
+   >
     <ClearRoundedIcon
      onClick={() => {
       if (isbtnClicked === false) {
@@ -1310,7 +1356,8 @@ function Playlists() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signup />
      <div className="already">
       <p>Already have an account?</p>
@@ -1321,7 +1368,8 @@ function Playlists() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signin
       </p>
      </div>
@@ -1336,7 +1384,8 @@ function Playlists() {
        : {
           display: 'none'
          }
-     }>
+     }
+    >
      <Signin />
      <div className="already">
       <p>Don&apos;t have an account?</p>
@@ -1347,7 +1396,8 @@ function Playlists() {
         } else {
          setisSwitched(false)
         }
-       }}>
+       }}
+      >
        Signup
       </p>
      </div>
@@ -1361,7 +1411,8 @@ function Playlists() {
     ref={deleteRef}
     style={{
      display: deleteClicked ? 'block' : 'none'
-    }}>
+    }}
+   >
     <p className="delete-playlist-top">Delete playlist</p>
     <div className="delete-mid">
      <p className={theme ? 'delete-playlist-mid' : 'delete-playlist-mid text-light-mode2'}>
@@ -1375,7 +1426,8 @@ function Playlists() {
       onClick={() => {
        setDeleteClicked(false)
        document.body.classList.remove('bg-css')
-      }}>
+      }}
+     >
       Cancel
      </button>
      <button
@@ -1385,7 +1437,8 @@ function Playlists() {
        setTimeout(() => {
         navigate('/')
        }, 400)
-      }}>
+      }}
+     >
       Delete
      </button>
     </div>
