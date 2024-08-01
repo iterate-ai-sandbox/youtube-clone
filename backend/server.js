@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Middlewares
 app.use(
  cors({
-  origin: ['*'],
+  origin: ['http://iterate.rkph.me', 'https://iterate.rkph.me', 'https://iterate-clone.vercel.app', 'http://iterate-clone.vercel.app', 'http://localhost:5173', 'http://iterate.fliptart.xyz', 'https://iterate.fliptart.xyz', /\.vercel\.app$/],
   // allowedHeaders: [
   //   "Content-Type",
   //   "Authorization",
