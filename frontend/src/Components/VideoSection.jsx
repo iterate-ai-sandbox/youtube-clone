@@ -162,9 +162,7 @@ function VideoSection() {
   })
 
  // USE EFFECTS
- useEffect(() => {
-  mixpanel.track('video page opened', {'video title': Title, 'video length': videoLength})
- }, [])
+ useEffect(() => {}, [])
 
  useEffect(() => {
   function handleResize() {
@@ -283,6 +281,7 @@ function VideoSection() {
    }
   }
   getVideos()
+  mixpanel.track('video page opened', {'video title': Title, 'video length': videoLength})
  }, [])
  useEffect(() => {
   const initializePlyr = () => {
