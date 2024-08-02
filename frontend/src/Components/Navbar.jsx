@@ -1,20 +1,20 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import mixpanel from 'mixpanel-browser';
-import { useEffect, useRef, useState } from 'react';
-import { AiOutlineVideoCameraAdd } from 'react-icons/ai';
-import { FiSearch } from 'react-icons/fi';
-import { IoIosSearch } from 'react-icons/io';
-import { RxCross1 } from 'react-icons/rx';
-import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import avatar from '../img/avatar.png';
-import Logo from '../img/logo1.png';
-import Logo2 from '../img/logo2.png';
-import AccountPop from './AccountPop';
-import Signin from './Signin';
-import Signup from './Signup';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
+import mixpanel from 'mixpanel-browser'
+import {useEffect, useRef, useState} from 'react'
+import {AiOutlineVideoCameraAdd} from 'react-icons/ai'
+import {FiSearch} from 'react-icons/fi'
+import {IoIosSearch} from 'react-icons/io'
+import {RxCross1} from 'react-icons/rx'
+import {useSelector} from 'react-redux'
+import {useNavigate, useParams} from 'react-router-dom'
+import avatar from '../img/avatar.png'
+import Logo from '../img/logo1.png'
+import Logo2 from '../img/logo2.png'
+import AccountPop from './AccountPop'
+import Signin from './Signin'
+import Signup from './Signup'
 //MUI Icons
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -147,8 +147,7 @@ function Navbar() {
           justifyContent: 'space-evenly',
           paddingRight: '25px'
          }
-     }
-    >
+     }>
      <FiSearch fontSize="24px" color={theme ? '#aaa' : 'black'} className="second-search" />
 
      <AiOutlineVideoCameraAdd
@@ -181,8 +180,7 @@ function Navbar() {
        }
       }}
       className={theme ? 'signin' : 'signin signin-light'}
-      style={User.success ? {display: 'none'} : {display: 'flex'}}
-     >
+      style={User.success ? {display: 'none'} : {display: 'flex'}}>
       <AccountCircleOutlinedIcon
        fontSize="medium"
        style={{
@@ -204,8 +202,7 @@ function Navbar() {
             visibility: 'hidden',
             display: 'none'
            }
-       }
-      >
+       }>
        <Skeleton
         count={1}
         width={42}
@@ -251,8 +248,7 @@ function Navbar() {
       : {
          display: 'none'
         }
-    }
-   >
+    }>
     <ClearRoundedIcon
      onClick={() => {
       if (isbtnClicked === false) {
@@ -279,8 +275,7 @@ function Navbar() {
        : {
           display: 'none'
          }
-     }
-    >
+     }>
      <Signup />
      <div className="already">
       <p>Already have an account?</p>
@@ -291,8 +286,7 @@ function Navbar() {
         } else {
          setisSwitched(false)
         }
-       }}
-      >
+       }}>
        Signin
       </p>
      </div>
@@ -307,8 +301,7 @@ function Navbar() {
        : {
           display: 'none'
          }
-     }
-    >
+     }>
      <Signin setisbtnClicked={setisbtnClicked} close={isbtnClicked} switch={isSwitch} />
      <div className="already">
       <p>Don&apos;t have an account?</p>
@@ -319,8 +312,7 @@ function Navbar() {
         } else {
          setisSwitched(false)
         }
-       }}
-      >
+       }}>
        Signup
       </p>
      </div>
@@ -337,30 +329,24 @@ function Navbar() {
       : {
          display: 'none'
         }
-    }
-   >
+    }>
     <AccountPop />
    </div>
    <div
     className={theme ? 'new-searchbar' : 'new-searchbar2'}
     style={{
      display: newSearch && window.innerWidth <= 940 ? 'flex' : 'none'
-    }}
-   >
+    }}>
     <div
      className="new-searchbar-component"
      ref={searchRef}
      style={{
       display: newSearch && window.innerWidth <= 940 ? 'flex' : 'none'
-     }}
-    >
+     }}>
      <FiSearch
       fontSize="28px"
       color="#aaa"
       onClick={() => {
-       mixpanel.track('search_clicked', {
-        user: user?.email
-       })
        setNewSearch(true)
       }}
      />
