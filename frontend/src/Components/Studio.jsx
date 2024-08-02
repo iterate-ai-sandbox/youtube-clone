@@ -1,35 +1,35 @@
-import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import CloudDoneRoundedIcon from '@mui/icons-material/CloudDoneRounded'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import HdIcon from '@mui/icons-material/Hd'
-import LinkIcon from '@mui/icons-material/Link'
-import SdIcon from '@mui/icons-material/Sd'
-import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined'
-import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage'
-import {useEffect, useState} from 'react'
-import {LiaUploadSolid} from 'react-icons/lia'
-import {useSelector} from 'react-redux'
-import {toast} from 'react-toastify'
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloudDoneRoundedIcon from '@mui/icons-material/CloudDoneRounded';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import HdIcon from '@mui/icons-material/Hd';
+import LinkIcon from '@mui/icons-material/Link';
+import SdIcon from '@mui/icons-material/Sd';
+import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storageimport { useEffect, useState } from 'react';
+import mixpanel from 'mixpanel-browser';';
+import { LiaUploadSolid } from 'react-icons/lia';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { storage } from '../Firebase';
+import avatar from '../img/avatar.png';
+import Upload from '../img/upload.png';
+import LeftPanel2 from './LeftPanel2';
+import Navbar2 from './Navbar2';
+import Dashboard from './Studio/Dashboard';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LanguageIcon from '@mui/icons-material/Language';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import mixpanel from 'mixpanel-browser';
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/studio.css'
-import {storage} from '../Firebase'
-import avatar from '../img/avatar.png'
-import Upload from '../img/upload.png'
-import LeftPanel2 from './LeftPanel2'
-import Navbar2 from './Navbar2'
-import Dashboard from './Studio/Dashboard'
 
 //SOCIALS
 
-import FacebookIcon from '@mui/icons-material/Facebook'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import LanguageIcon from '@mui/icons-material/Language'
-import TwitterIcon from '@mui/icons-material/Twitter'
-import mixpanel from 'mixpanel-browser'
-import {useLocation, useNavigate} from 'react-router-dom'
 
 function Studio() {
  const navigate = useNavigate()
@@ -134,7 +134,7 @@ function Studio() {
    document.body.style.backgroundColor = 'rgb(31, 31, 31)'
   }
  }, [theme])
- useEffect(() => {}, [])
+ useEffect(() => { mixpanel.track('studio_page_opened'); }, [])
 
  useEffect(() => {
   const getVideos = async () => {
