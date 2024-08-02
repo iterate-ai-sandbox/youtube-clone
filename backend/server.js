@@ -8,11 +8,20 @@ const cors = require('cors')
 const connectDB = require('./Database/database')
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')))
-
+const allowedOrigins = ['http://iterate.rkph.me', 'https://iterate.rkph.me', 'https://iterate-clone.vercel.app', 'http://iterate-clone.vercel.app', 'http://localhost:5173', 'http://iterate.fliptart.xyz', 'https://iterate.fliptart.xyz', 'https://iterate-ai-sandbox-youtube-clone-main.iterate-ai.com', 'http://iterate-ai-sandbox-youtube-clone-main.iterate-ai.com']
 // Middlewares
 app.use(
  cors({
-  origin: ['http://iterate.rkph.me', 'https://iterate.rkph.me', 'https://iterate-clone.vercel.app', 'http://iterate-clone.vercel.app', 'http://localhost:5173', 'http://iterate.fliptart.xyz', 'https://iterate.fliptart.xyz', /\.vercel\.app$/],
+  //   origin: ['http://iterate.rkph.me', 'https://iterate.rkph.me', 'https://iterate-clone.vercel.app', 'http://iterate-clone.vercel.app', 'http://localhost:5173', 'http://iterate.fliptart.xyz', 'https://iterate.fliptart.xyz', 'https://iterate-ai-sandbox-youtube-clone-main.iterate-ai.com', 'http://iterate-ai-sandbox-youtube-clone-main.iterate-ai.com'],
+  origin: function (origin, callback) {
+   // here !origin allows requests with no origin like curl requests
+   if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.includes('localhost') || origin.includes('vercel.app')) {
+    callback(null, true)
+   } else {
+    callback(new Error('Not allowed by CORS'))
+   }
+  },
+  //   origin: '*',
   // allowedHeaders: [
   //   "Content-Type",
   //   "Authorization",

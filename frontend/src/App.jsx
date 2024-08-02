@@ -1,6 +1,5 @@
 import mixpanel from 'mixpanel-browser'
 import React, {useEffect} from 'react'
-import {__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED} from 'react-dom'
 import {Helmet} from 'react-helmet'
 import {useDispatch, useSelector} from 'react-redux'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
@@ -31,11 +30,10 @@ function App() {
  const {user} = User
 
  const dispatch = useDispatch()
- mixpanel.init('ea80762cb49f3dc9e1531668bb8a2ed0')
+ mixpanel.init('066ebd5744eb13b20a748ab8011a82ee')
  useEffect(() => {
   dispatch(fetchUserData())
  }, [dispatch])
- console.log(__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED)
 
  return (
   <>
