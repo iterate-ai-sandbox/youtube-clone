@@ -281,7 +281,6 @@ function VideoSection() {
    }
   }
   getVideos()
-  mixpanel.track('video page opened', {'video title': Title, 'video length': videoLength})
  }, [])
  useEffect(() => {
   const initializePlyr = () => {
@@ -594,6 +593,9 @@ function VideoSection() {
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
  document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
+ useEffect(() => {
+   mixpanel.track('video page opened', {'video title': Title, 'video length': videoLength})
+ }, [])
  const likeVideo = async () => {
   try {
    setLikeLoading(true)
