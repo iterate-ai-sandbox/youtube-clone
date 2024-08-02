@@ -35,9 +35,7 @@ function Browse() {
   return Dark ? JSON.parse(Dark) : true
  })
  const user = useSelector(state => state.user.user)
- useEffect(() => {
-  window.scrollTo(0, 0)
- }, [])
+ updated code useEffect(() => { window.scrollTo(0, 0); mixpanel.track('home page opened'); }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
