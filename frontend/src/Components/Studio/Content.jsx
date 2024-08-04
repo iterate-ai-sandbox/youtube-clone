@@ -1,28 +1,32 @@
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import KeyboardTabOutlinedIcon from '@mui/icons-material/KeyboardTabOutlined'
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import NorthOutlinedIcon from '@mui/icons-material/NorthOutlined'
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
-import SouthIcon from '@mui/icons-material/South'
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined'
-import YouTubeIcon from '@mui/icons-material/YouTube'
-import {useEffect, useState} from 'react'
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import KeyboardTabOutlinedIcon from '@mui/icons-material/KeyboardTabOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import NorthOutlinedIcon from '@mui/icons-material/NorthOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import SouthIcon from '@mui/icons-material/South';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import mixpanel from 'mixpanel-browser';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import noImage from '../../img/no-video2.png';
+import LeftPanel2 from '../LeftPanel2';
+import Navbar2 from '../Navbar2';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../../Css/Studio/content.css'
-import noImage from '../../img/no-video2.png'
-import LeftPanel2 from '../LeftPanel2'
-import Navbar2 from '../Navbar2'
 function Content() {
+ useEffect(() => {
+  mixpanel.track('home_page_opened')
+ }, [])
  const navigate = useNavigate()
  const location = useLocation()
  const reloadPage = () => {
