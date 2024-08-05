@@ -37,6 +37,7 @@ function Browse() {
  const user = useSelector(state => state.user.user)
  useEffect(() => {
   window.scrollTo(0, 0)
+  mixpanel.track('account creation initiated')
  }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
