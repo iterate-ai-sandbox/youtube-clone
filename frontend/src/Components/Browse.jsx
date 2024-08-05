@@ -1,5 +1,4 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import mixpanel from 'mixpanel-browser';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; import mixpanel from 'mixpanel-browser';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -35,9 +34,7 @@ function Browse() {
   return Dark ? JSON.parse(Dark) : true
  })
  const user = useSelector(state => state.user.user)
- useEffect(() => {
-  window.scrollTo(0, 0)
- }, [])
+ useEffect(() => { window.scrollTo(0, 0); mixpanel.track('home page opened', {'categories shown': Tags.join(', ')}); }, [Tags])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
@@ -256,11 +253,7 @@ function Browse() {
       {Tags.map((element, index) => {
        return (
         <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
-         <p
-          onClick={() => {
-           setTagsSelected(element)
-          }}
-         >
+         <p onClick={() => { setTagsSelected(element); mixpanel.track('category selected', {'category name': element}); }}>
           {element}
          </p>
         </div>
@@ -425,8 +418,7 @@ function Browse() {
                 display: 'none'
                }
            }
-           onClick={() => {
-            if (user?.success) {
+onClick={() => { if (user?.success) { updateViews(VideoID[index]); setTimeout(() => { navigate(`/video/${VideoID[index]}`); }, 400); } navigate(`/video/${VideoID[index]}`); mixpanel.track('video clicked', { category: TagsSelected, title: Titles[index], publisher: uploader[index], 'view count': VideoViews[index], 'length in seconds': duration[index] }); }}
              updateViews(element._id)
              setTimeout(() => {
               navigate(`/video/${element._id}`)
