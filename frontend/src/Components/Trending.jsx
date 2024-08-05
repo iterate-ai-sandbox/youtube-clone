@@ -1,14 +1,15 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import {useEffect, useState} from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import nothing from '../img/nothing.png';
+import trending from '../img/trending.jpg';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import mixpanel from 'mixpanel-browser';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/trending.css'
-import nothing from '../img/nothing.png'
-import trending from '../img/trending.jpg'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function Trending() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -86,7 +87,9 @@ function Trending() {
    }
   }
  }, [])
- useEffect(() => {}, [])
+ useEffect(() => {
+  mixpanel.track('trending page opened', {'list of video titles': trendingVideos.map(video => video.Title), 'count of trending videos': trendingVideos.length})
+ }, [])
  //Update Views
 
  const updateViews = async id => {

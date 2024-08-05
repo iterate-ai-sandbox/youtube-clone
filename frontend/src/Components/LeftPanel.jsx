@@ -1,35 +1,35 @@
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import CodeIcon from '@mui/icons-material/Code'
-import HomeIcon from '@mui/icons-material/Home'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined'
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
-import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary'
-import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined'
-import WatchLaterIcon from '@mui/icons-material/WatchLater'
-import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
-import WhatshotIcon from '@mui/icons-material/Whatshot'
-import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined'
-// import mixpanel from 'mixpanel-browser'
-import {useEffect, useState} from 'react'
-import {GoHome, GoHomeFill} from 'react-icons/go'
-import {HiOutlineFire} from 'react-icons/hi'
-import {HiMiniFire} from 'react-icons/hi2'
-import {IoAddCircleOutline} from 'react-icons/io5'
-import {MdOutlineSubscriptions, MdOutlineVideoLibrary, MdSubscriptions, MdVideoLibrary} from 'react-icons/md'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import CodeIcon from '@mui/icons-material/Code';
+import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
+import mixpanel from 'mixpanel-browser';
+import { useEffect, useState } from 'react';
+import { GoHome, GoHomeFill } from 'react-icons/go';
+import { HiOutlineFire } from 'react-icons/hi';
+import { HiMiniFire } from 'react-icons/hi2';
+import { IoAddCircleOutline } from 'react-icons/io5';
+import { MdOutlineSubscriptions, MdOutlineVideoLibrary, MdSubscriptions, MdVideoLibrary } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Logo from '../img/logo1.png';
+import Logo2 from '../img/logo2.png';
+import Signin from './Signin';
+import Signup from './Signup';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate} from 'react-router-dom'
 import '../Css/leftpanel.css'
-import Logo from '../img/logo1.png'
-import Logo2 from '../img/logo2.png'
-import Signin from './Signin'
-import Signup from './Signup'
 
 function LeftPanel() {
  const navigate = useNavigate()
@@ -200,8 +200,8 @@ function LeftPanel() {
      <div
       className={selected === 'trending' ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending sec-data'}
       onClick={() => {
+       mixpanel.track('trending menu option selected')
        localStorage.setItem('selected', 'trending')
-
        navigate('/trending')
       }}
      >
