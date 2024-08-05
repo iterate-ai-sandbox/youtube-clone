@@ -1,19 +1,20 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
-import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined'
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
-import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
-import {useEffect, useState} from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import mixpanel from 'mixpanel-browser';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
+import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import deleteIMG from '../img/delete.jpg';
+import nothing from '../img/nothing.png';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/library.css'
-import deleteIMG from '../img/delete.jpg'
-import nothing from '../img/nothing.png'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function generateRandomColors(count) {
  const transparency = 0.65 // Adjust transparency as needed (0 to 1)
  const colors = []
@@ -48,6 +49,14 @@ function Library() {
  })
  const User = useSelector(state => state.user.user)
  const {user} = User
+ useEffect(() => {
+  if (user?.email) {
+   mixpanel.track('playlist page opened', {
+    'count of playlists': savedPlaylist.length + PlaylistData.length,
+    'list of playlist names': PlaylistData.map(playlist => playlist.playlist_name)
+   })
+  }
+ }, [savedPlaylist, PlaylistData, user?.email])
  useEffect(() => {
   localStorage.setItem('menuClicked', JSON.stringify(menuClicked))
  }, [menuClicked])
@@ -506,6 +515,7 @@ function Library() {
             alt=""
             className="playlist-thumbnail"
             onClick={() => {
+             mixpanel.track('playlist selected', {'playlist name': element.playlist_name, 'count of videos in playlist': element.playlist_videos.length, 'playlist privacy status': element.playlist_privacy})
              navigate(`/video/${element.playlist_videos[0].videoID}`)
             }}
            />
@@ -599,6 +609,7 @@ function Library() {
             alt=""
             className="playlist-thumbnail"
             onClick={() => {
+             mixpanel.track('playlist selected', {'playlist name': element.playlist_name, 'count of videos in playlist': element.playlist_videos.length, 'playlist privacy status': element.playlist_privacy})
              navigate(`/video/${element.playlist_videos[0].videoID}`)
             }}
            />
