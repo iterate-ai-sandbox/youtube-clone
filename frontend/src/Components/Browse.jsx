@@ -418,15 +418,18 @@ function Browse() {
                 display: 'none'
                }
            }
-onClick={() => { if (user?.success) { updateViews(VideoID[index]); setTimeout(() => { navigate(`/video/${VideoID[index]}`); }, 400); } navigate(`/video/${VideoID[index]}`); mixpanel.track('video clicked', { category: TagsSelected, title: Titles[index], publisher: uploader[index], 'view count': VideoViews[index], 'length in seconds': duration[index] }); }}
-             updateViews(element._id)
-             setTimeout(() => {
-              navigate(`/video/${element._id}`)
-             }, 400)
-            }
-            navigate(`/video/${element._id}`)
-           }}
-          >
+onClick={() => {
+  if (user?.success) {
+    updateViews(VideoID[index]);
+    setTimeout(() => {
+      navigate(`/video/${VideoID[index]}`);
+    }, 400);
+    mixpanel.track('video clicked', { category: TagsSelected, title: Titles[index], publisher: uploader[index], 'view count': VideoViews[index], 'length in seconds': duration[index] });
+  }
+  navigate(`/video/${element._id}`);
+}}
+>
+
            <img
             style={{
              width: '330px',
