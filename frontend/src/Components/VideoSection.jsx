@@ -592,7 +592,7 @@ function VideoSection() {
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
- document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTubeconst likeVideo = async () => { try { setLikeLoading(true); const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' } }); const {message, likes} = await response.json(); // console.log(data); if (message === 'Liked') { mixpanel.track('video liked', { 'Title': Title, 'User Email': user?.email, 'Video ID': id }); LikedNotify(); setLikeLoading(false); setIsLiked(true); setVideoLikes(likes); } else { setLikeLoading(false); setIsLiked(false); setVideoLikes(likes); } } catch (error) { setLikeLoading(false); //console.log(error.message); } }
+ document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTubeconst likeVideo = async () => { try { setLikeLoading(true); const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' } }); const {message, likes} = await response.json(); if (message === 'Liked') { mixpanel.track('video liked', { 'Title': Title, 'User Email': user?.email, 'Video ID': id }); LikedNotify(); setLikeLoading(false); setIsLiked(true); setVideoLikes(likes); } else { setLikeLoading(false); setIsLiked(false); setVideoLikes(likes); } } catch (error) { setLikeLoading(false);} }
  const LikeComment = async commentId => {
   try {
    if (commentId !== undefined && id !== undefined && user?.email) {
