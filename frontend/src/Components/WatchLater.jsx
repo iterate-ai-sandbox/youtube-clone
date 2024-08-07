@@ -27,7 +27,8 @@ function WatchLater() {
  })
  const User = useSelector(state => state.user.user)
  const {user} = User
- document.title = 'Watch later - YouTubeupdated code useEffect(() => { setTimeout(() => { setLoading(false); }, 1000); }, []); useEffect(() => { mixpanel.track('watch later page opened', {'count of videos to watch later': watchlater.length}); }, []);
+ document.title = 'Watch later - YouTube'
+ useEffect(() => { setTimeout(() => { setLoading(false); }, 1000); }, []); useEffect(() => { mixpanel.track('watch later page opened', {'count of videos to watch later': watchlater.length}); }, []);
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
