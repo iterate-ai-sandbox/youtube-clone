@@ -681,8 +681,36 @@ const likeVideo = async () => {
    //console.log(error.message);
   }
  }
- const DislikeVideo = async () => { try { const response = await fetch(`${backendURL}/dislikevideo/${id}/${user?.email}`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' } }) const {message, likes} = await response.json() if (message === 'Disliked') { mixpanel.track('video disliked', { 'Title': Title, 'User Email': user?.email, 'Video ID': id }); setLikeLoading(false) setIsLiked(false) setVideoLikes(likes) } } catch (error) { //console.log(error.message); } }
- const downloadVideo = () => { mixpanel.track('video download initiated', { 'Title': Title, 'User Email': user?.email, 'Video ID': id }); const link = document.createElement('a'); link.href = videoURL; link.target = '_blank'; link.download = 'video.mp4'; link.click(); }
+const DislikeVideo = async () => {
+  try {
+    const response = await fetch(`${backendURL}/dislikevideo/${id}/${user?.email}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const { message, likes } = await response.json();
+    if (message === 'Disliked') {
+      mixpanel.track('video disliked', { 'Title': Title, 'User Email': user?.email, 'Video ID': id });
+      setLikeLoading(false);
+      setIsLiked(false);
+      setVideoLikes(likes);
+    }
+  } catch (error) {
+    //console.log(error.message);
+  }
+};
+
+const downloadVideo = () => {
+  mixpanel.track('video download initiated', { 'Title': Title, 'User Email': user?.email, 'Video ID': id });
+  const link = document.createElement('a');
+  link.href = videoURL;
+  link.target = '_blank';
+  link.download = 'video.mp4';
+  link.click();
+};
+
  const saveVideo = async () => {
   try {
    if (id && user?.email) {
