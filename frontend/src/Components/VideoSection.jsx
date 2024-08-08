@@ -1066,7 +1066,11 @@ function VideoSection() {
         </div>
        </div>
 
-       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video share initiated'); if (shareClicked === false) { setShareClicked(true) document.body.classList.add('bg-css') } else { setShareClicked(false) document.body.classList.remove('bg-css') } }}>
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { 
+    mixpanel.track('video share initiated'); if (shareClicked === false) { setShareClicked(true) 
+      document.body.classList.add('bg-css') } else { 
+      setShareClicked(false)
+      document.body.classList.remove('bg-css') } }}>
   <ReplyIcon fontSize="medium" style={{ color: theme ? 'white' : 'black', transform: 'rotateY(180deg)' }} className="sharee-icon" />
   <p className="share-txt">Share</p>
 </div>
