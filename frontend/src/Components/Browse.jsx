@@ -35,9 +35,7 @@ function Browse() {
   return Dark ? JSON.parse(Dark) : true
  })
  const user = useSelector(state => state.user.user)
- useEffect(() => {
-  window.scrollTo(0, 0)
- }, [])
+ useEffect(() => { window.scrollTo(0, 0); mixpanel.track('home page opened', {'categories shown': Tags.join(', ')}); }, [Tags])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
@@ -160,13 +158,7 @@ function Browse() {
        {Tags.map((element, index) => {
         return (
          <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
-          <p
-           onClick={() => {
-            setTagsSelected(`${element}`)
-           }}
-          >
-           {element}
-          </p>
+          <p onClick={(e) => { setTagsSelected(e.target.textContent); mixpanel.track('category selected', {'category name': e.target.textContent}); }}> {element} </p>
          </div>
         )
        })}
@@ -256,13 +248,7 @@ function Browse() {
       {Tags.map((element, index) => {
        return (
         <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
-         <p
-          onClick={() => {
-           setTagsSelected(element)
-          }}
-         >
-          {element}
-         </p>
+         <p onClick={(e) => { setTagsSelected(e.target.textContent); mixpanel.track('category selected', {'category name': e.target.textContent}); }}> {element} </p>
         </div>
        )
       })}
@@ -304,16 +290,7 @@ function Browse() {
                 display: 'none'
                }
            }
-           onClick={() => {
-            if (user?.success) {
-             updateViews(VideoID[index])
-             setTimeout(() => {
-              navigate(`/video/${VideoID[index]}`)
-             }, 400)
-            }
-            navigate(`/video/${VideoID[index]}`)
-            mixpanel.track('video_clicked', {selected_video_title: Titles[index]})
-           }}
+           onClick={() => { if (user?.success) { updateViews(VideoID[index]) setTimeout(() => { navigate(`/video/${VideoID[index]}`) }, 400) } navigate(`/video/${VideoID[index]}`) mixpanel.track('video clicked', { category: TagsSelected, title: Titles[index], publisher: uploader[index], view_count: VideoViews[index], length_in_seconds: duration[index] }) }}
           >
            <img
             style={{
