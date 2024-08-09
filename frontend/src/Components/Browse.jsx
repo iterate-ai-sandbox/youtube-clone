@@ -1,5 +1,4 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import mixpanel from 'mixpanel-browser';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; import mixpanel from 'mixpanel-browser';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -35,9 +34,7 @@ function Browse() {
   return Dark ? JSON.parse(Dark) : true
  })
  const user = useSelector(state => state.user.user)
- useEffect(() => {
-  window.scrollTo(0, 0)
- }, [])
+ useEffect(() => { window.scrollTo(0, 0); mixpanel.track('home page opened', {'categories shown': Tags.join(', ')}); }, [Tags])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
@@ -256,11 +253,7 @@ function Browse() {
       {Tags.map((element, index) => {
        return (
         <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
-         <p
-          onClick={() => {
-           setTagsSelected(element)
-          }}
-         >
+         <p onClick={(e) => { setTagsSelected(e.target.textContent); mixpanel.track('category selected', {'category name': e.target.textContent}); }}>
           {element}
          </p>
         </div>
@@ -359,7 +352,7 @@ function Browse() {
               />
              </div>
              <div className={theme ? 'view-time' : 'view-time text-light-mode2'}>
-              <p className="views">{VideoViews[index] >= 1e9 ? `${(VideoViews[index] / 1e9).toFixed(1)}B` : VideoViews[index] >= 1e6 ? `${(VideoViews[index] / 1e6).toFixed(1)}M` : VideoViews[index] >= 1e3 ? `${(VideoViews[index] / 1e3).toFixed(1)}K` : VideoViews[index]} views</p>
+              <div className="video-data" key={index} style={ Visibility[index] === 'Public' ? { display: 'block' } : { display: 'none' } } onClick={() => { if (user?.success) { updateViews(VideoID[index]); setTimeout(() => { navigate(`/video/${VideoID[index]}`); }, 400); } navigate(`/video/${VideoID[index]}`); mixpanel.track('video clicked', { category: TagsSelected, title: Titles[index], publisher: uploader[index], view_count: VideoViews[index], length_in_seconds: duration[index] }); }}>
               <p
                className="upload-time"
                style={{
