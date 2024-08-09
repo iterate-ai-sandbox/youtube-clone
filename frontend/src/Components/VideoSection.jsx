@@ -601,7 +601,8 @@ function VideoSection() {
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
- document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTubeconst likeVideo = async () => {
+ document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
+const likeVideo = async () => {
   try {
     setLikeLoading(true);
     const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
