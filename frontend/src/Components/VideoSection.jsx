@@ -36,13 +36,15 @@ import '../Css/videoSection.css'
 function VideoSection() {
  useEffect(() => {
   mixpanel.track('video page opened', {
-   title: Title,
-   publisher: uploader,
-   'views count': views,
-   'likes count': VideoLikes,
-   'subscriber count of publisher': Subscribers
+   // title: Title,
+   // publisher: uploader,
+   // 'views count': views,
+   // 'likes count': VideoLikes,
+   // 'subscriber count of publisher': Subscribers
   })
- }, [Title, uploader, views, VideoLikes, Subscribers])
+ // }, [Title, uploader, views, VideoLikes, Subscribers])
+ }, [])
+  
  const navigate = useNavigate()
  const location = useLocation()
  const reloadPage = () => {
