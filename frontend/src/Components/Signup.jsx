@@ -1,6 +1,7 @@
-import {useState} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import mixpanel from 'mixpanel-browser';
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/navbar.css'
 
@@ -82,8 +83,8 @@ function Signup() {
    const {message, user} = await response.json()
    if (message === 'REGISTRATION SUCCESSFUL') {
     SignupNotify()
+    mixpanel.track('account created', {name: data.name, email: data.email})
     localStorage.setItem('userData', JSON.stringify(user))
-
     setTimeout(() => {
      document.body.classList.remove('bg-class')
      window.location.replace('/')
