@@ -1,19 +1,19 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
-import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined'
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
-import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
-import {useEffect, useState} from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
+import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import deleteIMG from '../img/delete.jpg';
+import nothing from '../img/nothing.png';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/library.css'
-import deleteIMG from '../img/delete.jpg'
-import nothing from '../img/nothing.png'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function generateRandomColors(count) {
  const transparency = 0.65 // Adjust transparency as needed (0 to 1)
  const colors = []
@@ -580,20 +580,10 @@ function Library() {
         const backgroundColor = playlistColors[index] || playlistColors[0]
         const thumbnailURL = element.playlist_videos && element.playlist_videos.length > 0 && element.playlist_videos[0].thumbnail ? element.playlist_videos[0].thumbnail : deleteIMG
         return (
-         <div
-          className="created-all-playlistss2"
-          key={index}
-          style={
-           element.owner_email !== email && element.playlist_privacy === 'Private'
-            ? {
-               display: 'none'
-              }
-            : {
-               display: 'block'
-              }
-          }
-         >
+         <div className="created-all-playlistss2" key={index} style={element.owner_email !== email && element.playlist_privacy === 'Private' ? {display: 'none'} : {display: 'block'}}>
+          {' '}
           <div className="playlist-main-img">
+           {' '}
            <img
             src={thumbnailURL}
             alt=""
@@ -601,9 +591,9 @@ function Library() {
             onClick={() => {
              navigate(`/video/${element.playlist_videos[0].videoID}`)
             }}
+           />{' '}
            />
           </div>
-
           <div
            className="playlist-element"
            style={{
