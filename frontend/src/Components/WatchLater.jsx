@@ -209,7 +209,7 @@ function WatchLater() {
           <p className="like-username">{user?.name}</p>
           <p className="like-total-videos">{watchlater.length} videos</p>
          </div>
-</div> <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID); setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`); }, 400); } else { navigate(`/video/${watchlater[0].savedVideoID}`); } }} > <PlayArrowIcon fontSize="medium" style={{ color: 'black' }} /> <p className="play-all">Play all</p> </div> </div> </div>     <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
+</div> <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID); setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`); }, 400); } else { navigate(`/video/${watchlater[0].savedVideoID}`); } }} > <PlayArrowIcon fontSize="medium" style={{ color: 'black' }} /> <p className="play-all">Play all</p> </div> </div>      <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
        <div
         className="like-right-section sk-right-like"
         style={
