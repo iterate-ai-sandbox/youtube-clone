@@ -1,39 +1,48 @@
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined'
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
-import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import ReplyIcon from '@mui/icons-material/Reply'
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
-import mixpanel from 'mixpanel-browser'
-import Plyr from 'plyr'
+import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import ReplyIcon from '@mui/icons-material/Reply';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import mixpanel from 'mixpanel-browser';
+import Plyr from 'plyr';
+import { useEffect, useRef, useState } from 'react';
+import { LiaDownloadSolid } from 'react-icons/lia';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import avatar from '../img/avatar.png';
+import Error from './Error';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import Share from './Share';
+import Signin from './Signin';
+import Signup from './Signup';
 import 'plyr/dist/plyr.css'
-import {useEffect, useRef, useState} from 'react'
-import {LiaDownloadSolid} from 'react-icons/lia'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate, useParams} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/videoSection.css'
-import avatar from '../img/avatar.png'
-import Error from './Error'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
-import Share from './Share'
-import Signin from './Signin'
-import Signup from './Signup'
 function VideoSection() {
+ useEffect(() => {
+  mixpanel.track('video page opened', {
+   title: Title,
+   publisher: uploader,
+   'views count': views,
+   'likes count': VideoLikes,
+   'subscriber count of publisher': Subscribers
+  })
+ }, [Title, uploader, views, VideoLikes, Subscribers])
  const navigate = useNavigate()
  const location = useLocation()
  const reloadPage = () => {
@@ -604,12 +613,12 @@ function VideoSection() {
     }
    })
    const {message, likes} = await response.json()
-   // console.log(data);
    if (message === 'Liked') {
     LikedNotify()
     setLikeLoading(false)
     setIsLiked(true)
     setVideoLikes(likes)
+    mixpanel.track('video liked') // Add this line
    } else {
     setLikeLoading(false)
     setIsLiked(false)
@@ -617,7 +626,6 @@ function VideoSection() {
    }
   } catch (error) {
    setLikeLoading(false)
-   //console.log(error.message);
   }
  }
  const LikeComment = async commentId => {
@@ -692,12 +700,14 @@ function VideoSection() {
     setLikeLoading(false)
     setIsLiked(false)
     setVideoLikes(likes)
+    mixpanel.track('video disliked') // Add this line
    }
   } catch (error) {
    //console.log(error.message);
   }
  }
  const downloadVideo = () => {
+  mixpanel.track('video download initiated')
   const link = document.createElement('a')
   link.href = videoURL
   link.target = '_blank'
@@ -718,6 +728,7 @@ function VideoSection() {
     if (data === 'Saved') {
      watchLaterNotify()
      setIsSaved(true)
+     mixpanel.track('video saved') // Add this line
     } else {
      setIsSaved(false)
     }
@@ -1054,6 +1065,151 @@ function VideoSection() {
          />
         </div>
        </div>
+       <div
+        className={theme ? 'share' : 'share share-light text-light-mode'}
+        onClick={() => {
+         mixpanel.track('video share initiated')
+         if (shareClicked === false) {
+          setShareClicked(true)
+          document.body.classList.add('bg-css')
+         } else {
+          setShareClicked(false)
+          document.body.classList.remove('bg-css')
+         }
+        }}
+       >
+        {' '}
+        <ReplyIcon fontSize="medium" style={{color: theme ? 'white' : 'black', transform: 'rotateY(180deg)'}} className="sharee-icon" /> <p className="share-txt">Share</p>
+       </div>
+      </div>
+
+      <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
+       <h3>
+        <LiaDownloadSolid fontSize={24} className="download-icon" color={theme ? 'white' : 'black'} />
+       </h3>
+       <p className="download-txt">Download</p>
+      </div>
+
+      <div
+       className={theme ? 'save-later' : 'save-later save-later-light text-light-mode'}
+       onClick={() => {
+        if (user?.email) {
+         saveVideo()
+        } else {
+         setisbtnClicked(true)
+         document.body.classList.add('bg-css')
+        }
+       }}
+      >
+       {isSaved === true ? (
+        <BookmarkAddedIcon
+         fontSize="medium"
+         style={{
+          color: theme ? 'white' : 'black'
+         }}
+         className="save-video-icon"
+        />
+       ) : (
+        <BookmarkAddOutlinedIcon
+         fontSize="medium"
+         style={{
+          color: theme ? 'white' : 'black'
+         }}
+         className="save-video-icon"
+        />
+       )}
+       <p>{isSaved === true ? 'Saved' : 'Save'}</p>
+      </div>
+
+      <div
+       className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
+       onClick={() => {
+        mixpanel.track('video add to playlist initiated')
+        if (playlistClicked === false && user?.email) {
+         setPlaylistClicked(true)
+         document.body.classList.add('bg-css')
+        } else if (!user?.email) {
+         setisbtnClicked(true)
+         document.body.classList.add('bg-css')
+        }
+       }}
+      >
+       <PlaylistAddIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} className="playlist-iconn" />
+       <p>Playlist</p>
+      </div>
+     </div>
+     <div className="channel-right-data c-right2">
+      <div className="first-c-data">
+       <div
+        className="like-dislike"
+        style={
+         likeLoading === true
+          ? {
+             opacity: 0.46,
+             cursor: 'wait',
+             pointerEvents: 'none'
+            }
+          : {
+             opacity: 1,
+             cursor: 'pointer',
+             pointerEvents: 'auto'
+            }
+        }
+       >
+        <div
+         className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
+         onClick={() => {
+          if (user?.email) {
+           likeVideo()
+          } else {
+           setisbtnClicked(true)
+           document.body.classList.add('bg-css')
+          }
+         }}
+        >
+         {isLiked === true && user?.email ? (
+          <ThumbUpIcon
+           fontSize="medium"
+           style={{
+            color: theme ? 'white' : 'black'
+           }}
+           className="like-icon"
+          />
+         ) : (
+          <ThumbUpAltOutlinedIcon
+           fontSize="medium"
+           style={{
+            color: theme ? 'white' : 'black'
+           }}
+           className="like-icon"
+          />
+         )}
+
+         <p className="like-count">{VideoLikes}</p>
+        </div>
+
+        <div className={theme ? 'vl' : 'vl-light'}></div>
+
+        <div
+         className={theme ? 'dislike-data' : 'dislike-data dislike-data-light text-light-mode'}
+         onClick={() => {
+          if (user?.email) {
+           DislikeVideo()
+          } else {
+           setisbtnClicked(true)
+           document.body.classList.add('bg-css')
+          }
+         }}
+        >
+         <ThumbDownOutlinedIcon
+          fontSize="medium"
+          style={{
+           color: theme ? 'white' : 'black'
+          }}
+          className="dislike-icon"
+         />
+        </div>
+       </div>
 
        <div
         className={theme ? 'share' : 'share share-light text-light-mode'}
@@ -1080,11 +1236,168 @@ function VideoSection() {
 
        <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
         <h3>
-         <LiaDownloadSolid fontSize={24} className="download-icon" color={theme ? 'white' : 'black'} />
+         <LiaDownloadSolid fontSize={24} className="download-icon" />
         </h3>
         <p className="download-txt">Download</p>
        </div>
 
+       <div
+        className={theme ? 'save-later' : ' save-later save-later-light text-light-mode'}
+        onClick={() => {
+         if (user?.email) {
+          saveVideo()
+         } else {
+          setisbtnClicked(true)
+          document.body.classList.add('bg-css')
+         }
+        }}
+       >
+        {isSaved === true ? (
+         <BookmarkAddedIcon
+          fontSize="medium"
+          style={{
+           color: theme ? 'white' : 'black'
+          }}
+          className="save-video-icon"
+         />
+        ) : (
+         <BookmarkAddOutlinedIcon
+          fontSize="medium"
+          style={{
+           color: theme ? 'white' : 'black'
+          }}
+          className="save-video-icon"
+         />
+        )}
+        <p>{isSaved === true ? 'Saved' : 'Save'}</p>
+       </div>
+      </div>
+      <div className="firstt-c-data">
+       <div
+        className="like-dislike"
+        style={
+         likeLoading === true
+          ? {
+             opacity: 0.46,
+             cursor: 'wait',
+             pointerEvents: 'none'
+            }
+          : {
+             opacity: 1,
+             cursor: 'pointer',
+             pointerEvents: 'auto'
+            }
+        }
+       >
+        <div
+         className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
+         onClick={() => {
+          if (user?.email) {
+           likeVideo()
+          } else {
+           setisbtnClicked(true)
+           document.body.classList.add('bg-css')
+          }
+         }}
+        >
+         {isLiked === true && user?.email ? (
+          <ThumbUpIcon
+           fontSize="medium"
+           style={{
+            color: theme ? 'white' : 'black'
+           }}
+           className="like-icon"
+          />
+         ) : (
+          <ThumbUpAltOutlinedIcon
+           fontSize="medium"
+           style={{
+            color: theme ? 'white' : 'black'
+           }}
+           className="like-icon"
+          />
+         )}
+
+         <p className="like-count">{VideoLikes}</p>
+        </div>
+
+        <div className={theme ? 'vl' : 'vl-light'}></div>
+
+        <div
+         className={theme ? 'dislike-data' : 'dislike-data dislike-data-light text-light-mode'}
+         onClick={() => {
+          if (user?.email) {
+           DislikeVideo()
+          } else {
+           setisbtnClicked(true)
+           document.body.classList.add('bg-css')
+          }
+         }}
+        >
+         <ThumbDownOutlinedIcon
+          fontSize="medium"
+          style={{
+           color: theme ? 'white' : 'black'
+          }}
+          className="dislike-icon"
+         />
+        </div>
+       </div>
+
+       <div
+        className={theme ? 'share' : 'share share-light text-light-mode'}
+        onClick={() => {
+         if (shareClicked === false) {
+          setShareClicked(true)
+          document.body.classList.add('bg-css')
+         } else {
+          setShareClicked(false)
+          document.body.classList.remove('bg-css')
+         }
+        }}
+       >
+        <ReplyIcon
+         fontSize="medium"
+         style={{
+          color: theme ? 'white' : 'black',
+          transform: 'rotateY(180deg)'
+         }}
+         className="sharee-icon"
+        />
+        <p className="share-txt">Share</p>
+       </div>
+
+       <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
+        <h3>
+         <LiaDownloadSolid fontSize={24} className="download-icon" />
+        </h3>
+        <p className="download-txt">Download</p>
+       </div>
+      </div>
+      <div className="second-c-data">
+       <div
+        className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
+        onClick={() => {
+         if (playlistClicked === false && user?.email) {
+          setPlaylistClicked(true)
+          document.body.classList.add('bg-css')
+         } else if (!user?.email) {
+          setisbtnClicked(true)
+          document.body.classList.add('bg-css')
+         }
+        }}
+       >
+        <PlaylistAddIcon
+         fontSize="medium"
+         style={{
+          color: theme ? 'white' : 'black'
+         }}
+        />
+
+        <p>Playlist</p>
+       </div>
+      </div>
+      <div className="third-c-data">
        <div
         className={theme ? 'save-later' : 'save-later save-later-light text-light-mode'}
         onClick={() => {
@@ -1133,1412 +1446,1067 @@ function VideoSection() {
          style={{
           color: theme ? 'white' : 'black'
          }}
-         className="playlist-iconn"
         />
 
         <p>Playlist</p>
        </div>
       </div>
-      <div className="channel-right-data c-right2">
-       <div className="first-c-data">
-        <div
-         className="like-dislike"
-         style={
-          likeLoading === true
-           ? {
-              opacity: 0.46,
-              cursor: 'wait',
-              pointerEvents: 'none'
-             }
-           : {
-              opacity: 1,
-              cursor: 'pointer',
-              pointerEvents: 'auto'
-             }
-         }
-        >
-         <div
-          className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
-          onClick={() => {
-           if (user?.email) {
-            likeVideo()
-           } else {
-            setisbtnClicked(true)
-            document.body.classList.add('bg-css')
-           }
-          }}
-         >
-          {isLiked === true && user?.email ? (
-           <ThumbUpIcon
-            fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
-            className="like-icon"
-           />
-          ) : (
-           <ThumbUpAltOutlinedIcon
-            fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
-            className="like-icon"
-           />
-          )}
-
-          <p className="like-count">{VideoLikes}</p>
-         </div>
-
-         <div className={theme ? 'vl' : 'vl-light'}></div>
-
-         <div
-          className={theme ? 'dislike-data' : 'dislike-data dislike-data-light text-light-mode'}
-          onClick={() => {
-           if (user?.email) {
-            DislikeVideo()
-           } else {
-            setisbtnClicked(true)
-            document.body.classList.add('bg-css')
-           }
-          }}
-         >
-          <ThumbDownOutlinedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="dislike-icon"
-          />
-         </div>
-        </div>
-
-        <div
-         className={theme ? 'share' : 'share share-light text-light-mode'}
-         onClick={() => {
-          if (shareClicked === false) {
-           setShareClicked(true)
-           document.body.classList.add('bg-css')
-          } else {
-           setShareClicked(false)
-           document.body.classList.remove('bg-css')
-          }
-         }}
-        >
-         <ReplyIcon
-          fontSize="medium"
-          style={{
-           color: theme ? 'white' : 'black',
-           transform: 'rotateY(180deg)'
-          }}
-          className="sharee-icon"
-         />
-         <p className="share-txt">Share</p>
-        </div>
-
-        <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
-         <h3>
-          <LiaDownloadSolid fontSize={24} className="download-icon" />
-         </h3>
-         <p className="download-txt">Download</p>
-        </div>
-
-        <div
-         className={theme ? 'save-later' : ' save-later save-later-light text-light-mode'}
-         onClick={() => {
-          if (user?.email) {
-           saveVideo()
-          } else {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         {isSaved === true ? (
-          <BookmarkAddedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="save-video-icon"
-          />
-         ) : (
-          <BookmarkAddOutlinedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="save-video-icon"
-          />
-         )}
-         <p>{isSaved === true ? 'Saved' : 'Save'}</p>
-        </div>
-       </div>
-       <div className="firstt-c-data">
-        <div
-         className="like-dislike"
-         style={
-          likeLoading === true
-           ? {
-              opacity: 0.46,
-              cursor: 'wait',
-              pointerEvents: 'none'
-             }
-           : {
-              opacity: 1,
-              cursor: 'pointer',
-              pointerEvents: 'auto'
-             }
-         }
-        >
-         <div
-          className={theme ? 'like-data' : 'like-data like-data-light text-light-mode'}
-          onClick={() => {
-           if (user?.email) {
-            likeVideo()
-           } else {
-            setisbtnClicked(true)
-            document.body.classList.add('bg-css')
-           }
-          }}
-         >
-          {isLiked === true && user?.email ? (
-           <ThumbUpIcon
-            fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
-            className="like-icon"
-           />
-          ) : (
-           <ThumbUpAltOutlinedIcon
-            fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
-            className="like-icon"
-           />
-          )}
-
-          <p className="like-count">{VideoLikes}</p>
-         </div>
-
-         <div className={theme ? 'vl' : 'vl-light'}></div>
-
-         <div
-          className={theme ? 'dislike-data' : 'dislike-data dislike-data-light text-light-mode'}
-          onClick={() => {
-           if (user?.email) {
-            DislikeVideo()
-           } else {
-            setisbtnClicked(true)
-            document.body.classList.add('bg-css')
-           }
-          }}
-         >
-          <ThumbDownOutlinedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="dislike-icon"
-          />
-         </div>
-        </div>
-
-        <div
-         className={theme ? 'share' : 'share share-light text-light-mode'}
-         onClick={() => {
-          if (shareClicked === false) {
-           setShareClicked(true)
-           document.body.classList.add('bg-css')
-          } else {
-           setShareClicked(false)
-           document.body.classList.remove('bg-css')
-          }
-         }}
-        >
-         <ReplyIcon
-          fontSize="medium"
-          style={{
-           color: theme ? 'white' : 'black',
-           transform: 'rotateY(180deg)'
-          }}
-          className="sharee-icon"
-         />
-         <p className="share-txt">Share</p>
-        </div>
-
-        <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
-         <h3>
-          <LiaDownloadSolid fontSize={24} className="download-icon" />
-         </h3>
-         <p className="download-txt">Download</p>
-        </div>
-       </div>
-       <div className="second-c-data">
-        <div
-         className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
-         onClick={() => {
-          if (playlistClicked === false && user?.email) {
-           setPlaylistClicked(true)
-           document.body.classList.add('bg-css')
-          } else if (!user?.email) {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         <PlaylistAddIcon
-          fontSize="medium"
-          style={{
-           color: theme ? 'white' : 'black'
-          }}
-         />
-
-         <p>Playlist</p>
-        </div>
-       </div>
-       <div className="third-c-data">
-        <div
-         className={theme ? 'save-later' : 'save-later save-later-light text-light-mode'}
-         onClick={() => {
-          if (user?.email) {
-           saveVideo()
-          } else {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         {isSaved === true ? (
-          <BookmarkAddedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="save-video-icon"
-          />
-         ) : (
-          <BookmarkAddOutlinedIcon
-           fontSize="medium"
-           style={{
-            color: theme ? 'white' : 'black'
-           }}
-           className="save-video-icon"
-          />
-         )}
-         <p>{isSaved === true ? 'Saved' : 'Save'}</p>
-        </div>
-
-        <div
-         className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
-         onClick={() => {
-          if (playlistClicked === false && user?.email) {
-           setPlaylistClicked(true)
-           document.body.classList.add('bg-css')
-          } else if (!user?.email) {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         <PlaylistAddIcon
-          fontSize="medium"
-          style={{
-           color: theme ? 'white' : 'black'
-          }}
-         />
-
-         <p>Playlist</p>
-        </div>
-       </div>
-      </div>
-     </div>
-     <div className={theme ? 'description-section2' : 'description-section2-light text-light-mode feature-light3'}>
-      <div
-       className="views-date"
-       style={{
-        fontSize: '15.5px'
-       }}
-      >
-       <p>{views >= 1e9 ? `${(views / 1e9).toFixed(1)}B` : views >= 1e6 ? `${(views / 1e6).toFixed(1)}M` : views >= 1e3 ? `${(views / 1e3).toFixed(1)}K` : views} views</p>
-       <p
-        style={{
-         marginLeft: '10px'
-        }}
-       >
-        {(() => {
-         const timeDifference = new Date() - new Date(uploaded_date)
-         const minutes = Math.floor(timeDifference / 60000)
-         const hours = Math.floor(timeDifference / 3600000)
-         const days = Math.floor(timeDifference / 86400000)
-         const weeks = Math.floor(timeDifference / 604800000)
-         const years = Math.floor(timeDifference / 31536000000)
-         if (minutes < 1) {
-          return 'just now'
-         } else if (minutes < 60) {
-          return `${minutes} mins ago`
-         } else if (hours < 24) {
-          return `${hours} hours ago`
-         } else if (days < 7) {
-          return `${days} days ago`
-         } else if (weeks < 52) {
-          return `${weeks} weeks ago`
-         } else {
-          return `${years} years ago`
-         }
-        })()}
-       </p>
-      </div>
-      <div className="desc-data">
-       <p
-        style={
-         seeDesc === false
-          ? {
-             marginTop: '20px'
-            }
-          : {
-             display: 'none'
-            }
-        }
-        className="videos-desc"
-        dangerouslySetInnerHTML={{
-         __html: Description && formatDescriptionWithLinks(Description.length > 170 ? Description.substring(0, 170) + '...' : Description)
-        }}
-       />
-       <p
-        style={
-         seeDesc === true
-          ? {
-             marginTop: '20px'
-            }
-          : {
-             display: 'none'
-            }
-        }
-        className="videos-desc"
-        dangerouslySetInnerHTML={{
-         __html: Description && formatDescriptionWithLinks(Description)
-        }}
-       />
-       {Description && Description.length > 170 ? (
-        <p
-         className="desc-seemore"
-         onClick={() => setSeeDesc(!seeDesc)}
-         style={
-          seeDesc === false
-           ? {
-              display: 'block',
-              cursor: 'pointer'
-             }
-           : {
-              display: 'none'
-             }
-         }
-        >
-         See more...
-        </p>
-       ) : null}
-       {Description && Description.length > 170 ? (
-        <p
-         className="desc-seemore"
-         onClick={() => setSeeDesc(!seeDesc)}
-         style={
-          seeDesc === true
-           ? {
-              display: 'block',
-              cursor: 'pointer'
-             }
-           : {
-              display: 'none'
-             }
-         }
-        >
-         See less...
-        </p>
-       ) : null}
-      </div>
-     </div>
-     <div className="comments-section first-one">
-      <div className={theme ? 'total-comments' : 'total-comments text-light-mode'}>
-       <p>
-        {comments && comments.length} {comments && comments.length > 1 ? 'Comments' : 'Comment'}
-       </p>
-      </div>
-      {commentLoading === false ? (
-       <div className="my-comment-area">
-        <img src={userProfile ? userProfile : avatar} alt="channelDP" className="channelDP" loading="lazy" />
-        <input
-         className={theme ? 'comment-input' : 'comment-input text-light-mode'}
-         type="text"
-         name="myComment"
-         placeholder="Add a comment..."
-         value={comment}
-         onClick={() => {
-          setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'block'))
-         }}
-         onChange={e => {
-          setComment(e.target.value)
-         }}
-        />
-       </div>
-      ) : (
-       <div
-        className="my-comment-area"
-        style={{
-         width: '-webkit-fill-available',
-         justifyContent: 'center'
-        }}
-       >
-        <div
-         className="spin22"
-         style={{
-          position: 'relative',
-          top: '20px'
-         }}
-        >
-         <div className={theme ? 'loader2' : 'loader2-light'}></div>
-        </div>
-       </div>
-      )}
-      {commentLoading === false ? (
-       <div
-        className="comment-btns"
-        style={{
-         display: Display
-        }}
-       >
-        <button
-         className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
-         onClick={() => {
-          setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
-         }}
-        >
-         Cancel
-        </button>
-        <button
-         className={theme ? 'upload-comment' : 'upload-comment-light'}
-         onClick={() => {
-          if (user?.email && isChannel === true && comment !== '') {
-           setComment('')
-           uploadComment()
-          } else if (user?.email && isChannel !== true) {
-           alert('Create a channel first')
-          } else if (user?.email && isChannel === true && comment === '') {
-           alert("Comment can't be empty")
-          } else {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         Comment
-        </button>
-       </div>
-      ) : (
-       ''
-      )}
-
-      <div className="video-comments">
-       {comments?.sort()?.map((element, index) => {
-        return (
-         <>
-          <div
-           className="comment-data"
-           key={index}
-           style={{
-            transition: 'all 0.15s ease',
-            opacity: commentOpacity
-           }}
-          >
-           <div className="comment-left-data">
-            <img
-             src={element.user_profile}
-             alt="commentDP"
-             className="commentDP"
-             loading="lazy"
-             onClick={() => {
-              if (element.channel_id !== undefined) {
-               navigate(`/channel/${element.channel_id}`)
-              }
-             }}
-            />
-           </div>
-           <div className={theme ? 'comment-right-data' : 'comment-right-data text-light-mode'}>
-            <div className="comment-row1">
-             <p
-              onClick={() => {
-               if (element.channel_id !== undefined) {
-                navigate(`/channel/${element.channel_id}`)
-               }
-              }}
-              style={{
-               cursor: 'pointer'
-              }}
-             >
-              {element.username}
-             </p>
-             <p className="comment-time">
-              {(() => {
-               const timeDifference = new Date() - new Date(element.time)
-               const minutes = Math.floor(timeDifference / 60000)
-               const hours = Math.floor(timeDifference / 3600000)
-               const days = Math.floor(timeDifference / 86400000)
-               const weeks = Math.floor(timeDifference / 604800000)
-               const years = Math.floor(timeDifference / 31536000000)
-               if (minutes < 1) {
-                return 'just now'
-               } else if (minutes < 60) {
-                return `${minutes} mins ago`
-               } else if (hours < 24) {
-                return `${hours} hours ago`
-               } else if (days < 7) {
-                return `${days} days ago`
-               } else if (weeks < 52) {
-                return `${weeks} weeks ago`
-               } else {
-                return `${years} years ago`
-               }
-              })()}
-             </p>
-            </div>
-            <p className="main-comment">{element.comment}</p>
-            <div className="comment-interaction">
-             <ThumbUpIcon
-              fontSize="small"
-              style={{
-               color: theme ? 'white' : 'black',
-               cursor: 'pointer'
-              }}
-              onClick={() => {
-               if (user?.email) {
-                LikeComment(element._id)
-               } else {
-                setisbtnClicked(true)
-                document.body.classList.add('bg-css')
-               }
-              }}
-              className="comment-like"
-             />
-
-             <p
-              style={{
-               marginLeft: '16px'
-              }}
-             >
-              {commentLikes && commentLikes[index] && commentLikes[index].likes}
-             </p>
-
-             {isHeart[index] === false ? (
-              <FavoriteBorderOutlinedIcon
-               fontSize="small"
-               style={
-                user?.email === usermail
-                 ? {
-                    color: theme ? 'white' : 'black',
-                    marginLeft: '20px',
-                    cursor: 'pointer'
-                   }
-                 : {
-                    display: 'none'
-                   }
-               }
-               className="heart-comment"
-               onClick={() => {
-                if (user?.email === usermail) {
-                 HeartComment(element._id)
-                }
-               }}
-              />
-             ) : (
-              <div
-               className="heart-liked"
-               style={{
-                cursor: 'pointer'
-               }}
-               onClick={() => {
-                if (user?.email === usermail) {
-                 HeartComment(element._id)
-                }
-               }}
-              >
-               <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
-               <FavoriteIcon
-                fontSize="100px"
-                style={{
-                 color: 'rgb(220, 2, 2)'
-                }}
-                className="comment-heart"
-               />
-              </div>
-             )}
-
-             {element.user_email === user?.email || user?.email === usermail ? (
-              <button
-               className={theme ? 'delete-comment-btn' : 'delete-comment-btn-light text-dark-mode'}
-               style={{
-                marginLeft: '17px'
-               }}
-               onClick={() => DeleteComment(element._id)}
-              >
-               Delete
-              </button>
-             ) : (
-              ''
-             )}
-            </div>
-           </div>
-          </div>
-         </>
-        )
-       })}
-      </div>
      </div>
     </div>
-    {recommendLoading === true && (
-     <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
-      <div className="recommended-section">
-       <div className="recommend-tags">
-        <div className={TagSelected === 'All' ? `top-tags tag-one ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-one ${theme ? '' : 'tagcolor-newlight'}`}>
-         <p onClick={() => setTagSelected('All')}>All</p>
-        </div>
-        <div
-         className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
-         style={{
-          marginLeft: '10px'
-         }}
-        >
-         <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
-        </div>
-       </div>
-       <div className="video-section2">
-        {Array.from({
-         length: 10
-        }).map(() => (
-         <>
-          <div
-           className="video-data123"
-           style={{
-            marginTop: '10px'
-           }}
-          >
-           <div className="video-left-side">
-            <Skeleton
-             count={1}
-             width={190}
-             height={107}
-             style={{
-              borderRadius: '12px'
-             }}
-             className="sk-recommend-vid"
-            />
-           </div>
-           <div
-            className="video-right-side sk-right"
-            style={{
-             marginTop: '5px'
-            }}
-           >
-            <Skeleton count={1} width={250} height={32} className="sk-recommend-title" />
-            <Skeleton
-             count={1}
-             width={250}
-             height={15}
-             style={{
-              position: 'relative',
-              top: '10px'
-             }}
-             className="sk-recommend-basic1"
-            />
-            <Skeleton
-             count={1}
-             width={150}
-             height={15}
-             style={{
-              position: 'relative',
-              top: '15px'
-             }}
-             className="sk-recommend-basic2"
-            />
-           </div>
-          </div>
-         </>
-        ))}
-       </div>
-      </div>
-     </SkeletonTheme>
-    )}
-    <div
-     className="recommended-section"
-     style={
-      recommendLoading === true
-       ? {
-          visibility: 'hidden'
-         }
-       : {
-          visibility: 'visible'
-         }
-     }
-    >
-     <div className="recommend-tags">
-      <div className={TagSelected === 'All' ? `top-tags tag-one ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-one ${theme ? '' : 'tagcolor-newlight'}`}>
-       <p onClick={() => setTagSelected('All')}>All</p>
-      </div>
-      <div
-       className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
+    <div className={theme ? 'description-section2' : 'description-section2-light text-light-mode feature-light3'}>
+     <div
+      className="views-date"
+      style={{
+       fontSize: '15.5px'
+      }}
+     >
+      <p>{views >= 1e9 ? `${(views / 1e9).toFixed(1)}B` : views >= 1e6 ? `${(views / 1e6).toFixed(1)}M` : views >= 1e3 ? `${(views / 1e3).toFixed(1)}K` : views} views</p>
+      <p
        style={{
         marginLeft: '10px'
        }}
       >
-       <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
-      </div>
+       {(() => {
+        const timeDifference = new Date() - new Date(uploaded_date)
+        const minutes = Math.floor(timeDifference / 60000)
+        const hours = Math.floor(timeDifference / 3600000)
+        const days = Math.floor(timeDifference / 86400000)
+        const weeks = Math.floor(timeDifference / 604800000)
+        const years = Math.floor(timeDifference / 31536000000)
+        if (minutes < 1) {
+         return 'just now'
+        } else if (minutes < 60) {
+         return `${minutes} mins ago`
+        } else if (hours < 24) {
+         return `${hours} hours ago`
+        } else if (days < 7) {
+         return `${days} days ago`
+        } else if (weeks < 52) {
+         return `${weeks} weeks ago`
+        } else {
+         return `${years} years ago`
+        }
+       })()}
+      </p>
      </div>
-     <div
-      className="video-section2"
-      style={
-       TagSelected === 'All'
-        ? {
-           display: 'flex'
-          }
-        : {
-           display: 'none'
-          }
-      }
-     >
-      {thumbnails &&
-       !rec &&
-       thumbnails.map((element, index) => {
-        return (
-         <div
-          className="video-data12"
-          style={
-           element === thumbnailURL
-            ? {
-               display: 'none'
-              }
-            : {
-               display: 'flex'
-              }
-          }
-          key={index}
-          onClick={() => {
-           if (user?.email) {
-            updateViews(VideoID[index])
-            setTimeout(() => {
-             navigate(`/video/${VideoID[index]}`)
-            }, 400)
-           } else {
-            navigate(`/video/${VideoID[index]}`)
+     <div className="desc-data">
+      <p
+       style={
+        seeDesc === false
+         ? {
+            marginTop: '20px'
            }
-          }}
-         >
-          <div className="video-left-side">
-           <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
-           <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
-          </div>
-          <div className="video-right-side">
-           <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{Titles[index]}</p>
-           <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
-            <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{Uploader[index]}</p>
-
-            <CheckCircleIcon
-             fontSize="100px"
-             style={{
-              color: 'rgb(138, 138, 138)',
-              marginLeft: '4px'
-             }}
-            />
-           </div>
-           <div className="view-time">
-            <p className="views">{Views[index] >= 1e9 ? `${(Views[index] / 1e9).toFixed(1)}B` : Views[index] >= 1e6 ? `${(Views[index] / 1e6).toFixed(1)}M` : Views[index] >= 1e3 ? `${(Views[index] / 1e3).toFixed(1)}K` : Views[index]} views</p>
-            <p
-             className="upload-time"
-             style={{
-              marginLeft: '4px'
-             }}
-            >
-             &#x2022;{' '}
-             {(() => {
-              const timeDifference = new Date() - new Date(publishdate[index])
-              const minutes = Math.floor(timeDifference / 60000)
-              const hours = Math.floor(timeDifference / 3600000)
-              const days = Math.floor(timeDifference / 86400000)
-              const weeks = Math.floor(timeDifference / 604800000)
-              const years = Math.floor(timeDifference / 31536000000)
-              if (minutes < 1) {
-               return 'just now'
-              } else if (minutes < 60) {
-               return `${minutes} mins ago`
-              } else if (hours < 24) {
-               return `${hours} hours ago`
-              } else if (days < 7) {
-               return `${days} days ago`
-              } else if (weeks < 52) {
-               return `${weeks} weeks ago`
-              } else {
-               return `${years} years ago`
-              }
-             })()}
-            </p>
-           </div>
-          </div>
-         </div>
-        )
-       })}
-      {thumbnails &&
-       rec &&
-       thumbnails.slice(0, 12).map((element, index) => {
-        return (
-         <div
-          className="video-data12"
-          style={
-           element === thumbnailURL
-            ? {
-               display: 'none'
-              }
-            : {
-               display: 'flex'
-              }
-          }
-          key={index}
-          onClick={() => {
-           if (user?.email) {
-            updateViews(VideoID[index])
-            setTimeout(() => {
-             navigate(`/video/${VideoID[index]}`)
-            }, 400)
-           } else {
-            navigate(`/video/${VideoID[index]}`)
+         : {
+            display: 'none'
            }
-          }}
-         >
-          <div className="video-left-side">
-           <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
-           <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
-          </div>
-          <div className="video-right-side">
-           <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{Titles[index]}</p>
-           <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
-            <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{Uploader[index]}</p>
-
-            <CheckCircleIcon
-             fontSize="100px"
-             style={{
-              color: 'rgb(138, 138, 138)',
-              marginLeft: '4px'
-             }}
-            />
-           </div>
-           <div className="view-time">
-            <p className="views">{Views[index] >= 1e9 ? `${(Views[index] / 1e9).toFixed(1)}B` : Views[index] >= 1e6 ? `${(Views[index] / 1e6).toFixed(1)}M` : Views[index] >= 1e3 ? `${(Views[index] / 1e3).toFixed(1)}K` : Views[index]} views</p>
-            <p
-             className="upload-time"
-             style={{
-              marginLeft: '4px'
-             }}
-            >
-             &#x2022;{' '}
-             {(() => {
-              const timeDifference = new Date() - new Date(publishdate[index])
-              const minutes = Math.floor(timeDifference / 60000)
-              const hours = Math.floor(timeDifference / 3600000)
-              const days = Math.floor(timeDifference / 86400000)
-              const weeks = Math.floor(timeDifference / 604800000)
-              const years = Math.floor(timeDifference / 31536000000)
-              if (minutes < 1) {
-               return 'just now'
-              } else if (minutes < 60) {
-               return `${minutes} mins ago`
-              } else if (hours < 24) {
-               return `${hours} hours ago`
-              } else if (days < 7) {
-               return `${days} days ago`
-              } else if (weeks < 52) {
-               return `${weeks} weeks ago`
-              } else {
-               return `${years} years ago`
-              }
-             })()}
-            </p>
-           </div>
-          </div>
-         </div>
-        )
-       })}
-     </div>
-     <div
-      className="video-section23 userVideos"
-      style={
-       TagSelected !== 'All'
-        ? {
-           display: 'flex'
-          }
-        : {
-           display: 'none'
-          }
-      }
-     >
-      {userVideos &&
-       !rec &&
-       userVideos.length > 0 &&
-       userVideos.map((element, index) => {
-        return (
-         <div
-          className="video-data12"
-          style={
-           element.thumbnailURL === thumbnailURL
-            ? {
-               display: 'none'
-              }
-            : {
-               display: 'flex'
-              }
-          }
-          key={index}
-          onClick={() => {
-           if (user?.email) {
-            updateViews(element._id)
-            setTimeout(() => {
-             navigate(`/video/${element._id}`)
-            }, 400)
-           } else {
-            navigate(`/video/${element._id}`)
+       }
+       className="videos-desc"
+       dangerouslySetInnerHTML={{
+        __html: Description && formatDescriptionWithLinks(Description.length > 170 ? Description.substring(0, 170) + '...' : Description)
+       }}
+      />
+      <p
+       style={
+        seeDesc === true
+         ? {
+            marginTop: '20px'
            }
-          }}
-         >
-          <div className="video-left-side">
-           <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
-           <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
-          </div>
-          <div className="video-right-side">
-           <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{element.Title}</p>
-           <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
-            <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{element.uploader}</p>
-
-            <CheckCircleIcon
-             fontSize="100px"
-             style={{
-              color: 'rgb(138, 138, 138)',
-              marginLeft: '4px'
-             }}
-            />
-           </div>
-           <div className="view-time">
-            <p className="views">{element.views >= 1e9 ? `${(element.views / 1e9).toFixed(1)}B` : element.views >= 1e6 ? `${(element.views / 1e6).toFixed(1)}M` : element.views >= 1e3 ? `${(element.views / 1e3).toFixed(1)}K` : element.views} views</p>
-            <p
-             className="upload-time"
-             style={{
-              marginLeft: '4px'
-             }}
-            >
-             &#x2022;{' '}
-             {(() => {
-              const timeDifference = new Date() - new Date(element.uploaded_date)
-              const minutes = Math.floor(timeDifference / 60000)
-              const hours = Math.floor(timeDifference / 3600000)
-              const days = Math.floor(timeDifference / 86400000)
-              const weeks = Math.floor(timeDifference / 604800000)
-              const years = Math.floor(timeDifference / 31536000000)
-              if (minutes < 1) {
-               return 'just now'
-              } else if (minutes < 60) {
-               return `${minutes} mins ago`
-              } else if (hours < 24) {
-               return `${hours} hours ago`
-              } else if (days < 7) {
-               return `${days} days ago`
-              } else if (weeks < 52) {
-               return `${weeks} weeks ago`
-              } else {
-               return `${years} years ago`
-              }
-             })()}
-            </p>
-           </div>
-          </div>
-         </div>
-        )
-       })}
-      {userVideos &&
-       rec &&
-       userVideos.length > 0 &&
-       userVideos.slice(0, 12).map((element, index) => {
-        return (
-         <div
-          className="video-data12"
-          style={
-           element.thumbnailURL === thumbnailURL
-            ? {
-               display: 'none'
-              }
-            : {
-               display: 'flex'
-              }
-          }
-          key={index}
-          onClick={() => {
-           if (user?.email) {
-            updateViews(element._id)
-            setTimeout(() => {
-             navigate(`/video/${element._id}`)
-            }, 400)
-           } else {
-            navigate(`/video/${element._id}`)
+         : {
+            display: 'none'
            }
-          }}
-         >
-          <div className="video-left-side">
-           <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
-           <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
-          </div>
-          <div className="video-right-side">
-           <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{element.Title}</p>
-           <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
-            <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{element.uploader}</p>
-
-            <CheckCircleIcon
-             fontSize="100px"
-             style={{
-              color: 'rgb(138, 138, 138)',
-              marginLeft: '4px'
-             }}
-            />
-           </div>
-           <div className="view-time">
-            <p className="views">{element.views >= 1e9 ? `${(element.views / 1e9).toFixed(1)}B` : element.views >= 1e6 ? `${(element.views / 1e6).toFixed(1)}M` : element.views >= 1e3 ? `${(element.views / 1e3).toFixed(1)}K` : element.views} views</p>
-            <p
-             className="upload-time"
-             style={{
-              marginLeft: '4px'
-             }}
-            >
-             &#x2022;{' '}
-             {(() => {
-              const timeDifference = new Date() - new Date(element.uploaded_date)
-              const minutes = Math.floor(timeDifference / 60000)
-              const hours = Math.floor(timeDifference / 3600000)
-              const days = Math.floor(timeDifference / 86400000)
-              const weeks = Math.floor(timeDifference / 604800000)
-              const years = Math.floor(timeDifference / 31536000000)
-              if (minutes < 1) {
-               return 'just now'
-              } else if (minutes < 60) {
-               return `${minutes} mins ago`
-              } else if (hours < 24) {
-               return `${hours} hours ago`
-              } else if (days < 7) {
-               return `${days} days ago`
-              } else if (weeks < 52) {
-               return `${weeks} weeks ago`
-              } else {
-               return `${years} years ago`
-              }
-             })()}
-            </p>
-           </div>
-          </div>
-         </div>
-        )
-       })}
-     </div>
-
-     {/* SECOND COMMENT OPTIONS  */}
-
-     <div className="comments-section second-one">
-      <div className={theme ? 'total-comments' : 'total-comments text-light-mode'}>
-       <p>
-        {comments && comments.length} {comments && comments.length > 1 ? 'Comments' : 'Comment'}
+       }
+       className="videos-desc"
+       dangerouslySetInnerHTML={{
+        __html: Description && formatDescriptionWithLinks(Description)
+       }}
+      />
+      {Description && Description.length > 170 ? (
+       <p
+        className="desc-seemore"
+        onClick={() => setSeeDesc(!seeDesc)}
+        style={
+         seeDesc === false
+          ? {
+             display: 'block',
+             cursor: 'pointer'
+            }
+          : {
+             display: 'none'
+            }
+        }
+       >
+        See more...
        </p>
+      ) : null}
+      {Description && Description.length > 170 ? (
+       <p
+        className="desc-seemore"
+        onClick={() => setSeeDesc(!seeDesc)}
+        style={
+         seeDesc === true
+          ? {
+             display: 'block',
+             cursor: 'pointer'
+            }
+          : {
+             display: 'none'
+            }
+        }
+       >
+        See less...
+       </p>
+      ) : null}
+     </div>
+    </div>
+    <div className="comments-section first-one">
+     <div className={theme ? 'total-comments' : 'total-comments text-light-mode'}>
+      <p>
+       {comments && comments.length} {comments && comments.length > 1 ? 'Comments' : 'Comment'}
+      </p>
+     </div>
+     {commentLoading === false ? (
+      <div className="my-comment-area">
+       <img src={userProfile ? userProfile : avatar} alt="channelDP" className="channelDP" loading="lazy" />
+       <input
+        className={theme ? 'comment-input' : 'comment-input text-light-mode'}
+        type="text"
+        name="myComment"
+        placeholder="Add a comment..."
+        value={comment}
+        onClick={() => {
+         setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'block'))
+        }}
+        onChange={e => {
+         setComment(e.target.value)
+        }}
+       />
       </div>
-      {commentLoading === false ? (
-       <div className="my-comment-area">
-        <img src={userProfile ? userProfile : avatar} alt="channelDP" className="channelDP" loading="lazy" />
-        <input
-         className={theme ? 'comment-input' : 'comment-input text-light-mode'}
-         type="text"
-         name="myComment"
-         placeholder="Add a comment..."
-         value={comment}
-         onClick={() => {
-          setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'block'))
-         }}
-         onChange={e => {
-          setComment(e.target.value)
-         }}
-        />
-       </div>
-      ) : (
+     ) : (
+      <div
+       className="my-comment-area"
+       style={{
+        width: '-webkit-fill-available',
+        justifyContent: 'center'
+       }}
+      >
        <div
-        className="my-comment-area"
+        className="spin22"
         style={{
-         width: '-webkit-fill-available',
-         justifyContent: 'center'
+         position: 'relative',
+         top: '20px'
         }}
        >
-        <div
-         className="spin22"
-         style={{
-          position: 'relative',
-          top: '20px'
-         }}
-        >
-         <div className={theme ? 'loader2' : 'loader2-light'}></div>
-        </div>
+        <div className={theme ? 'loader2' : 'loader2-light'}></div>
        </div>
-      )}
-      {commentLoading === false ? (
-       <div
-        className="comment-btns"
-        style={{
-         display: Display
+      </div>
+     )}
+     {commentLoading === false ? (
+      <div
+       className="comment-btns"
+       style={{
+        display: Display
+       }}
+      >
+       <button
+        className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
+        onClick={() => {
+         setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
         }}
        >
-        <button
-         className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
-         onClick={() => {
-          setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
-         }}
-        >
-         Cancel
-        </button>
-        <button
-         className={theme ? 'upload-comment' : 'upload-comment-light'}
-         onClick={() => {
-          if (user?.email && isChannel === true && comment !== '') {
-           setComment('')
-           uploadComment()
-          } else if (user?.email && isChannel !== true) {
-           alert('Create a channel first')
-          } else if (user?.email && isChannel === true && comment === '') {
-           alert("Comment can't be empty")
-          } else {
-           setisbtnClicked(true)
-           document.body.classList.add('bg-css')
-          }
-         }}
-        >
-         Comment
-        </button>
-       </div>
-      ) : (
-       ''
-      )}
+        Cancel
+       </button>
+       <button
+        className={theme ? 'upload-comment' : 'upload-comment-light'}
+        onClick={() => {
+         if (user?.email && isChannel === true && comment !== '') {
+          setComment('')
+          uploadComment()
+         } else if (user?.email && isChannel !== true) {
+          alert('Create a channel first')
+         } else if (user?.email && isChannel === true && comment === '') {
+          alert("Comment can't be empty")
+         } else {
+          setisbtnClicked(true)
+          document.body.classList.add('bg-css')
+         }
+        }}
+       >
+        Comment
+       </button>
+      </div>
+     ) : (
+      ''
+     )}
 
-      <div className="video-comments">
-       {comments?.sort()?.map((element, index) => {
-        return (
-         <>
-          <div
-           className="comment-data"
-           key={index}
-           style={{
-            transition: 'all 0.15s ease',
-            opacity: commentOpacity
-           }}
-          >
-           <div className="comment-left-data">
-            <img
-             src={element.user_profile}
-             alt="commentDP"
-             className="commentDP"
-             loading="lazy"
+     <div className="video-comments">
+      {comments?.sort()?.map((element, index) => {
+       return (
+        <>
+         <div
+          className="comment-data"
+          key={index}
+          style={{
+           transition: 'all 0.15s ease',
+           opacity: commentOpacity
+          }}
+         >
+          <div className="comment-left-data">
+           <img
+            src={element.user_profile}
+            alt="commentDP"
+            className="commentDP"
+            loading="lazy"
+            onClick={() => {
+             if (element.channel_id !== undefined) {
+              navigate(`/channel/${element.channel_id}`)
+             }
+            }}
+           />
+          </div>
+          <div className={theme ? 'comment-right-data' : 'comment-right-data text-light-mode'}>
+           <div className="comment-row1">
+            <p
              onClick={() => {
               if (element.channel_id !== undefined) {
                navigate(`/channel/${element.channel_id}`)
               }
              }}
-            />
+             style={{
+              cursor: 'pointer'
+             }}
+            >
+             {element.username}
+            </p>
+            <p className="comment-time">
+             {(() => {
+              const timeDifference = new Date() - new Date(element.time)
+              const minutes = Math.floor(timeDifference / 60000)
+              const hours = Math.floor(timeDifference / 3600000)
+              const days = Math.floor(timeDifference / 86400000)
+              const weeks = Math.floor(timeDifference / 604800000)
+              const years = Math.floor(timeDifference / 31536000000)
+              if (minutes < 1) {
+               return 'just now'
+              } else if (minutes < 60) {
+               return `${minutes} mins ago`
+              } else if (hours < 24) {
+               return `${hours} hours ago`
+              } else if (days < 7) {
+               return `${days} days ago`
+              } else if (weeks < 52) {
+               return `${weeks} weeks ago`
+              } else {
+               return `${years} years ago`
+              }
+             })()}
+            </p>
            </div>
-           <div className={theme ? 'comment-right-data' : 'comment-right-data text-light-mode'}>
-            <div className="comment-row1">
-             <p
-              onClick={() => {
-               if (element.channel_id !== undefined) {
-                navigate(`/channel/${element.channel_id}`)
-               }
-              }}
-              style={{
-               cursor: 'pointer'
-              }}
-             >
-              {element.username}
-             </p>
-             <p className="comment-time">
-              {(() => {
-               const timeDifference = new Date() - new Date(element.time)
-               const minutes = Math.floor(timeDifference / 60000)
-               const hours = Math.floor(timeDifference / 3600000)
-               const days = Math.floor(timeDifference / 86400000)
-               const weeks = Math.floor(timeDifference / 604800000)
-               const years = Math.floor(timeDifference / 31536000000)
-               if (minutes < 1) {
-                return 'just now'
-               } else if (minutes < 60) {
-                return `${minutes} mins ago`
-               } else if (hours < 24) {
-                return `${hours} hours ago`
-               } else if (days < 7) {
-                return `${days} days ago`
-               } else if (weeks < 52) {
-                return `${weeks} weeks ago`
-               } else {
-                return `${years} years ago`
-               }
-              })()}
-             </p>
-            </div>
-            <p className="main-comment">{element.comment}</p>
-            <div className="comment-interaction">
-             <ThumbUpIcon
+           <p className="main-comment">{element.comment}</p>
+           <div className="comment-interaction">
+            <ThumbUpIcon
+             fontSize="small"
+             style={{
+              color: theme ? 'white' : 'black',
+              cursor: 'pointer'
+             }}
+             onClick={() => {
+              if (user?.email) {
+               LikeComment(element._id)
+              } else {
+               setisbtnClicked(true)
+               document.body.classList.add('bg-css')
+              }
+             }}
+             className="comment-like"
+            />
+
+            <p
+             style={{
+              marginLeft: '16px'
+             }}
+            >
+             {commentLikes && commentLikes[index] && commentLikes[index].likes}
+            </p>
+
+            {isHeart[index] === false ? (
+             <FavoriteBorderOutlinedIcon
               fontSize="small"
+              style={
+               user?.email === usermail
+                ? {
+                   color: theme ? 'white' : 'black',
+                   marginLeft: '20px',
+                   cursor: 'pointer'
+                  }
+                : {
+                   display: 'none'
+                  }
+              }
+              className="heart-comment"
+              onClick={() => {
+               if (user?.email === usermail) {
+                HeartComment(element._id)
+               }
+              }}
+             />
+            ) : (
+             <div
+              className="heart-liked"
               style={{
-               color: theme ? 'white' : 'black',
                cursor: 'pointer'
               }}
               onClick={() => {
-               if (user?.email) {
-                LikeComment(element._id)
-               } else {
-                setisbtnClicked(true)
-                document.body.classList.add('bg-css')
+               if (user?.email === usermail) {
+                HeartComment(element._id)
                }
-              }}
-              className="comment-like"
-             />
-
-             <p
-              style={{
-               marginLeft: '16px'
               }}
              >
-              {commentLikes && commentLikes[index] && commentLikes[index].likes}
-             </p>
-
-             {isHeart[index] === false ? (
-              <FavoriteBorderOutlinedIcon
-               fontSize="small"
-               style={
-                user?.email === usermail
-                 ? {
-                    color: theme ? 'white' : 'black',
-                    marginLeft: '20px',
-                    cursor: 'pointer'
-                   }
-                 : {
-                    display: 'none'
-                   }
-               }
-               className="heart-comment"
-               onClick={() => {
-                if (user?.email === usermail) {
-                 HeartComment(element._id)
-                }
+              <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
+              <FavoriteIcon
+               fontSize="100px"
+               style={{
+                color: 'rgb(220, 2, 2)'
                }}
+               className="comment-heart"
               />
-             ) : (
-              <div
-               className="heart-liked"
-               style={{
-                cursor: 'pointer'
-               }}
-               onClick={() => {
-                if (user?.email === usermail) {
-                 HeartComment(element._id)
-                }
-               }}
-              >
-               <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
-               <FavoriteIcon
-                fontSize="100px"
-                style={{
-                 color: 'rgb(220, 2, 2)'
-                }}
-                className="comment-heart"
-               />
-              </div>
-             )}
+             </div>
+            )}
 
-             {element.user_email === user?.email || user?.email === usermail ? (
-              <button
-               className={theme ? 'delete-comment-btn' : 'delete-comment-btn-light text-dark-mode'}
-               style={{
-                marginLeft: '17px'
-               }}
-               onClick={() => DeleteComment(element._id)}
-              >
-               Delete
-              </button>
-             ) : (
-              ''
-             )}
-            </div>
+            {element.user_email === user?.email || user?.email === usermail ? (
+             <button
+              className={theme ? 'delete-comment-btn' : 'delete-comment-btn-light text-dark-mode'}
+              style={{
+               marginLeft: '17px'
+              }}
+              onClick={() => DeleteComment(element._id)}
+             >
+              Delete
+             </button>
+            ) : (
+             ''
+            )}
            </div>
           </div>
-         </>
-        )
-       })}
-      </div>
+         </div>
+        </>
+       )
+      })}
      </div>
     </div>
    </div>
+   {recommendLoading === true && (
+    <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
+     <div className="recommended-section">
+      <div className="recommend-tags">
+       <div className={TagSelected === 'All' ? `top-tags tag-one ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-one ${theme ? '' : 'tagcolor-newlight'}`}>
+        <p onClick={() => setTagSelected('All')}>All</p>
+       </div>
+       <div
+        className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
+        style={{
+         marginLeft: '10px'
+        }}
+       >
+        <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
+       </div>
+      </div>
+      <div className="video-section2">
+       {Array.from({
+        length: 10
+       }).map(() => (
+        <>
+         <div
+          className="video-data123"
+          style={{
+           marginTop: '10px'
+          }}
+         >
+          <div className="video-left-side">
+           <Skeleton
+            count={1}
+            width={190}
+            height={107}
+            style={{
+             borderRadius: '12px'
+            }}
+            className="sk-recommend-vid"
+           />
+          </div>
+          <div
+           className="video-right-side sk-right"
+           style={{
+            marginTop: '5px'
+           }}
+          >
+           <Skeleton count={1} width={250} height={32} className="sk-recommend-title" />
+           <Skeleton
+            count={1}
+            width={250}
+            height={15}
+            style={{
+             position: 'relative',
+             top: '10px'
+            }}
+            className="sk-recommend-basic1"
+           />
+           <Skeleton
+            count={1}
+            width={150}
+            height={15}
+            style={{
+             position: 'relative',
+             top: '15px'
+            }}
+            className="sk-recommend-basic2"
+           />
+          </div>
+         </div>
+        </>
+       ))}
+      </div>
+     </div>
+    </SkeletonTheme>
+   )}
    <div
-    className="share-clicked"
+    className="recommended-section"
     style={
-     shareClicked === true
+     recommendLoading === true
       ? {
-         display: 'block'
+         visibility: 'hidden'
         }
       : {
-         display: 'none'
+         visibility: 'visible'
         }
     }
    >
-    <Share />
-   </div>
-
-   {/* SIGNUP/SIGNIN  */}
-
-   <div
-    className={theme ? 'auth-popup' : 'auth-popup light-mode text-light-mode'}
-    style={
-     isbtnClicked === true
-      ? {
-         display: 'block'
-        }
-      : {
-         display: 'none'
-        }
-    }
-   >
-    <ClearRoundedIcon
-     onClick={() => {
-      if (isbtnClicked === false) {
-       setisbtnClicked(true)
-      } else {
-       setisbtnClicked(false)
-       document.body.classList.remove('bg-css')
-      }
-     }}
-     className="cancel"
-     fontSize="large"
-     style={{
-      color: 'gray'
-     }}
-    />
+    <div className="recommend-tags">
+     <div className={TagSelected === 'All' ? `top-tags tag-one ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-one ${theme ? '' : 'tagcolor-newlight'}`}>
+      <p onClick={() => setTagSelected('All')}>All</p>
+     </div>
+     <div
+      className={TagSelected === uploader ? `top-tags tag-two ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags tag-two ${theme ? '' : 'tagcolor-newlight'}`}
+      style={{
+       marginLeft: '10px'
+      }}
+     >
+      <p onClick={() => setTagSelected(`${uploader}`)}>From {uploader}</p>
+     </div>
+    </div>
     <div
-     className="signup-last"
+     className="video-section2"
      style={
-      isSwitch === false
+      TagSelected === 'All'
        ? {
-          display: 'block'
+          display: 'flex'
          }
        : {
           display: 'none'
          }
      }
     >
-     <Signup />
+     {thumbnails &&
+      !rec &&
+      thumbnails.map((element, index) => {
+       return (
+        <div
+         className="video-data12"
+         style={
+          element === thumbnailURL
+           ? {
+              display: 'none'
+             }
+           : {
+              display: 'flex'
+             }
+         }
+         key={index}
+         onClick={() => {
+          if (user?.email) {
+           updateViews(VideoID[index])
+           setTimeout(() => {
+            navigate(`/video/${VideoID[index]}`)
+           }, 400)
+          } else {
+           navigate(`/video/${VideoID[index]}`)
+          }
+         }}
+        >
+         <div className="video-left-side">
+          <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
+          <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
+         </div>
+         <div className="video-right-side">
+          <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{Titles[index]}</p>
+          <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
+           <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{Uploader[index]}</p>
+
+           <CheckCircleIcon
+            fontSize="100px"
+            style={{
+             color: 'rgb(138, 138, 138)',
+             marginLeft: '4px'
+            }}
+           />
+          </div>
+          <div className="view-time">
+           <p className="views">{Views[index] >= 1e9 ? `${(Views[index] / 1e9).toFixed(1)}B` : Views[index] >= 1e6 ? `${(Views[index] / 1e6).toFixed(1)}M` : Views[index] >= 1e3 ? `${(Views[index] / 1e3).toFixed(1)}K` : Views[index]} views</p>
+           <p
+            className="upload-time"
+            style={{
+             marginLeft: '4px'
+            }}
+           >
+            &#x2022;{' '}
+            {(() => {
+             const timeDifference = new Date() - new Date(publishdate[index])
+             const minutes = Math.floor(timeDifference / 60000)
+             const hours = Math.floor(timeDifference / 3600000)
+             const days = Math.floor(timeDifference / 86400000)
+             const weeks = Math.floor(timeDifference / 604800000)
+             const years = Math.floor(timeDifference / 31536000000)
+             if (minutes < 1) {
+              return 'just now'
+             } else if (minutes < 60) {
+              return `${minutes} mins ago`
+             } else if (hours < 24) {
+              return `${hours} hours ago`
+             } else if (days < 7) {
+              return `${days} days ago`
+             } else if (weeks < 52) {
+              return `${weeks} weeks ago`
+             } else {
+              return `${years} years ago`
+             }
+            })()}
+           </p>
+          </div>
+         </div>
+        </div>
+       )
+      })}
+     {thumbnails &&
+      rec &&
+      thumbnails.slice(0, 12).map((element, index) => {
+       return (
+        <div
+         className="video-data12"
+         style={
+          element === thumbnailURL
+           ? {
+              display: 'none'
+             }
+           : {
+              display: 'flex'
+             }
+         }
+         key={index}
+         onClick={() => {
+          if (user?.email) {
+           updateViews(VideoID[index])
+           setTimeout(() => {
+            navigate(`/video/${VideoID[index]}`)
+           }, 400)
+          } else {
+           navigate(`/video/${VideoID[index]}`)
+          }
+         }}
+        >
+         <div className="video-left-side">
+          <img src={element} alt="" className="recommend-thumbnails" loading="lazy" />
+          <p className="duration duration2">{Math.floor(duration[index] / 60) + ':' + (Math.round(duration[index] % 60) < 10 ? '0' + Math.round(duration[index] % 60) : Math.round(duration[index] % 60))}</p>
+         </div>
+         <div className="video-right-side">
+          <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{Titles[index]}</p>
+          <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
+           <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{Uploader[index]}</p>
+
+           <CheckCircleIcon
+            fontSize="100px"
+            style={{
+             color: 'rgb(138, 138, 138)',
+             marginLeft: '4px'
+            }}
+           />
+          </div>
+          <div className="view-time">
+           <p className="views">{Views[index] >= 1e9 ? `${(Views[index] / 1e9).toFixed(1)}B` : Views[index] >= 1e6 ? `${(Views[index] / 1e6).toFixed(1)}M` : Views[index] >= 1e3 ? `${(Views[index] / 1e3).toFixed(1)}K` : Views[index]} views</p>
+           <p
+            className="upload-time"
+            style={{
+             marginLeft: '4px'
+            }}
+           >
+            &#x2022;{' '}
+            {(() => {
+             const timeDifference = new Date() - new Date(publishdate[index])
+             const minutes = Math.floor(timeDifference / 60000)
+             const hours = Math.floor(timeDifference / 3600000)
+             const days = Math.floor(timeDifference / 86400000)
+             const weeks = Math.floor(timeDifference / 604800000)
+             const years = Math.floor(timeDifference / 31536000000)
+             if (minutes < 1) {
+              return 'just now'
+             } else if (minutes < 60) {
+              return `${minutes} mins ago`
+             } else if (hours < 24) {
+              return `${hours} hours ago`
+             } else if (days < 7) {
+              return `${days} days ago`
+             } else if (weeks < 52) {
+              return `${weeks} weeks ago`
+             } else {
+              return `${years} years ago`
+             }
+            })()}
+           </p>
+          </div>
+         </div>
+        </div>
+       )
+      })}
+    </div>
+    <div
+     className="video-section23 userVideos"
+     style={
+      TagSelected !== 'All'
+       ? {
+          display: 'flex'
+         }
+       : {
+          display: 'none'
+         }
+     }
+    >
+     {userVideos &&
+      !rec &&
+      userVideos.length > 0 &&
+      userVideos.map((element, index) => {
+       return (
+        <div
+         className="video-data12"
+         style={
+          element.thumbnailURL === thumbnailURL
+           ? {
+              display: 'none'
+             }
+           : {
+              display: 'flex'
+             }
+         }
+         key={index}
+         onClick={() => {
+          if (user?.email) {
+           updateViews(element._id)
+           setTimeout(() => {
+            navigate(`/video/${element._id}`)
+           }, 400)
+          } else {
+           navigate(`/video/${element._id}`)
+          }
+         }}
+        >
+         <div className="video-left-side">
+          <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
+          <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
+         </div>
+         <div className="video-right-side">
+          <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{element.Title}</p>
+          <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
+           <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{element.uploader}</p>
+
+           <CheckCircleIcon
+            fontSize="100px"
+            style={{
+             color: 'rgb(138, 138, 138)',
+             marginLeft: '4px'
+            }}
+           />
+          </div>
+          <div className="view-time">
+           <p className="views">{element.views >= 1e9 ? `${(element.views / 1e9).toFixed(1)}B` : element.views >= 1e6 ? `${(element.views / 1e6).toFixed(1)}M` : element.views >= 1e3 ? `${(element.views / 1e3).toFixed(1)}K` : element.views} views</p>
+           <p
+            className="upload-time"
+            style={{
+             marginLeft: '4px'
+            }}
+           >
+            &#x2022;{' '}
+            {(() => {
+             const timeDifference = new Date() - new Date(element.uploaded_date)
+             const minutes = Math.floor(timeDifference / 60000)
+             const hours = Math.floor(timeDifference / 3600000)
+             const days = Math.floor(timeDifference / 86400000)
+             const weeks = Math.floor(timeDifference / 604800000)
+             const years = Math.floor(timeDifference / 31536000000)
+             if (minutes < 1) {
+              return 'just now'
+             } else if (minutes < 60) {
+              return `${minutes} mins ago`
+             } else if (hours < 24) {
+              return `${hours} hours ago`
+             } else if (days < 7) {
+              return `${days} days ago`
+             } else if (weeks < 52) {
+              return `${weeks} weeks ago`
+             } else {
+              return `${years} years ago`
+             }
+            })()}
+           </p>
+          </div>
+         </div>
+        </div>
+       )
+      })}
+     {userVideos &&
+      rec &&
+      userVideos.length > 0 &&
+      userVideos.slice(0, 12).map((element, index) => {
+       return (
+        <div
+         className="video-data12"
+         style={
+          element.thumbnailURL === thumbnailURL
+           ? {
+              display: 'none'
+             }
+           : {
+              display: 'flex'
+             }
+         }
+         key={index}
+         onClick={() => {
+          if (user?.email) {
+           updateViews(element._id)
+           setTimeout(() => {
+            navigate(`/video/${element._id}`)
+           }, 400)
+          } else {
+           navigate(`/video/${element._id}`)
+          }
+         }}
+        >
+         <div className="video-left-side">
+          <img src={element.thumbnailURL} alt="" className="recommend-thumbnails" loading="lazy" />
+          <p className="duration duration2">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
+         </div>
+         <div className="video-right-side">
+          <p className={theme ? 'recommend-vid-title' : 'recommend-vid-title text-light-mode'}>{element.Title}</p>
+          <div className={theme ? 'recommend-uploader' : 'recommend-uploader text-light-mode2'}>
+           <p className={theme ? 'recommend-vid-uploader uploader' : 'recommend-vid-uploader uploader nohover'}>{element.uploader}</p>
+
+           <CheckCircleIcon
+            fontSize="100px"
+            style={{
+             color: 'rgb(138, 138, 138)',
+             marginLeft: '4px'
+            }}
+           />
+          </div>
+          <div className="view-time">
+           <p className="views">{element.views >= 1e9 ? `${(element.views / 1e9).toFixed(1)}B` : element.views >= 1e6 ? `${(element.views / 1e6).toFixed(1)}M` : element.views >= 1e3 ? `${(element.views / 1e3).toFixed(1)}K` : element.views} views</p>
+           <p
+            className="upload-time"
+            style={{
+             marginLeft: '4px'
+            }}
+           >
+            &#x2022;{' '}
+            {(() => {
+             const timeDifference = new Date() - new Date(element.uploaded_date)
+             const minutes = Math.floor(timeDifference / 60000)
+             const hours = Math.floor(timeDifference / 3600000)
+             const days = Math.floor(timeDifference / 86400000)
+             const weeks = Math.floor(timeDifference / 604800000)
+             const years = Math.floor(timeDifference / 31536000000)
+             if (minutes < 1) {
+              return 'just now'
+             } else if (minutes < 60) {
+              return `${minutes} mins ago`
+             } else if (hours < 24) {
+              return `${hours} hours ago`
+             } else if (days < 7) {
+              return `${days} days ago`
+             } else if (weeks < 52) {
+              return `${weeks} weeks ago`
+             } else {
+              return `${years} years ago`
+             }
+            })()}
+           </p>
+          </div>
+         </div>
+        </div>
+       )
+      })}
+    </div>
+
+    {/* SECOND COMMENT OPTIONS  */}
+
+    <div className="comments-section second-one">
+     <div className={theme ? 'total-comments' : 'total-comments text-light-mode'}>
+      <p>
+       {comments && comments.length} {comments && comments.length > 1 ? 'Comments' : 'Comment'}
+      </p>
+     </div>
+     {commentLoading === false ? (
+      <div className="my-comment-area">
+       <img src={userProfile ? userProfile : avatar} alt="channelDP" className="channelDP" loading="lazy" />
+       <input
+        className={theme ? 'comment-input' : 'comment-input text-light-mode'}
+        type="text"
+        name="myComment"
+        placeholder="Add a comment..."
+        value={comment}
+        onClick={() => {
+         setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'block'))
+        }}
+        onChange={e => {
+         setComment(e.target.value)
+        }}
+       />
+      </div>
+     ) : (
+      <div
+       className="my-comment-area"
+       style={{
+        width: '-webkit-fill-available',
+        justifyContent: 'center'
+       }}
+      >
+       <div
+        className="spin22"
+        style={{
+         position: 'relative',
+         top: '20px'
+        }}
+       >
+        <div className={theme ? 'loader2' : 'loader2-light'}></div>
+       </div>
+      </div>
+     )}
+     {commentLoading === false ? (
+      <div
+       className="comment-btns"
+       style={{
+        display: Display
+       }}
+      >
+       <button
+        className={theme ? 'cancel-comment' : 'cancel-comment text-light-mode'}
+        onClick={() => {
+         setDisplay(prevDisplay => (prevDisplay === 'none' ? 'block' : 'none'))
+        }}
+       >
+        Cancel
+       </button>
+       <button
+        className={theme ? 'upload-comment' : 'upload-comment-light'}
+        onClick={() => {
+         if (user?.email && isChannel === true && comment !== '') {
+          setComment('')
+          uploadComment()
+         } else if (user?.email && isChannel !== true) {
+          alert('Create a channel first')
+         } else if (user?.email && isChannel === true && comment === '') {
+          alert("Comment can't be empty")
+         } else {
+          setisbtnClicked(true)
+          document.body.classList.add('bg-css')
+         }
+        }}
+       >
+        Comment
+       </button>
+      </div>
+     ) : (
+      ''
+     )}
+
+     <div className="video-comments">
+      {comments?.sort()?.map((element, index) => {
+       return (
+        <>
+         <div
+          className="comment-data"
+          key={index}
+          style={{
+           transition: 'all 0.15s ease',
+           opacity: commentOpacity
+          }}
+         >
+          <div className="comment-left-data">
+           <img
+            src={element.user_profile}
+            alt="commentDP"
+            className="commentDP"
+            loading="lazy"
+            onClick={() => {
+             if (element.channel_id !== undefined) {
+              navigate(`/channel/${element.channel_id}`)
+             }
+            }}
+           />
+          </div>
+          <div className={theme ? 'comment-right-data' : 'comment-right-data text-light-mode'}>
+           <div className="comment-row1">
+            <p
+             onClick={() => {
+              if (element.channel_id !== undefined) {
+               navigate(`/channel/${element.channel_id}`)
+              }
+             }}
+             style={{
+              cursor: 'pointer'
+             }}
+            >
+             {element.username}
+            </p>
+            <p className="comment-time">
+             {(() => {
+              const timeDifference = new Date() - new Date(element.time)
+              const minutes = Math.floor(timeDifference / 60000)
+              const hours = Math.floor(timeDifference / 3600000)
+              const days = Math.floor(timeDifference / 86400000)
+              const weeks = Math.floor(timeDifference / 604800000)
+              const years = Math.floor(timeDifference / 31536000000)
+              if (minutes < 1) {
+               return 'just now'
+              } else if (minutes < 60) {
+               return `${minutes} mins ago`
+              } else if (hours < 24) {
+               return `${hours} hours ago`
+              } else if (days < 7) {
+               return `${days} days ago`
+              } else if (weeks < 52) {
+               return `${weeks} weeks ago`
+              } else {
+               return `${years} years ago`
+              }
+             })()}
+            </p>
+           </div>
+           <p className="main-comment">{element.comment}</p>
+           <div className="comment-interaction">
+            <ThumbUpIcon
+             fontSize="small"
+             style={{
+              color: theme ? 'white' : 'black',
+              cursor: 'pointer'
+             }}
+             onClick={() => {
+              if (user?.email) {
+               LikeComment(element._id)
+              } else {
+               setisbtnClicked(true)
+               document.body.classList.add('bg-css')
+              }
+             }}
+             className="comment-like"
+            />
+
+            <p
+             style={{
+              marginLeft: '16px'
+             }}
+            >
+             {commentLikes && commentLikes[index] && commentLikes[index].likes}
+            </p>
+
+            {isHeart[index] === false ? (
+             <FavoriteBorderOutlinedIcon
+              fontSize="small"
+              style={
+               user?.email === usermail
+                ? {
+                   color: theme ? 'white' : 'black',
+                   marginLeft: '20px',
+                   cursor: 'pointer'
+                  }
+                : {
+                   display: 'none'
+                  }
+              }
+              className="heart-comment"
+              onClick={() => {
+               if (user?.email === usermail) {
+                HeartComment(element._id)
+               }
+              }}
+             />
+            ) : (
+             <div
+              className="heart-liked"
+              style={{
+               cursor: 'pointer'
+              }}
+              onClick={() => {
+               if (user?.email === usermail) {
+                HeartComment(element._id)
+               }
+              }}
+             >
+              <img src={ChannelProfile} alt="commentDP" className="heartDP" loading="lazy" />
+              <FavoriteIcon
+               fontSize="100px"
+               style={{
+                color: 'rgb(220, 2, 2)'
+               }}
+               className="comment-heart"
+              />
+             </div>
+            )}
+
+            {element.user_email === user?.email || user?.email === usermail ? (
+             <button
+              className={theme ? 'delete-comment-btn' : 'delete-comment-btn-light text-dark-mode'}
+              style={{
+               marginLeft: '17px'
+              }}
+              onClick={() => DeleteComment(element._id)}
+             >
+              Delete
+             </button>
+            ) : (
+             ''
+            )}
+           </div>
+          </div>
+         </div>
+        </>
+       )
+      })}
+     </div>
+    </div>
+   </div>{' '}
+   <div className="share-clicked" style={shareClicked === true ? {display: 'none'} : {}}>
+    {' '}
+    <div>
+     {' '}
+     <Share />{' '}
+    </div>{' '}
+    {/* SIGNUP/SIGNIN */}{' '}
+    <div className={theme ? 'auth-popup' : 'auth-popup light-mode text-light-mode'} style={isbtnClicked === true ? {display: 'block'} : {display: 'none'}}>
+     {' '}
+    </div>{' '}
+    <ClearRoundedIcon
+     onClick={() => {
+      if (isbtnClicked === false) {
+       setisbtnClicked(true)
+      } else {
+       setisbtnClicked(false)
+      }
+      document.body.classList.remove('bg-css')
+     }}
+     className="cancel"
+     fontSize="large"
+     style={{color: 'gray'}}
+    />{' '}
+    <div className="signup-last" style={isSwitch === false ? {display: 'block'} : {display: 'none'}}>
+     {' '}
+     <Signup />{' '}
      <div className="already">
+      {' '}
       <p>Already have an account?</p>
       <p
        onClick={() => {
@@ -2582,9 +2550,7 @@ function VideoSection() {
      </div>
     </div>
    </div>
-
    {/* PLAYLIST POPUP */}
-
    <div
     className={theme ? 'playlist-pop' : 'playlist-pop light-mode text-light-mode'}
     style={{
@@ -2634,11 +2600,10 @@ function VideoSection() {
            <CheckBoxOutlineBlankIcon
             className="tick-box"
             fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
+            style={{color: theme ? 'white' : 'black'}}
             onClick={() => {
              AddVideoToExistingPlaylist(element._id)
+             mixpanel.track('video add to playlist - playlist selected', {'playlist name': playlistName})
             }}
            />
           ) : (
