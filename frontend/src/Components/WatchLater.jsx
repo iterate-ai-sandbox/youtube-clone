@@ -1,13 +1,14 @@
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import {useEffect, useState} from 'react'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useEffect, useState } from 'react';
+import mixpanel from 'mixpanel-browser';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import nothing from '../img/nothing.png';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/likevideos.css'
-import nothing from '../img/nothing.png'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function WatchLater() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -84,7 +85,9 @@ function WatchLater() {
   }
   getWatchLater()
  }, [user?.email])
- useEffect(() => {}, [])
+ useEffect(() => {
+  mixpanel.track('watch later page opened', { 'count of videos to watch later': watchlater.length });
+}, [watchlater.length])
  const updateViews = async id => {
   try {
    const response = await fetch(`${backendURL}/updateview/${id}`, {
@@ -206,31 +209,7 @@ function WatchLater() {
           <p className="like-username">{user?.name}</p>
           <p className="like-total-videos">{watchlater.length} videos</p>
          </div>
-        </div>
-        <div
-         className="playvideo-btn"
-         onClick={() => {
-          if (user?.email) {
-           updateViews(watchlater[0].savedVideoID)
-           setTimeout(() => {
-            navigate(`/video/${watchlater[0].savedVideoID}`)
-           }, 400)
-          } else {
-           navigate(`/video/${watchlater[0].savedVideoID}`)
-          }
-         }}
-        >
-         <PlayArrowIcon
-          fontSize="medium"
-          style={{
-           color: 'black'
-          }}
-         />
-         <p className="play-all">Play all</p>
-        </div>
-       </div>
-      </div>
-      <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
+</div> <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID); setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`); }, 400); } else { navigate(`/video/${watchlater[0].savedVideoID}`); } }} > <PlayArrowIcon fontSize="medium" style={{ color: 'black' }} /> <p className="play-all">Play all</p> </div> </div>      <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
        <div
         className="like-right-section sk-right-like"
         style={
@@ -340,83 +319,7 @@ function WatchLater() {
                {window.innerWidth <= 1000 ? <p>{element.Title.length <= 50 ? element.Title : `${element.Title.slice(0, 50)}..`}</p> : <p>{element.Title}</p>}
 
                <p>{element.uploader}</p>
-              </div>
-             </div>
-            </div>
-           )
-          })
-        : ''}
-      </div>
-     </div>
-    ) : (
-     <div className="main-trending-section">
-      <div
-       className="spin23"
-       style={{
-        top: '200px'
-       }}
-      >
-       <span className={theme ? 'loader2' : 'loader2-light'}></span>
-      </div>
-     </div>
-    )}
-   </div>
-
-   {/* SECONDARY WATCH LATER */}
-
-   <div className={theme ? 'liked-video-data-new' : 'liked-video-data-new light-mode text-light-mode'}>
-    {watchlater.length > 0 ? (
-     <div
-      className="like-video-sections2"
-      style={
-       menuClicked === false
-        ? {
-           left: '80px'
-          }
-        : {
-           left: '255px'
-          }
-      }
-     >
-      <div
-       className={theme ? 'like-left-section2' : 'like-left-section2-light'}
-       style={{
-        backgroundImage: `url(${watchlater[0]?.thumbnailURL})`
-       }}
-      >
-       <div className="page-cover2">
-        <div className="inside-cover">
-         {watchlater && (
-          <div
-           className="firstvideo-thumbnail"
-           onClick={() => {
-            if (user?.email) {
-             updateViews(watchlater[0].savedVideoID)
-             setTimeout(() => {
-              navigate(`/video/${watchlater[0].savedVideoID}`)
-             }, 400)
-            } else {
-             navigate(`/video/${watchlater[0].savedVideoID}`)
-            }
-           }}
-          >
-           <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
-            <div
-             className="thisimggg"
-             style={
-              loading === true
-               ? {
-                  display: 'block'
-                 }
-               : {
-                  display: 'none'
-                 }
-             }
-            >
-             <Skeleton
-              count={1}
-              width={310}
-              height={174}
+</div> </div> </div> </div> </div> <div className="main-trending-section"> <div className="spin23"> <div style={{ top: '200px' }}> <span className={theme ? 'loader2' : 'loader2-light'}></span> </div> </div> {/* SECONDARY WATCH LATER */} <div className={theme ? 'liked-video-data-new' : 'liked-video-data-new light-mode text-light-mode'}> {watchlater.length > 0 ? ( <div className='like-video-sections2' style={ menuClicked === false ? {} : { left: '80px', top: '255px' }}> </div> <div className={theme ? 'like-left-section2' : 'like-left-section2-light'} style={{ backgroundImage: `url(${watchlater[0]?.thumbnailURL})` }}></div> ) : null} </div> <div className="page-cover2"> <div className="inside-cover"> {watchlater && ( <div className="firstvideo-thumbnail" /> )} </div> </div> </div> <div onClick={() => { if (user?.email) { updateViews(watchlater[0].savedVideoID) } setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`) }, 400) }}></div> <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}> <div className="thisimggg" style={ loading === true ? { display: 'block' } : { display: 'none' }}></div> </SkeletonTheme> <Skeleton count={1} width={310} />              height={174}
               style={{
                borderRadius: '12px'
               }}
@@ -459,27 +362,7 @@ function WatchLater() {
           </div>
          </div>
         </div>
-        <div
-         className="playvideo-btn"
-         onClick={() => {
-          if (user?.email) {
-           updateViews(watchlater[0].savedVideoID)
-           setTimeout(() => {
-            navigate(`/video/${watchlater[0].savedVideoID}`)
-           }, 400)
-          } else {
-           navigate(`/video/${watchlater[0].savedVideoID}`)
-          }
-         }}
-        >
-         <PlayArrowIcon
-          fontSize="medium"
-          style={{
-           color: 'black'
-          }}
-         />
-         <p className="play-all">Play all</p>
-        </div>
+        <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID) setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`) }, 400) } else { navigate(`/video/${watchlater[0].savedVideoID}`) } }} > <PlayArrowIcon fontSize="medium" style={{ color: 'black' }} /> <p className="play-all">Play all</p> </div>
        </div>
       </div>
       <SkeletonTheme baseColor={theme ? '#353535' : '#aaaaaa'} highlightColor={theme ? '#444' : '#b6b6b6'}>
