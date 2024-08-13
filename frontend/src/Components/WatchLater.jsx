@@ -1,13 +1,14 @@
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import {useEffect, useState} from 'react'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useEffect, useState } from 'react';
+import mixpanel from 'mixpanel-browser';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import nothing from '../img/nothing.png';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import '../Css/likevideos.css'
-import nothing from '../img/nothing.png'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function WatchLater() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -84,7 +85,7 @@ function WatchLater() {
   }
   getWatchLater()
  }, [user?.email])
- useEffect(() => {}, [])
+ updated code useEffect(() => { mixpanel.track('watch later page opened', { 'count of videos to watch later': watchlater.length }); }, [watchlater.length])
  const updateViews = async id => {
   try {
    const response = await fetch(`${backendURL}/updateview/${id}`, {
@@ -207,19 +208,7 @@ function WatchLater() {
           <p className="like-total-videos">{watchlater.length} videos</p>
          </div>
         </div>
-        <div
-         className="playvideo-btn"
-         onClick={() => {
-          if (user?.email) {
-           updateViews(watchlater[0].savedVideoID)
-           setTimeout(() => {
-            navigate(`/video/${watchlater[0].savedVideoID}`)
-           }, 400)
-          } else {
-           navigate(`/video/${watchlater[0].savedVideoID}`)
-          }
-         }}
-        >
+        <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID); setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`); }, 400); } else { navigate(`/video/${watchlater[0].savedVideoID}`); } }}>
          <PlayArrowIcon
           fontSize="medium"
           style={{
@@ -459,19 +448,7 @@ function WatchLater() {
           </div>
          </div>
         </div>
-        <div
-         className="playvideo-btn"
-         onClick={() => {
-          if (user?.email) {
-           updateViews(watchlater[0].savedVideoID)
-           setTimeout(() => {
-            navigate(`/video/${watchlater[0].savedVideoID}`)
-           }, 400)
-          } else {
-           navigate(`/video/${watchlater[0].savedVideoID}`)
-          }
-         }}
-        >
+        <div className="playvideo-btn" onClick={() => { mixpanel.track('watch later - play all clicked'); if (user?.email) { updateViews(watchlater[0].savedVideoID); setTimeout(() => { navigate(`/video/${watchlater[0].savedVideoID}`); }, 400); } else { navigate(`/video/${watchlater[0].savedVideoID}`); } }}>
          <PlayArrowIcon
           fontSize="medium"
           style={{
