@@ -1,39 +1,48 @@
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined'
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
-import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import ReplyIcon from '@mui/icons-material/Reply'
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
-import mixpanel from 'mixpanel-browser'
-import Plyr from 'plyr'
+import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import ReplyIcon from '@mui/icons-material/Reply';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import mixpanel from 'mixpanel-browser';
+import Plyr from 'plyr';
+import { useEffect, useRef, useState } from 'react';
+import { LiaDownloadSolid } from 'react-icons/lia';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import avatar from '../img/avatar.png';
+import Error from './Error';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import Share from './Share';
+import Signin from './Signin';
+import Signup from './Signup';
 import 'plyr/dist/plyr.css'
-import {useEffect, useRef, useState} from 'react'
-import {LiaDownloadSolid} from 'react-icons/lia'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate, useParams} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/videoSection.css'
-import avatar from '../img/avatar.png'
-import Error from './Error'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
-import Share from './Share'
-import Signin from './Signin'
-import Signup from './Signup'
 function VideoSection() {
+ useEffect(() => {
+  mixpanel.track('video page opened', {
+   title: Title,
+   publisher: uploader,
+   'views count': views,
+   'likes count': VideoLikes,
+   'subscriber count of publisher': Subscribers
+  })
+ }, [Title, uploader, views, VideoLikes, Subscribers])
  const navigate = useNavigate()
  const location = useLocation()
  const reloadPage = () => {
@@ -583,12 +592,12 @@ function VideoSection() {
  //             width={50}
  //           />
  //           <p style={{ marginTop: "15px" }}>
- //             Fetching the data, Hang tight...{" "}
- //           </p>
- //         </div>
- //       </div>
- //     </>
- //   );
+ // Fetching the data, Hang tight...{" "}
+ // </p>
+ // </div>
+ // </div>
+ // </>
+ // );
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
@@ -604,12 +613,12 @@ function VideoSection() {
     }
    })
    const {message, likes} = await response.json()
-   // console.log(data);
    if (message === 'Liked') {
     LikedNotify()
     setLikeLoading(false)
     setIsLiked(true)
     setVideoLikes(likes)
+    mixpanel.track('video liked') // Add this line
    } else {
     setLikeLoading(false)
     setIsLiked(false)
@@ -617,7 +626,6 @@ function VideoSection() {
    }
   } catch (error) {
    setLikeLoading(false)
-   //console.log(error.message);
   }
  }
  const LikeComment = async commentId => {
@@ -692,12 +700,14 @@ function VideoSection() {
     setLikeLoading(false)
     setIsLiked(false)
     setVideoLikes(likes)
+    mixpanel.track('video disliked') // Add this line
    }
   } catch (error) {
    //console.log(error.message);
   }
  }
  const downloadVideo = () => {
+  mixpanel.track('video download initiated')
   const link = document.createElement('a')
   link.href = videoURL
   link.target = '_blank'
@@ -718,6 +728,7 @@ function VideoSection() {
     if (data === 'Saved') {
      watchLaterNotify()
      setIsSaved(true)
+     mixpanel.track('video saved') // Add this line
     } else {
      setIsSaved(false)
     }
@@ -1058,6 +1069,7 @@ function VideoSection() {
        <div
         className={theme ? 'share' : 'share share-light text-light-mode'}
         onClick={() => {
+         mixpanel.track('video share initiated')
          if (shareClicked === false) {
           setShareClicked(true)
           document.body.classList.add('bg-css')
@@ -1067,14 +1079,7 @@ function VideoSection() {
          }
         }}
        >
-        <ReplyIcon
-         fontSize="medium"
-         style={{
-          color: theme ? 'white' : 'black',
-          transform: 'rotateY(180deg)'
-         }}
-         className="sharee-icon"
-        />
+        <ReplyIcon fontSize="medium" style={{color: theme ? 'white' : 'black', transform: 'rotateY(180deg)'}} className="sharee-icon" />
         <p className="share-txt">Share</p>
        </div>
 
@@ -1119,6 +1124,7 @@ function VideoSection() {
        <div
         className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
         onClick={() => {
+         mixpanel.track('video add to playlist initiated')
          if (playlistClicked === false && user?.email) {
           setPlaylistClicked(true)
           document.body.classList.add('bg-css')
@@ -1128,14 +1134,7 @@ function VideoSection() {
          }
         }}
        >
-        <PlaylistAddIcon
-         fontSize="medium"
-         style={{
-          color: theme ? 'white' : 'black'
-         }}
-         className="playlist-iconn"
-        />
-
+        <PlaylistAddIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} className="playlist-iconn" />
         <p>Playlist</p>
        </div>
       </div>
@@ -2634,11 +2633,10 @@ function VideoSection() {
            <CheckBoxOutlineBlankIcon
             className="tick-box"
             fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
+            style={{color: theme ? 'white' : 'black'}}
             onClick={() => {
              AddVideoToExistingPlaylist(element._id)
+             mixpanel.track('video add to playlist - playlist selected', {'playlist name': playlistName})
             }}
            />
           ) : (
