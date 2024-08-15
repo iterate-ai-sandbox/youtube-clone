@@ -38,6 +38,10 @@ function Browse() {
  useEffect(() => {
   window.scrollTo(0, 0)
  }, [])
+
+ useEffect(() => {
+  mixpanel.track('account creation initiated')
+ }, [])
  useEffect(() => {
   const handleMenuButtonClick = () => {
    setMenuClicked(prevMenuClicked => !prevMenuClicked)
