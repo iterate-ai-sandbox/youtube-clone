@@ -595,11 +595,11 @@ function VideoSection() {
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
  useEffect(() => {
  mixpanel.track('video page opened', {
-  'title': Title,
-  'publisher': uploader,
+  // 'title': Title,
+  // 'publisher': uploader,
   'views count': views,
-  'likes count': VideoLikes,
-  'subscriber count of publisher': Subscribers
+  // 'likes count': VideoLikes,
+  // 'subscriber count of publisher': Subscribers
  })
 }, [])
  document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
