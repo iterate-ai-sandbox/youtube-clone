@@ -593,7 +593,7 @@ function VideoSection() {
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
-//  useEffect(() => {
+ useEffect(() => {
 //  mixpanel.track('video page opened', {
 //   // 'title': Title,
 //   // 'publisher': uploader,
@@ -601,7 +601,7 @@ function VideoSection() {
 //   // 'likes count': VideoLikes,
 //   // 'subscriber count of publisher': Subscribers
 //  })
-// }, [])
+}, [])
  document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
  const likeVideo = async () => {
   try {
