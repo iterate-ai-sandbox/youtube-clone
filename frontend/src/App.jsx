@@ -26,6 +26,7 @@ import ytLogo from './img/icon.png'
 import {fetchUserData} from './reducer/user'
 
 function App() {
+ console.log('test')
  const User = useSelector(state => state.user.user)
  const {user} = User
 
