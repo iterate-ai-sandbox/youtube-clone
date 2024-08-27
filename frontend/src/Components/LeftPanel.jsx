@@ -1,35 +1,35 @@
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import CodeIcon from '@mui/icons-material/Code'
-import HomeIcon from '@mui/icons-material/Home'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined'
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
-import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary'
-import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined'
-import WatchLaterIcon from '@mui/icons-material/WatchLater'
-import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined'
-import WhatshotIcon from '@mui/icons-material/Whatshot'
-import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import CodeIcon from '@mui/icons-material/Code';
+import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import PlaylistPlayOutlinedIcon from '@mui/icons-material/PlaylistPlayOutlined';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
+import { useEffect, useState } from 'react';
+import { GoHome, GoHomeFill } from 'react-icons/go';
+import { HiOutlineFire } from 'react-icons/hi';
+import { HiMiniFire } from 'react-icons/hi2';
+import { IoAddCircleOutline } from 'react-icons/io5';
+import { MdOutlineSubscriptions, MdOutlineVideoLibrary, MdSubscriptions, MdVideoLibrary } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Logo from '../img/logo1.png';
+import Logo2 from '../img/logo2.png';
+import Signin from './Signin';
+import Signup from './Signup';
 // import mixpanel from 'mixpanel-browser'
-import {useEffect, useState} from 'react'
-import {GoHome, GoHomeFill} from 'react-icons/go'
-import {HiOutlineFire} from 'react-icons/hi'
-import {HiMiniFire} from 'react-icons/hi2'
-import {IoAddCircleOutline} from 'react-icons/io5'
-import {MdOutlineSubscriptions, MdOutlineVideoLibrary, MdSubscriptions, MdVideoLibrary} from 'react-icons/md'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate} from 'react-router-dom'
 import '../Css/leftpanel.css'
-import Logo from '../img/logo1.png'
-import Logo2 from '../img/logo2.png'
-import Signin from './Signin'
-import Signup from './Signup'
 
 function LeftPanel() {
  const navigate = useNavigate()
@@ -188,33 +188,26 @@ function LeftPanel() {
     <div className="first-section ">
      <div
       className={selected === 'home' ? `home sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'home sec-data'}
-      onClick={() => {
-       localStorage.setItem('selected', 'home')
-       navigate('/')
-      }}
-     >
-      {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
+onClick={() => {
+ localStorage.setItem('selected', 'home')
+ navigate('/')
+ }}
+ >
+ {selected === 'home' ? <HomeIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <HomeOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
 
-      <p>Home</p>
-     </div>
-     <div
-      className={selected === 'trending' ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending sec-data'}
-      onClick={() => {
-       localStorage.setItem('selected', 'trending')
+ <p>Home</p>
+ </div>
+ <div className={selected === 'trending' ? `trending sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'trending sec-data'} onClick={() => { localStorage.setItem('selected', 'trending'); navigate('/trending'); mixpanel.track('trending menu option selected'); }} >
+ {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
+ <p>Trending</p>
+ </div>
+ <div
+ className={selected === 'subscription' ? `subscription sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'subscription sec-data'}
+ onClick={() => {
+ if (user?.email) {
+ localStorage.setItem('selected', 'subscription')
 
-       navigate('/trending')
-      }}
-     >
-      {selected === 'trending' ? <WhatshotIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} /> : <WhatshotOutlinedIcon fontSize="medium" style={{color: theme ? 'white' : 'black'}} />}
-      <p>Trending</p>
-     </div>
-     <div
-      className={selected === 'subscription' ? `subscription sec-data ${theme ? 'changeBG' : 'changeBG-light'}` : 'subscription sec-data'}
-      onClick={() => {
-       if (user?.email) {
-        localStorage.setItem('selected', 'subscription')
-
-        navigate('/subscriptions')
+ navigate('/subscriptions')
        } else {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
@@ -817,33 +810,59 @@ function LeftPanel() {
        if (user?.email) {
         navigate('/studio')
        } else {
-        setisbtnClicked(true)
-        document.body.classList.add('bg-css')
-       }
-      }}
-     />
-     <div
-      className={theme ? 'subscriptions-hori hori' : 'subscriptions-hori hori text-light-mode'}
-      onClick={() => {
-       if (user?.email) {
-        localStorage.setItem('selected', 'subscription')
-        navigate('/subscriptions')
-       } else {
-        setisbtnClicked(true)
-        document.body.classList.add('bg-css')
-       }
-      }}
-     >
-      {selected === 'subscription' ? <MdSubscriptions fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" /> : <MdOutlineSubscriptions fontSize="28px" color={theme ? 'white' : 'black'} className="hor-icons" />}
-      <p>Subscriptions</p>
-     </div>
-     <div
-      className={theme ? 'library-hori hori' : 'library-hori hori text-light-mode'}
-      onClick={() => {
-       if (user?.email) {
-        localStorage.setItem('selected', 'library')
-        navigate('/library')
-       } else {
+setisbtnClicked(true)
+ document.body.classList.add('bg-css')
+ }
+ }}
+ />
+ <div
+ className={theme ? 'subscriptions-hori hori' : 'subscriptions-hori hori text-light-mode'}
+ onClick={() => {
+if (user?.email) {
+ localStorage.setItem(&apos;selected&apos;, &apos;subscription&apos;)
+ navigate(&apos;/subscriptions&apos;)
+ } else {
+ setisbtnClicked(true)
+ document.body.classList.add(&apos;bg-css&apos;)
+}
+ }}
+ >
+ import ClearRoundedIcon from &#39;@mui/icons-material/ClearRounded&#39;
+ import CodeIcon from &#39;@mui/icons-material/Code&#39;
+ import HomeIcon from &#39;@mui/icons-material/Home&#39;
+ import HomeOutlinedIcon from &#39;@mui/icons-material/HomeOutlined&#39;
+ import MenuRoundedIcon from &#39;@mui/icons-material/MenuRounded&#39;
+ import PlaylistPlayOutlinedIcon from &#39;@mui/icons-material/PlaylistPlayOutlined&#39;
+ import SubscriptionsIcon from &#39;@mui/icons-material/Subscriptions&#39;
+ import SubscriptionsOutlinedIcon from &#39;@mui/icons-material/SubscriptionsOutlined&#39;
+ import ThumbUpIcon from &#39;@mui/icons-material/ThumbUp&#39;
+ import ThumbUpOutlinedIcon from &#39;@mui/icons-material/ThumbUpOutlined&#39;
+ import VideoLibraryIcon from &#39;@mui/icons-material/VideoLibrary&#39;import VideoLibraryOutlinedIcon from &#39;@mui/icons-material/VideoLibraryOutlined&#39;
+import WhatshotIcon from &#39;@mui/icons-material/Whatshot&#39;
+ import WhatshotOutlinedIcon from &#39;@mui/icons-material/WhatshotOutlined&#39;
+ import mixpanel from &#39;mixpanel-browser&#39;;
+ import {useEffect, useState} from &#39;react&#39;
+ import {GoHome, GoHomeFill} from &#39;react-icons/go&#39;
+ import {HiOutlineFire} from &#39;react-icons/hi&#39;
+ import {IoAddCircleOutline} from 'react-icons/io5'
+ import {MdOutlineSubscriptions, MdOutlineVideoLibrary, MdSubscriptions, MdVideoLibrary} from 'react-icons/md'
+ import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
+ import 'react-loading-skeleton/dist/skeleton.css'
+ import {useSelector} from 'react-redux'
+ import {useLocation, useNavigate} from 'react-router-dom'
+ import '../Css/leftpanel.css'
+ import Logo from '../img/logo1.png'
+ import Logo2 from '../img/logo2.png'
+ import Signin from './Signin'
+ import Signup from './Signup'
+ <p>Subscriptions</p>
+ </div> <div
+ className={theme ? 'library-hori hori' : 'library-hori hori text-light-mode'}
+ onClick={() => {
+ if (user?.email) {
+ localStorage.setItem('selected', 'library')
+ navigate('/library')
+ } else {
         setisbtnClicked(true)
         document.body.classList.add('bg-css')
        }
