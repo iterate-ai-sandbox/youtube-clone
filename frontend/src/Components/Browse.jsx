@@ -10,6 +10,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import '../Css/browse.css'
 import '../Css/theme.css'
 function Browse() {
+ useEffect(() => {
+  mixpanel.track('home page opened', {'categories shown': Tags})
+ }, [Tags])
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
  // const backendURL = "https://youtube-iterate-ai.vercel.app";
@@ -162,10 +165,12 @@ function Browse() {
          <div className={TagsSelected === element ? `top-tags ${theme ? 'tag-color' : 'tag-color-light'}` : `top-tags ${theme ? '' : 'tagcolor-newlight'}`} key={index}>
           <p
            onClick={() => {
-            setTagsSelected(`${element}`)
+            setTagsSelected(element)
+            mixpanel.track('category selected', {'category name': TagsSelected})
            }}
           >
-           {element}
+           {' '}
+           {element}{' '}
           </p>
          </div>
         )
@@ -259,9 +264,11 @@ function Browse() {
          <p
           onClick={() => {
            setTagsSelected(element)
+           mixpanel.track('category selected', {'category name': TagsSelected})
           }}
          >
-          {element}
+          {' '}
+          {element}{' '}
          </p>
         </div>
        )
@@ -312,7 +319,13 @@ function Browse() {
              }, 400)
             }
             navigate(`/video/${VideoID[index]}`)
-            mixpanel.track('video_clicked', {selected_video_title: Titles[index]})
+            mixpanel.track('video clicked', {
+             category: TagsSelected,
+             title: Titles[index],
+             publisher: uploader[index],
+             'view count': VideoViews[index],
+             'length in seconds': duration[index]
+            })
            }}
           >
            <img
