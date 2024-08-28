@@ -1,38 +1,38 @@
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined'
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
-import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import ReplyIcon from '@mui/icons-material/Reply'
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
-import mixpanel from 'mixpanel-browser'
-import Plyr from 'plyr'
+import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import ReplyIcon from '@mui/icons-material/Reply';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import mixpanel from 'mixpanel-browser';
+import Plyr from 'plyr';
+import { useEffect, useRef, useState } from 'react';
+import { LiaDownloadSolid } from 'react-icons/lia';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import avatar from '../img/avatar.png';
+import Error from './Error';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import Share from './Share';
+import Signin from './Signin';
+import Signup from './Signup';
 import 'plyr/dist/plyr.css'
-import {useEffect, useRef, useState} from 'react'
-import {LiaDownloadSolid} from 'react-icons/lia'
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useLocation, useNavigate, useParams} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../Css/videoSection.css'
-import avatar from '../img/avatar.png'
-import Error from './Error'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
-import Share from './Share'
-import Signin from './Signin'
-import Signup from './Signup'
 function VideoSection() {
  const navigate = useNavigate()
  const location = useLocation()
@@ -163,6 +163,16 @@ function VideoSection() {
 
  // USE EFFECTS
  useEffect(() => {}, [])
+
+useEffect(() => {
+  mixpanel.track('video page opened', {
+    'title': Title,
+    'publisher': uploader,
+    'views count': views,
+    'likes count': VideoLikes,
+    'subscriber count of publisher': Subscribers
+  });
+}, [Title, uploader, views, VideoLikes, Subscribers]);
 
  useEffect(() => {
   function handleResize() {
@@ -583,42 +593,42 @@ function VideoSection() {
  //             width={50}
  //           />
  //           <p style={{ marginTop: "15px" }}>
- //             Fetching the data, Hang tight...{" "}
- //           </p>
- //         </div>
- //       </div>
- //     </>
- //   );
+// Fetching the data, Hang tight...{" "}
+ // </p>
+ // </div>
+ // </div>
+ // </>
+ // );
  // }
 
  const {videoURL, Title, thumbnailURL, ChannelProfile, uploader, Description, views, videoLength, uploaded_date, visibility} = matchedVideo
- document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube'
+ document.title = Title && Title !== undefined ? `${Title} - YouTube` : 'YouTube';
  const likeVideo = async () => {
-  try {
-   setLikeLoading(true)
-   const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-     'Content-Type': 'application/json'
+ try {
+ setLikeLoading(true)
+ const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail}`, {
+ method: 'POST',
+ credentials: 'include',
+ headers: {
+ 'Content-Type': 'application/json'
+ }
+ })
+ const {message, likes} = await response.json()
+    if (message === 'Liked') {
+      LikedNotify()
+      mixpanel.track('video liked')
+      setLikeLoading(false)
+      setIsLiked(true)
+      setVideoLikes(likes)
+    } else {
+      setLikeLoading(false)
+      setIsLiked(false)
+      setVideoLikes(likes)
     }
-   })
-   const {message, likes} = await response.json()
-   // console.log(data);
-   if (message === 'Liked') {
-    LikedNotify()
-    setLikeLoading(false)
-    setIsLiked(true)
-    setVideoLikes(likes)
-   } else {
-    setLikeLoading(false)
-    setIsLiked(false)
-    setVideoLikes(likes)
-   }
   } catch (error) {
-   setLikeLoading(false)
-   //console.log(error.message);
+    setLikeLoading(false)
   }
+}
  }
  const LikeComment = async commentId => {
   try {
@@ -680,52 +690,55 @@ function VideoSection() {
  }
  const DislikeVideo = async () => {
   try {
-   const response = await fetch(`${backendURL}/dislikevideo/${id}/${user?.email}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-     'Content-Type': 'application/json'
+    const response = await fetch(`${backendURL}/dislikevideo/${id}/${user?.email}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const {message, likes} = await response.json();
+    if (message === 'Disliked') {
+      setLikeLoading(false);
+      setIsLiked(false);
+      setVideoLikes(likes);
+      mixpanel.track('video disliked'); // Add this line
     }
-   })
-   const {message, likes} = await response.json()
-   if (message === 'Disliked') {
-    setLikeLoading(false)
-    setIsLiked(false)
-    setVideoLikes(likes)
-   }
   } catch (error) {
-   //console.log(error.message);
+    //console.log(error.message);
   }
- }
+}
  const downloadVideo = () => {
+  mixpanel.track('video download initiated');
   const link = document.createElement('a')
   link.href = videoURL
   link.target = '_blank'
   link.download = 'video.mp4'
   link.click()
- }
+}
  const saveVideo = async () => {
   try {
-   if (id && user?.email) {
-    const response = await fetch(`${backendURL}/watchlater/${id}/${user?.email}/${usermail}`, {
-     method: 'POST',
-     credentials: 'include',
-     headers: {
-      'Content-Type': 'application/json'
-     }
-    })
-    const data = await response.json()
-    if (data === 'Saved') {
-     watchLaterNotify()
-     setIsSaved(true)
-    } else {
-     setIsSaved(false)
+    if (id && user?.email) {
+      const response = await fetch(`${backendURL}/watchlater/${id}/${user?.email}/${usermail}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      if (data === 'Saved') {
+        watchLaterNotify();
+        setIsSaved(true);
+        mixpanel.track('video saved'); // Add this line
+      } else {
+        setIsSaved(false);
+      }
     }
-   }
   } catch (error) {
-   //console.log(error.message);
+    // Handle error
   }
- }
+};
  const SubscribeChannel = async () => {
   try {
    const channelData = {
@@ -1055,28 +1068,10 @@ function VideoSection() {
         </div>
        </div>
 
-       <div
-        className={theme ? 'share' : 'share share-light text-light-mode'}
-        onClick={() => {
-         if (shareClicked === false) {
-          setShareClicked(true)
-          document.body.classList.add('bg-css')
-         } else {
-          setShareClicked(false)
-          document.body.classList.remove('bg-css')
-         }
-        }}
-       >
-        <ReplyIcon
-         fontSize="medium"
-         style={{
-          color: theme ? 'white' : 'black',
-          transform: 'rotateY(180deg)'
-         }}
-         className="sharee-icon"
-        />
-        <p className="share-txt">Share</p>
-       </div>
+       <div className={theme ? 'share' : 'share share-light text-light-mode'} onClick={() => { mixpanel.track('video share initiated'); if (shareClicked === false) { setShareClicked(true); document.body.classList.add('bg-css'); } else { setShareClicked(false); document.body.classList.remove('bg-css'); } }} >
+  <ReplyIcon fontSize="medium" style={{ color: theme ? 'white' : 'black', transform: 'rotateY(180deg)' }} className="sharee-icon" />
+  <p className="share-txt">Share</p>
+</div>
 
        <div className={theme ? 'download-btn' : 'download-btn download-btn-light text-light-mode'} onClick={downloadVideo}>
         <h3>
@@ -1100,52 +1095,34 @@ function VideoSection() {
          <BookmarkAddedIcon
           fontSize="medium"
           style={{
-           color: theme ? 'white' : 'black'
-          }}
-          className="save-video-icon"
-         />
-        ) : (
-         <BookmarkAddOutlinedIcon
-          fontSize="medium"
-          style={{
-           color: theme ? 'white' : 'black'
-          }}
-          className="save-video-icon"
-         />
-        )}
-        <p>{isSaved === true ? 'Saved' : 'Save'}</p>
-       </div>
+color: theme ? 'white' : 'black'
+ }}
+ className="save-video-icon"
+ />
+ ) : (
+ <BookmarkAddOutlinedIcon
+ fontSize="medium"
+style={{
+ color: theme ? 'white' : 'black'
+ }};
+ className="save-video-icon"
+ />
+ )}
+ <p>{isSaved === true ? 'Saved' : 'Save'}</p>
+ </div>
 
-       <div
-        className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'}
-        onClick={() => {
-         if (playlistClicked === false && user?.email) {
-          setPlaylistClicked(true)
-          document.body.classList.add('bg-css')
-         } else if (!user?.email) {
-          setisbtnClicked(true)
-          document.body.classList.add('bg-css')
-         }
-        }}
-       >
-        <PlaylistAddIcon
-         fontSize="medium"
-         style={{
-          color: theme ? 'white' : 'black'
-         }}
-         className="playlist-iconn"
-        />
-
-        <p>Playlist</p>
-       </div>
-      </div>
-      <div className="channel-right-data c-right2">
-       <div className="first-c-data">
-        <div
-         className="like-dislike"
-         style={
-          likeLoading === true
-           ? {
+ <div className={theme ? 'add-playlist' : 'add-playlist add-playlist-light text-light-mode'} onClick={() => { mixpanel.track('video add to playlist initiated'); if (playlistClicked === false && user?.email) { setPlaylistClicked(true) document.body.classList.add('bg-css') } else if (!user?.email) { setisbtnClicked(true) document.body.classList.add('bg-css') } }} >
+ <PlaylistAddIcon fontSize="medium" style={{ color: theme ? 'white' : 'black' }} className="playlist-iconn" />
+ <p>Playlist</p>
+</div>
+ </div>
+ <div className="channel-right-data c-right2">
+ <div className="first-c-data">
+ <div
+ className="like-dislike"
+ style={
+ likeLoading === true
+}}           ? {
               opacity: 0.46,
               cursor: 'wait',
               pointerEvents: 'none'
@@ -2631,16 +2608,7 @@ function VideoSection() {
         return (
          <div className="all-playlists" key={index}>
           {(playlistID && playlistID.length > 0 && playlistID.includes(element._id) === false) || playlistID === "Video doesn't exist in any playlist" ? (
-           <CheckBoxOutlineBlankIcon
-            className="tick-box"
-            fontSize="medium"
-            style={{
-             color: theme ? 'white' : 'black'
-            }}
-            onClick={() => {
-             AddVideoToExistingPlaylist(element._id)
-            }}
-           />
+           <CheckBoxOutlineBlankIcon className="tick-box" fontSize="medium" style={{ color: theme ? 'white' : 'black' }} onClick={() => { mixpanel.track('video add to playlist - playlist selected', { 'playlist name': playlistName }); AddVideoToExistingPlaylist(element._id); }} />
           ) : (
            <CheckBoxIcon
             className="tick-box"
