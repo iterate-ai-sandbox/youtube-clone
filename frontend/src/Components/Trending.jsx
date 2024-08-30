@@ -1,14 +1,15 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import {useEffect, useState} from 'react'
-import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import nothing from '../img/nothing.png';
+import trending from '../img/trending.jpg';
+import LeftPanel from './LeftPanel';
+import Navbar from './Navbar';
+import mixpanel from 'mixpanel-browser';';
+import {useEffect, useState}from 'react'
+import Skeleton, {SkeletonTheme}from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {useSelector}from 'react-redux'
+import {useNavigate}from 'react-router-dom'
 import '../Css/trending.css'
-import nothing from '../img/nothing.png'
-import trending from '../img/trending.jpg'
-import LeftPanel from './LeftPanel'
-import Navbar from './Navbar'
 function Trending() {
  const navigate = useNavigate()
  const backendURL = 'https://youtube-iterate-ai.vercel.app'
@@ -196,31 +197,7 @@ function Trending() {
             </div>
            </div>
           </SkeletonTheme>
-          <div
-           className="trending-video-data"
-           key={index}
-           onClick={() => {
-            if (user?.email) {
-             updateViews(element.videoid)
-             setTimeout(() => {
-              navigate(`/video/${element.videoid}`)
-             }, 400)
-            } else {
-             navigate(`/video/${element.videoid}`)
-            }
-           }}
-           style={
-            loading === false
-             ? {
-                visibility: 'visible',
-                display: 'flex'
-               }
-             : {
-                visibility: 'hidden',
-                display: 'none'
-               }
-           }
-          >
+          <div className="trending-video-data" key={index} onClick={() => { if (user?.email) { updateViews(element.videoid); mixpanel.track('video_clicked', { 'name of the video': 'How to traverse' }); setTimeout(() => { navigate(`/video/${element.videoid}`); }, 400); } else { mixpanel.track('video_clicked', { 'name of the video': 'How to traverse' }); navigate(`/video/${element.videoid}`); } }} style={ loading === false ? { visibility: 'visible', display: 'flex' } : { visibility: 'hidden', display: 'none' } } >
            <img src={element.thumbnailURL} alt="trending-thumbnail" className="trending-thumbnail" />
            <p className="trending-duration">{Math.floor(element.videoLength / 60) + ':' + (Math.round(element.videoLength % 60) < 10 ? '0' + Math.round(element.videoLength % 60) : Math.round(element.videoLength % 60))}</p>
            <div className="trending-video-texts">
