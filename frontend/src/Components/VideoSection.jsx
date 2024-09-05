@@ -619,7 +619,8 @@ const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail
       setIsLiked(false);
       setVideoLikes(likes);
     }
-  } catch (error) {
+  } 
+  catch (error) {
     setLikeLoading(false);
     //console.log(error.message);
   }
