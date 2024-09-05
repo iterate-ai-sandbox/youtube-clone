@@ -604,7 +604,7 @@ const response = await fetch(`${backendURL}/like/${id}/${user?.email}/${usermail
  },
  });
  const { message, likes } = await response.json();
- } // Mixpanel tracking
+  // Mixpanel tracking
  mixpanel.track('video_like_clicked', {
  'number of likes on the video': VideoLikes,
  'number_of_views_on_video': '8.8M',
