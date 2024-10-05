@@ -1,20 +1,20 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import mixpanel from 'mixpanel-browser'
-import {useEffect, useRef, useState} from 'react'
-import {AiOutlineVideoCameraAdd} from 'react-icons/ai'
-import {FiSearch} from 'react-icons/fi'
-import {IoIosSearch} from 'react-icons/io'
-import {RxCross1} from 'react-icons/rx'
-import {useSelector} from 'react-redux'
-import {useNavigate, useParams} from 'react-router-dom'
-import avatar from '../img/avatar.png'
-import Logo from '../img/logo1.png'
-import Logo2 from '../img/logo2.png'
-import AccountPop from './AccountPop'
-import Signin from './Signin'
-import Signup from './Signup'
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import mixpanel from 'mixpanel-browser';
+import { useEffect, useRef, useState } from 'react';
+import { AiOutlineVideoCameraAdd } from 'react-icons/ai';
+import { FiSearch } from 'react-icons/fi';
+import { IoIosSearch } from 'react-icons/io';
+import { RxCross1 } from 'react-icons/rx';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import avatar from '../img/avatar.png';
+import Logo from '../img/logo1.png';
+import Logo2 from '../img/logo2.png';
+import AccountPop from './AccountPop';
+import Signin from './Signin';
+import Signup from './Signup';
 //MUI Icons
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
